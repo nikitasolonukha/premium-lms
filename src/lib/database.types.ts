@@ -289,13 +289,13 @@ isOneToOne: false
                   ]
                 },"media": {
                   Row: {
-                    "created_at": string,"filename": string,"height": number | null,"id": string,"mime_type": string,"object_key": string,"owner_id": string,"purpose": string,"sha256": string | null,"size_bytes": number,"status": string,"width": number | null
+                    "created_at": string,"filename": string,"height": number | null,"id": string,"mime_type": string,"object_key": string,"owner_id": string,"purpose": string,"sha256": string | null,"size_bytes": number,"status": string,"variant_version": number,"width": number | null
                   }
                   Insert: {
-                    "created_at"?: string,"filename": string,"height"?: number | null,"id"?: string,"mime_type": string,"object_key": string,"owner_id": string,"purpose"?: string,"sha256"?: string | null,"size_bytes": number,"status"?: string,"width"?: number | null
+                    "created_at"?: string,"filename": string,"height"?: number | null,"id"?: string,"mime_type": string,"object_key": string,"owner_id": string,"purpose"?: string,"sha256"?: string | null,"size_bytes": number,"status"?: string,"variant_version"?: number,"width"?: number | null
                   }
                   Update: {
-                    "created_at"?: string,"filename"?: string,"height"?: number | null,"id"?: string,"mime_type"?: string,"object_key"?: string,"owner_id"?: string,"purpose"?: string,"sha256"?: string | null,"size_bytes"?: number,"status"?: string,"width"?: number | null
+                    "created_at"?: string,"filename"?: string,"height"?: number | null,"id"?: string,"mime_type"?: string,"object_key"?: string,"owner_id"?: string,"purpose"?: string,"sha256"?: string | null,"size_bytes"?: number,"status"?: string,"variant_version"?: number,"width"?: number | null
                   }
                   Relationships: [
                     {
@@ -558,6 +558,9 @@ isOneToOne: true
                            },
 "finalize_media":
 { Args: { "accepted"?: boolean,"height"?: number,"mid": string,"owner": string,"sha": string,"width"?: number }; Returns: boolean
+                           },
+"finalize_media_v2":
+{ Args: { "accepted"?: boolean,"height"?: number,"mid": string,"owner": string,"session_id": string,"sha": string,"variant_version"?: number,"width"?: number }; Returns: boolean
                            },
 "lesson_index":
 { Args: { "page"?: number,"q"?: string,"saved"?: boolean }; Returns: Json
