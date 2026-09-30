@@ -7,6 +7,7 @@ import { AppError } from '@/lib/server/errors';
 import { uuid } from '@/lib/schemas';
 import { issueDownloadToken } from '@/lib/download-token';
 import { environment, serverSecret } from '@/lib/server/env';
+import { reportError } from '@/lib/server/monitoring';
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -46,6 +47,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     return response;
   } catch (error) {
     const status = error instanceof AppError ? error.status : 500;
+    if (status >= 500) await reportError('media.failed', error);
     return NextResponse.json(
       { error: status === 429 ? 'Слишком много запросов' : 'Материал недоступен' },
       {

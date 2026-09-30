@@ -5,6 +5,7 @@ import { userLimit } from '@/lib/server/limits';
 import { AppError } from '@/lib/server/errors';
 import { blockSchema, uuid } from '@/lib/schemas';
 import { resolveVideo } from '@/lib/video';
+import { reportError } from '@/lib/server/monitoring';
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ lessonId: string; blockId: string }> },
@@ -47,6 +48,7 @@ export async function GET(
       { headers: { 'Cache-Control': 'private, no-store' } },
     );
   } catch (error) {
+    if (!(error instanceof AppError) || error.status >= 500) await reportError('playback.failed', error);
     return NextResponse.json(
       { error: 'Видео недоступно' },
       {

@@ -1,5 +1,6 @@
 import 'server-only';
 import { ZodError } from 'zod';
+import { reportError } from './monitoring';
 export class AppError extends Error {
   constructor(
     message: string,
@@ -35,7 +36,6 @@ export function databaseError(error: { message: string; code?: string } | null) 
     );
   if (error.code === '23503') throw new AppError('Элемент используется и не может быть удалён.');
   if (error.code === '23505') throw new AppError('Такой элемент уже существует.');
-  console.error('Database operation failed', { code: error.code });
   throw new AppError('Не удалось выполнить операцию. Попробуйте ещё раз.', 500);
 }
 export function rpcResult<T>(data: unknown): T {
@@ -48,7 +48,7 @@ export function rpcResult<T>(data: unknown): T {
   return data as T;
 }
 export type ActionResult<T = undefined> =
-  { ok: true; data?: T } | { ok: false; error: string; status: number; retryAfter?: number };
+  { ok: true; data?: T } | { ok: false; error: string; status: number; retryAfter?: number; requestId?: string };
 export async function actionResult<T>(operation: () => Promise<T>): Promise<ActionResult<T>> {
   try {
     return { ok: true, data: await operation() };
@@ -56,14 +56,17 @@ export async function actionResult<T>(operation: () => Promise<T>): Promise<Acti
     if (error instanceof ZodError)
       return { ok: false, error: 'Проверьте параметры запроса.', status: 400 };
     if (error instanceof Error && 'digest' in error) throw error;
-    if (error instanceof AppError)
+    if (error instanceof AppError) {
+      const correlation = error.status >= 500 ? await reportError('action.failed', error) : undefined;
       return {
         ok: false,
         error: error.message,
         status: error.status,
         retryAfter: error.retryAfter,
+        requestId: correlation,
       };
-    console.error('Operation failed', { name: error instanceof Error ? error.name : 'Unknown' });
-    return { ok: false, error: 'Не удалось выполнить действие. Попробуйте ещё раз.', status: 500 };
+    }
+    const correlation = await reportError('action.failed', error);
+    return { ok: false, error: 'Не удалось выполнить действие. Попробуйте ещё раз.', status: 500, requestId: correlation };
   }
 }

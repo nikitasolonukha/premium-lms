@@ -1,24 +1,29 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import type { Database } from './lib/database.types';
+import { requestId } from './lib/request-security';
+import { environment } from './lib/server/env';
 
 export async function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64'),
     development = process.env.NODE_ENV !== 'production';
   const requestHeaders = new Headers(request.headers);
+  const correlation = requestId(request.headers.get('x-request-id'));
+  requestHeaders.set('x-request-id', correlation);
   requestHeaders.set('x-nonce', nonce);
   requestHeaders.set('x-request-path', request.nextUrl.pathname + request.nextUrl.search);
-  const supabaseOrigin = new URL(process.env.SUPABASE_URL!).origin;
+  const env = environment();
+  const supabaseOrigin = new URL(env.supabaseUrl).origin;
   const frameOrigins = [
     'https://www.youtube-nocookie.com',
     'https://player.vimeo.com',
     'https://rutube.ru',
   ];
   let response = NextResponse.next({ request: { headers: requestHeaders } });
-  const secure = process.env.APP_URL?.startsWith('https://') ?? false;
+  const secure = env.appUrl.startsWith('https://');
   const db = createServerClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_PUBLISHABLE_KEY!,
+    env.supabaseUrl,
+    env.publishableKey,
     {
       cookieOptions: { httpOnly: true, secure, sameSite: 'lax', path: '/' },
       cookies: {
@@ -70,6 +75,7 @@ export async function proxy(request: NextRequest) {
   const final = NextResponse.next({ request: { headers: requestHeaders } });
   response.cookies.getAll().forEach((c) => final.cookies.set(c));
   final.headers.set('Content-Security-Policy', csp);
+  final.headers.set('x-request-id', correlation);
   final.headers.set('Cache-Control', 'private, no-store, max-age=0');
   final.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   final.headers.set('X-Content-Type-Options', 'nosniff');

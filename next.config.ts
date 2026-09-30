@@ -10,6 +10,6 @@ const config: NextConfig = {
   },
   experimental: { cpus: 2, authInterrupts: true, serverActions: { bodySizeLimit: '2mb' } },
   images: { unoptimized: true },
-  serverExternalPackages: ['sharp'],
+  serverExternalPackages: ['sharp', '@sentry/node'],
 };
 export default config;
