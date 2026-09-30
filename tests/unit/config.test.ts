@@ -11,6 +11,14 @@ const base = () => ({
   RATE_LIMIT_SECRET: randomBytes(32).toString('hex'),
 });
 describe('runtime configuration boundary', () => {
+  it('requires explicit complete HTTPS scanner configuration and rejects public scanner tokens', () => {
+    expect(parseEnvironment(base()).MALWARE_SCANNER).toBe('disabled');
+    expect(() => parseEnvironment({ ...base(), MALWARE_SCANNER: 'external' })).toThrow();
+    expect(() => parseEnvironment({ ...base(), MALWARE_SCANNER_URL: 'https://scan.example.com/scan' })).toThrow();
+    expect(() => parseEnvironment({ ...base(), MALWARE_SCANNER: 'external', MALWARE_SCANNER_URL: 'http://127.0.0.1/scan', MALWARE_SCANNER_TOKEN: 'test-only-secret-for-scanner' })).toThrow();
+    expect(() => parseEnvironment({ ...base(), NEXT_PUBLIC_MALWARE_SCANNER_TOKEN: 'test-only-secret-for-scanner' })).toThrow();
+    expect(parseEnvironment({ ...base(), MALWARE_SCANNER: 'external', MALWARE_SCANNER_URL: 'https://scan.example.com/scan', MALWARE_SCANNER_TOKEN: 'test-only-secret-for-scanner' }).MALWARE_SCANNER).toBe('external');
+  });
   it('requires safe HTTPS origins by default in a production build', () => {
     expect(parseEnvironment(base()).DEPLOYMENT_ENV).toBe('production');
     for (const field of ['APP_URL', 'SUPABASE_URL']) {
