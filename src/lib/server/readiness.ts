@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from './env';
 import { reportError } from './monitoring';
+import { observeProviderConfiguration } from './provider-audit';
 
 export async function readiness() {
   try {
@@ -16,6 +17,7 @@ export async function readiness() {
     });
     const { error } = await db.rpc('branding');
     if (error) throw new Error('Dependency unavailable');
+    await observeProviderConfiguration();
     return NextResponse.json({ status: 'ok' }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
     await reportError('readiness.failed', error);

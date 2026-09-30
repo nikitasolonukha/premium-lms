@@ -13,6 +13,7 @@ import {
 } from '@/lib/protected-video';
 import { runtimeEnvironment } from '@/lib/server/env';
 import { reportError } from '@/lib/server/monitoring';
+import { observeProviderConfiguration } from '@/lib/server/provider-audit';
 const contextSchema = z.object({ courseId: uuid, revisionId: uuid, block: blockSchema });
 export async function GET(
   request: Request,
@@ -40,6 +41,7 @@ export async function GET(
       const env = runtimeEnvironment();
       if (!protectedProviders(env).includes(source.provider))
         throw new AppError('Видеопровайдер не настроен', 503);
+      await observeProviderConfiguration();
       const adapter = createProtectedAdapter(source.provider, env, fetch, Date.now, async () => {
         const fresh = await authorizedContext();
         if (JSON.stringify(fresh) !== JSON.stringify(context))

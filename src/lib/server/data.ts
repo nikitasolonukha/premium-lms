@@ -55,6 +55,10 @@ export type LibraryRow = {
   lesson_title: string;
 };
 export type Analytics = {
+  totalCourses: number;
+  page: number;
+  pageSize: number;
+  totals: { enrollments: number; completed_lessons: number; completions: number };
   users: number;
   active30: number;
   courses: {
@@ -173,8 +177,8 @@ export async function getUsers(
   databaseError(error);
   return rpcResult<PageData<UserRow>>(data);
 }
-export async function getAnalytics() {
-  const { data, error } = await (await userClient()).rpc('analytics');
+export async function getAnalytics(page = 1) {
+  const { data, error } = await (await userClient()).rpc('analytics_page', { page });
   databaseError(error);
   return rpcResult<Analytics>(data);
 }

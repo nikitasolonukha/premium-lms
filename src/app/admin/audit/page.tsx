@@ -1,7 +1,8 @@
 export const metadata = { title: 'Журнал действий' };
 import { requireActor } from '@/lib/server/auth';
 import { userClient } from '@/lib/server/supabase';
-import { databaseError } from '@/lib/server/errors';
+import { databaseError, rpcResult } from '@/lib/server/errors';
+import { z } from 'zod';
 import { pageNumber } from '@/lib/server/data';
 import { PageHeading, Badge, Pagination, EmptyState, Button } from '@/components/ui';
 const labels: Record<string, string> = {
@@ -18,28 +19,71 @@ const labels: Record<string, string> = {
   'category.save': 'Сохранение категории',
   'category.delete': 'Удаление категории',
   'media.delete': 'Удаление файла',
+  'operator.bootstrap': 'Первый администратор',
+  'operator.mfa_recovery': 'Восстановление MFA',
+  'video.provider_config': 'Конфигурация видео',
+};
+const dateFilter = z.union([z.literal(''), z.iso.date()]);
+const filters = z
+  .object({
+    action: z.string().max(100).default(''),
+    actor: z.string().max(254).default(''),
+    entity: z.string().max(200).default(''),
+    from: dateFilter.default(''),
+    to: dateFilter.default(''),
+  })
+  .refine((p) => !p.from || !p.to || p.from <= p.to);
+type AuditPage = {
+  items: {
+    id: number;
+    action: string;
+    actor_id: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    entity_type: string;
+    entity_id: string | null;
+    metadata: unknown;
+    created_at: string;
+  }[];
+  total: number;
+  page: number;
+  pageSize: number;
 };
 export default async function Audit({
   searchParams,
 }: {
-  searchParams: Promise<{ action?: string; page?: string }>;
+  searchParams: Promise<{
+    action?: string;
+    actor?: string;
+    entity?: string;
+    from?: string;
+    to?: string;
+    page?: string;
+  }>;
 }) {
   await requireActor('admin');
   const params = await searchParams,
     page = pageNumber(params.page),
     db = await userClient();
-  let query = db
-    .from('audit_logs')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range((page - 1) * 30, page * 30 - 1);
-  if (params.action) query = query.eq('action', params.action);
-  const result = await query;
+  const parsed = filters.safeParse(params);
+  if (!parsed.success)
+    return (
+      <EmptyState
+        title="Проверьте фильтры"
+        description="Укажите корректные даты и сократите поисковый запрос."
+      />
+    );
+  const f = parsed.data;
+  const result = await db.rpc('audit_index', {
+    q_action: f.action,
+    q_actor: f.actor,
+    q_entity: f.entity,
+    date_from: f.from,
+    date_to: f.to,
+    page,
+  });
   databaseError(result.error);
-  const ids = [...new Set(result.data?.map((r) => r.actor_id).filter(Boolean) as string[])];
-  const profiles = ids.length
-    ? await db.from('profiles').select('id,first_name,last_name').in('id', ids)
-    : null;
+  const data = rpcResult<AuditPage>(result.data);
   return (
     <>
       <PageHeading
@@ -47,7 +91,7 @@ export default async function Audit({
         title="Журнал действий"
         description="История значимых изменений. Записи добавляются системой и недоступны для редактирования."
       />
-      <form className="filters" action="/admin/audit">
+      <form className="filters audit-filters" action="/admin/audit">
         <select
           className="input"
           name="action"
@@ -61,10 +105,34 @@ export default async function Audit({
             </option>
           ))}
         </select>
+        <input
+          className="input"
+          name="actor"
+          aria-label="Автор: имя, email или ID"
+          placeholder="Автор: имя, email или ID"
+          maxLength={254}
+          defaultValue={f.actor}
+        />
+        <input
+          className="input"
+          name="entity"
+          aria-label="Объект: тип или ID"
+          placeholder="Объект: тип или ID"
+          maxLength={200}
+          defaultValue={f.entity}
+        />
+        <label className="field">
+          С даты (МСК)
+          <input className="input" name="from" type="date" defaultValue={f.from} />
+        </label>
+        <label className="field">
+          По дату (МСК)
+          <input className="input" name="to" type="date" defaultValue={f.to} />
+        </label>
         <Button variant="secondary">Применить</Button>
       </form>
-      {result.data?.length ? (
-        <div className="table-wrap">
+      {data.items.length ? (
+        <div className="table-wrap" tabIndex={0} role="region" aria-label="Журнал действий">
           <table>
             <thead>
               <tr>
@@ -76,8 +144,7 @@ export default async function Audit({
               </tr>
             </thead>
             <tbody>
-              {result.data.map((row) => {
-                const actor = profiles?.data?.find((p) => p.id === row.actor_id);
+              {data.items.map((row) => {
                 return (
                   <tr key={row.id}>
                     <td className="nowrap">
@@ -98,7 +165,12 @@ export default async function Audit({
                         {labels[row.action] ?? row.action}
                       </Badge>
                     </td>
-                    <td>{actor ? `${actor.first_name} ${actor.last_name}` : 'Оператор'}</td>
+                    <td>
+                      {row.actor_id
+                        ? `${row.first_name ?? ''} ${row.last_name ?? ''}`.trim() ||
+                          row.actor_id.slice(0, 8)
+                        : 'Оператор'}
+                    </td>
                     <td>
                       <span className="audit-id" title={row.entity_id ?? ''}>
                         {row.entity_type} · {row.entity_id?.slice(0, 8)}
@@ -123,9 +195,9 @@ export default async function Audit({
         />
       )}
       <Pagination
-        total={result.count ?? 0}
-        page={page}
-        pageSize={30}
+        total={data.total}
+        page={data.page}
+        pageSize={data.pageSize}
         path="/admin/audit"
         query={params}
       />

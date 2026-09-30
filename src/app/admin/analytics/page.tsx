@@ -1,11 +1,16 @@
 export const metadata = { title: 'Аналитика' };
 import { requireActor } from '@/lib/server/auth';
-import { getAnalytics } from '@/lib/server/data';
-import { PageHeading, EmptyState, ProgressBar } from '@/components/ui';
+import { getAnalytics, pageNumber } from '@/lib/server/data';
+import { PageHeading, EmptyState, ProgressBar, Pagination } from '@/components/ui';
 import { dateLabel } from '@/lib/utils';
-export default async function Analytics() {
+export default async function Analytics({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
   await requireActor('admin');
-  const data = await getAnalytics(),
+  const params = await searchParams;
+  const data = await getAnalytics(pageNumber(params.page)),
     max = Math.max(1, ...data.activity.map((x) => x.active));
   return (
     <>
@@ -25,13 +30,11 @@ export default async function Analytics() {
         </div>
         <div className="stat-card">
           <div className="stat-label">Завершено уроков</div>
-          <div className="stat-value">
-            {data.courses.reduce((s, c) => s + c.completed_lessons, 0)}
-          </div>
+          <div className="stat-value">{data.totals.completed_lessons}</div>
         </div>
         <div className="stat-card">
           <div className="stat-label">Завершено программ</div>
-          <div className="stat-value">{data.courses.reduce((s, c) => s + c.completions, 0)}</div>
+          <div className="stat-value">{data.totals.completions}</div>
         </div>
       </div>
       <section className="panel">
@@ -109,6 +112,13 @@ export default async function Analytics() {
           description="Опубликуйте программу и назначьте доступ ученикам."
         />
       )}
+      <Pagination
+        total={data.totalCourses}
+        page={data.page}
+        pageSize={data.pageSize}
+        path="/admin/analytics"
+        query={params}
+      />
       <div className="section-heading">
         <h2>Последние действия учеников</h2>
       </div>

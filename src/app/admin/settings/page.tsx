@@ -6,8 +6,10 @@ import { SettingsForm } from '@/components/settings-form';
 import { ProviderHealth } from '@/components/provider-health';
 import { protectedProviders } from '@/lib/protected-video';
 import { runtimeEnvironment } from '@/lib/server/env';
+import { observeProviderConfiguration } from '@/lib/server/provider-audit';
 export default async function Settings() {
   await requireActor('admin');
+  await observeProviderConfiguration();
   return (
     <>
       <PageHeading

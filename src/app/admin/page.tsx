@@ -9,8 +9,8 @@ export default async function AdminHome() {
   const actor = await requireActor('staff'),
     catalog = await getCatalog({ staff: true });
   const analytics = actor.role === 'admin' ? await getAnalytics() : null;
-  const totalEnrollments = analytics?.courses.reduce((s, c) => s + c.enrollments, 0) ?? 0,
-    completions = analytics?.courses.reduce((s, c) => s + c.completions, 0) ?? 0,
+  const totalEnrollments = analytics?.totals.enrollments ?? 0,
+    completions = analytics?.totals.completions ?? 0,
     max = Math.max(1, ...(analytics?.activity.map((d) => d.active) ?? []));
   return (
     <>

@@ -4450,3 +4450,20 @@ td small {
     min-width: 44px;
   }
 }
+
+.staff-session-warning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.staff-session-warning p { margin: 6px 0 0; }
+.audit-filters { flex-wrap: wrap; align-items: end; }
+.audit-filters > .input { flex: 1 1 200px; min-width: 0; }
+.audit-filters > .field { flex: 1 1 150px; min-width: 0; }

@@ -1,0 +1,11 @@
+{
+  "executedAt": "2026-09-30T10:33:42.989Z",
+  "status": "PASS",
+  "checks": [
+    "health and readiness perform real local DB query",
+    "UUID correlation roundtrip",
+    "invalid ID replaced",
+    "no configuration in response",
+    "no-store and security headers"
+  ]
+}
