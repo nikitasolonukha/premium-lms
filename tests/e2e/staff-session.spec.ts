@@ -113,8 +113,18 @@ test('Admin prefetch checks actual session without extending idle; expired prefe
             sid,
           ])
         ).rows[0].last_active_at.toISOString(),
+        `Idle deadline after ${Object.keys(headers)[0]}`,
       ).toBe(before);
     }
+    const navigation = await page.request.get('/admin/courses', {
+      headers: { 'x-lms-background-prefetch': '1' },
+    });
+    expect(navigation.status()).toBe(200);
+    expect(
+      (
+        await db.query('select last_active_at from private.admin_sessions where session_id=$1', [sid])
+      ).rows[0].last_active_at.toISOString(),
+    ).not.toBe(before);
     await db.query(
       "update private.admin_sessions set last_active_at=now()-interval '31 minutes' where session_id=$1",
       [sid],
@@ -133,6 +143,7 @@ test('Admin prefetch checks actual session without extending idle; expired prefe
           checks: [
             'actual browser session ID',
             'four background prefetch transports preserve idle',
+            'proxy overwrites forged marker; real navigation records activity',
             'expired prefetch denied',
           ],
           scope:
