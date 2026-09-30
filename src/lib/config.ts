@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { createPrivateKey } from 'node:crypto';
 import { isIP } from 'node:net';
+import { safeWebUrl } from './video';
 
 /** Accept provider-exported PEM or base64 PEM; never include input in an error. */
 export function signingKey(value: string) {
@@ -75,6 +76,9 @@ const schema = z
       .default('false')
       .transform((v) => v === 'true'),
     VIDEO_PROVIDER: z.enum(['disabled', 'cloudflare', 'mux']).default('disabled'),
+    MALWARE_SCANNER: z.enum(['disabled', 'external']).default('disabled'),
+    MALWARE_SCANNER_URL: z.string().max(2048).refine(value => !!safeWebUrl(value) && !new URL(value).search && !new URL(value).hash).optional(),
+    MALWARE_SCANNER_TOKEN: z.string().min(20).max(512).optional(),
     CLOUDFLARE_ACCOUNT_ID: z
       .string()
       .regex(/^[a-f0-9]{32}$/)
@@ -138,6 +142,10 @@ const schema = z
     if (!safeOrigin(env.SUPABASE_URL, env.DEPLOYMENT_ENV === 'local', true)) fail('SUPABASE_URL');
     if (env.TRUSTED_IP_HEADER && !env.TRUSTED_PROXY_ACKNOWLEDGED)
       fail('TRUSTED_PROXY_ACKNOWLEDGED');
+    if (env.MALWARE_SCANNER === 'external') {
+      if (!env.MALWARE_SCANNER_URL) fail('MALWARE_SCANNER_URL');
+      if (!env.MALWARE_SCANNER_TOKEN) fail('MALWARE_SCANNER_TOKEN');
+    } else if (env.MALWARE_SCANNER_URL || env.MALWARE_SCANNER_TOKEN) fail('MALWARE_SCANNER');
     for (const [provider, fields] of [
       [
         'cloudflare',
@@ -173,7 +181,7 @@ export function parseEnvironment(raw: Record<string, string | undefined>): Runti
   const exposed = Object.keys(raw).filter(
     (key) =>
       raw[key] &&
-      /^NEXT_PUBLIC_.*(SECRET|PRIVATE|SIGNING|AUTH_TOKEN|API_TOKEN|RATE_LIMIT)/.test(key),
+      /^NEXT_PUBLIC_.*(SECRET|PRIVATE|SIGNING|TOKEN|RATE_LIMIT)/.test(key),
   );
   if (exposed.length) throw new Error(`Unsafe public environment variables: ${exposed.join(', ')}`);
   // Environment includes OS/framework variables. Only our explicit schema is selected.
