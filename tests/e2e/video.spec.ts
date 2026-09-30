@@ -53,6 +53,7 @@ test('five public video adapters: grants, real player loading, playback, mobile 
     playbackSeconds?: number;
     fullscreenWatermark?: boolean;
     mediaState?: { time: number; ready: number; network: number; error: number | null } | null;
+    sourceResponses?: { status?: number; error?: string; kind: string }[];
   }[] = [];
   let widevineAvailable = false;
   try {
@@ -114,6 +115,25 @@ test('five public video adapters: grants, real player loading, playback, mobile 
     ).toBeNull();
     await login(page, 2);
     for (const [i, provider] of providers.entries()) {
+      const sourceResponses: { status?: number; error?: string; kind: string }[] = [];
+      const onResponse = (response: import('@playwright/test').Response) => {
+        if (response.url() === provider.url)
+          sourceResponses.push({
+            status: response.status(),
+            kind: response.request().resourceType(),
+          });
+      };
+      const onFailure = (request: import('@playwright/test').Request) => {
+        if (request.url() === provider.url) {
+          const code = request.failure()?.errorText ?? '';
+          sourceResponses.push({
+            kind: request.resourceType(),
+            error: /^net::ERR_[A-Z_]+$/.test(code) ? code : 'SOURCE_REQUEST_FAILED',
+          });
+        }
+      };
+      page.on('response', onResponse);
+      page.on('requestfailed', onFailure);
       try {
         console.log(`Checking ${provider.provider}`);
         const granted = page.waitForResponse(
@@ -183,6 +203,7 @@ test('five public video adapters: grants, real player loading, playback, mobile 
           status: 'PASS',
           playbackSeconds,
           fullscreenWatermark: true,
+          sourceResponses,
         });
       } catch (error) {
         const frame = page
@@ -204,9 +225,10 @@ test('five public video adapters: grants, real player loading, playback, mobile 
             : 'Player failed') +
           ' ' +
           providerMessage.slice(0, 800);
-        const mediaState = frame
-          ? await frame
-              .locator('video')
+        const mediaLocator =
+          provider.provider === 'direct' ? page.locator('video') : frame?.locator('video');
+        const mediaState = mediaLocator
+          ? await mediaLocator
               .first()
               .evaluate(
                 (node) => {
@@ -223,11 +245,20 @@ test('five public video adapters: grants, real player loading, playback, mobile 
               )
               .catch(() => null)
           : null;
-        results.push({ provider: provider.provider, status: 'FAIL', detail, mediaState });
+        results.push({
+          provider: provider.provider,
+          status: 'FAIL',
+          detail,
+          mediaState,
+          sourceResponses,
+        });
         await page.locator('.video-frame').screenshot({
           path: qaPath(`screenshots/provider-${provider.provider}-failure.png`),
         });
         console.log(`${provider.provider}: ${detail}`);
+      } finally {
+        page.off('response', onResponse);
+        page.off('requestfailed', onFailure);
       }
     }
     expect(results.filter((r) => r.status !== 'PASS')).toEqual([]);

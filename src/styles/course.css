@@ -1,0 +1,229 @@
+.course-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 45px;
+  align-items: center;
+  margin: 38px 0 48px;
+}
+.course-intro h1 {
+  font-size: 47px;
+  margin: 20px 0;
+  max-width: 600px;
+}
+.course-intro-copy > p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 500px;
+  line-height: 1.9;
+}
+.course-intro-meta {
+  display: flex;
+  gap: 20px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 10px;
+  flex-wrap: wrap;
+}
+.course-intro-meta span {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.author-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0;
+}
+.author-line small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.author-line strong {
+  font-size: 11px;
+  font-weight: 650;
+}
+.course-intro-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.course-intro-cover {
+  height: 370px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.course-intro-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.course-body-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 48px;
+  align-items: start;
+}
+.course-description {
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+.course-description h2 {
+  font-size: 27px;
+  margin: 15px 0 22px;
+}
+.course-description p {
+  margin: 14px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+.course-progress-panel {
+  position: sticky;
+  top: 118px;
+}
+.large-progress {
+  font-size: 67px;
+  line-height: 1.2;
+  letter-spacing: -0.07em;
+  font-weight: 600;
+  margin: 20px 0 16px;
+}
+.large-progress span {
+  font-size: 30px;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.course-progress-panel p {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 13px;
+}
+.sequence-note {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.course-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 23px;
+}
+.text-small {
+  font-size: 10px;
+}
+.completion-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--green);
+  padding: 11px 18px;
+  background: var(--lime);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 650;
+}
+.curriculum {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.program-module + .program-module {
+  border-top: 1px solid var(--border);
+}
+.program-module summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 23px 25px;
+  gap: 16px;
+}
+.program-module summary::-webkit-details-marker {
+  display: none;
+}
+.program-module summary small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.program-module summary strong {
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.program-module summary > svg {
+  transition: transform 0.2s;
+  color: var(--muted);
+}
+.program-module:not([open]) summary > svg {
+  transform: rotate(-90deg);
+}
+.module-lessons {
+  padding: 0 12px 13px;
+}
+.program-lesson {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 67px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  transition: background 0.18s;
+}
+.program-lesson:hover {
+  background: var(--surface-alt);
+}
+.program-lesson.current {
+  background: var(--accent-soft);
+}
+.program-lesson.locked {
+  color: var(--muted);
+}
+.lesson-status {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  color: var(--muted);
+}
+.lesson-status.completed {
+  background: var(--lime);
+  color: var(--green);
+}
+.lesson-status.available {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.lesson-name {
+  font-size: 12px;
+  line-height: 1.45;
+  min-width: 0;
+}
+.lesson-name small {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.current-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-left: auto;
+}

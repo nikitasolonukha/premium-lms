@@ -1,0 +1,13 @@
+{
+  "executedAt": "2026-09-30T11:25:41.344Z",
+  "failedResponses": [
+    {
+      "status": 429,
+      "path": "/api/media/d8152874-60bb-4dd4-a0ee-0b124e3167c6"
+    },
+    {
+      "status": 429,
+      "path": "/api/media/d8152874-60bb-4dd4-a0ee-0b124e3167c6"
+    }
+  ]
+}

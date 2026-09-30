@@ -203,7 +203,7 @@ export function SettingsForm({ initial }: { initial: AcademySettings }) {
                 type="number"
                 min={0.15}
                 max={0.65}
-                step={0.05}
+                step="any"
                 value={doc.watermark_opacity}
                 onChange={(e) => setDoc({ ...doc, watermark_opacity: Number(e.target.value) })}
               />

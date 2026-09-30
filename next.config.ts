@@ -10,6 +10,8 @@ const config: NextConfig = {
   },
   experimental: { cpus: 2, authInterrupts: true, serverActions: { bodySizeLimit: '2mb' } },
   images: { unoptimized: true },
-  serverExternalPackages: ['sharp', '@sentry/node'],
+  // Startup validation is also imported by an unbundled standalone entrypoint.
+  // Externalizing Zod makes Next trace its package into the isolated Docker runtime.
+  serverExternalPackages: ['sharp', '@sentry/node', 'zod'],
 };
 export default config;

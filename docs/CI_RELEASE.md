@@ -2,7 +2,7 @@
 
 ## Проверки
 
-CI запускается для PR и push в main. Два независимых обязательных job: **Code checks** (Node 22, npm ci, typecheck, lint, unit, scoped coverage, production dependency audit, Gitleaks, build) и **Database security and E2E** (настоящий изолированный Supabase, миграции на пустой БД, bootstrap/MFA recovery, reset, двукратный seed, DB/RPC security, production build/server и core browser UAT).
+CI запускается для PR и push в main. Два независимых обязательных job: **Code checks** (Node 22, npm ci, typecheck, lint, unit, scoped coverage, production dependency audit, Gitleaks, build) и **Database security and E2E** (настоящий изолированный Supabase, миграции на пустой БД, bootstrap/MFA recovery, reset, двукратный seed, DB/RPC security, реальный backup archive/Storage SHA256 verifier, production build/server и core browser UAT).
 
 Full QA использует тот же workflow с full=true: весь E2E, visual, public video, protected video. Запуск: push main, вручную workflow_dispatch, а также PR, меняющий workflow. Последнее позволяет проверить новый pipeline до появления workflow на default branch. Дополнительный job собирает Docker-образ и проверяет runtime. Внешние credentials никогда не передаются PR-коду. На main/manual реальные provider QA credentials берутся из GitHub Actions secrets с именами из .env.example. Их отсутствие даёт SKIP_EXTERNAL_CONFIGURATION / UNVERIFIED, не подтверждение live playback. Не добавляйте production credentials в QA.
 
@@ -10,7 +10,7 @@ Full QA использует тот же workflow с full=true: весь E2E, vi
 
 ## Артефакты и секреты
 
-Raw Playwright report, trace, test-results, auth/MFA failure screenshots, cookies, .env.local и server/Supabase stdout не публикуются. CI формирует отдельный HTML/JSON-отчёт только с названием теста, исходом и длительностью; ошибки сервера — только по белому списку полей (event/request UUID/type/time). Публикуются лишь screenshots перечисленных visual-экранов, где MFA/восстановление не открываются. Retention 14 дней. Стек-трейсы и raw assertion bodies остаются внутри временного runner и удаляются вместе с ним.
+Raw Playwright report, trace, test-results, auth/MFA failure screenshots, cookies, .env.local и server/Supabase stdout не публикуются. CI формирует отдельный HTML/JSON-отчёт с названием теста, исходом, длительностью и безопасной исходной строкой `filename:line:column` без полного stack trace. Для public video отдельно сохраняются только фиксированный provider, исход, числовое состояние media, playback seconds и HTTP status/фиксированный network error code. URL источника и текст ошибки исключаются. Ошибки сервера — только по белому списку полей (event/request UUID/type/time). Публикуются лишь screenshots перечисленных visual-экранов, где MFA/восстановление не открываются. Retention 14 дней. Стек-трейсы и raw assertion bodies остаются внутри временного runner и удаляются вместе с ним.
 
 Gitleaks 8.30.1 выполняется локально по всей fetched Git history, без отправки находок. Архив CLI проверяется по закреплённому SHA256 официального релиза. Одно точечное историческое исключение — вымышленный RATE_LIMIT_SECRET unit-теста, никогда не использовавшийся в окружении. Исключения по всему файлу или типу секрета не применяются. Дополнительный scanner проверяет реальные runtime secrets и seed passwords/TOTP в исходниках, evidence и browser bundle. npm audit не заменяет эти проверки или RLS/E2E.
 
