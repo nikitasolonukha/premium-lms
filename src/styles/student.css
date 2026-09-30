@@ -730,16 +730,29 @@ textarea.input {
   height: 390px;
   opacity: 0.88;
 }
+.auth-story-end {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 260px;
+  min-width: 0;
+}
 .auth-story-footer {
   display: flex;
   justify-content: space-between;
-  margin-top: auto;
-  padding-top: 320px;
+  align-items: flex-end;
+  gap: 24px;
   font-size: 9px;
   letter-spacing: 0.05em;
   color: #a2ad9d;
-  position: relative;
-  z-index: 2;
+}
+.auth-story-footer > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.auth-story-footer > span:last-child {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .orb-scene {
   position: relative;
@@ -787,15 +800,18 @@ textarea.input {
   border-color: #d5ecc744;
 }
 .orb-note {
-  position: absolute;
-  right: 30px;
-  bottom: 4px;
-  font-size: 8px;
-  letter-spacing: 0.14em;
+  margin-bottom: 28px;
+  font-size: 9px;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
   color: #b2c39e;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
+}
+.orb-note svg {
+  flex-shrink: 0;
 }
 .auth-panel {
   padding: 42px 54px 28px;

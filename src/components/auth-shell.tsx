@@ -28,15 +28,20 @@ export async function AuthShell({
           <div className="orb-ring ring-one" />
           <div className="orb-sphere" />
           <div className="orb-ring ring-two" />
-          <span className="orb-note">
-            ОТКРОЙТЕ НОВУЮ
-            <br />
-            ПЕРСПЕКТИВУ <ArrowUpRight size={23} />
-          </span>
         </div>
-        <div className="auth-story-footer">
-          {brand.footer_text}
-          <span>01 — ∞</span>
+        <div className="auth-story-end">
+          <div className="orb-note" aria-hidden="true">
+            <span>
+              ОТКРОЙТЕ НОВУЮ
+              <br />
+              ПЕРСПЕКТИВУ
+            </span>
+            <ArrowUpRight size={23} />
+          </div>
+          <div className="auth-story-footer">
+            <span>{brand.footer_text}</span>
+            <span>01 — ∞</span>
+          </div>
         </div>
       </section>
       <section className="auth-panel">

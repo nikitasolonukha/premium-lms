@@ -10,6 +10,12 @@
 
 Отдельные результаты: [feature checks](qa/runs/2026-09-30-owner-watermark-frame-green-01/evidence/feature-checks.json), [browser QA](qa/runs/2026-09-30-owner-watermark-frame-green-01/evidence/playwright-summary.json), [overlay scope](qa/runs/2026-09-30-owner-watermark-frame-green-01/evidence/owner-watermark.json). Прогоны с ошибками до коррекции сохранены отдельно и не являются PASS. Проверяется DOM overlay на тестовом PUBLIC CC0 MP4 и тестовых изображениях, не live protected playback и не материалы заказчика. Автоматический video burn-in не реализован; метка не попадает в скачанный исходный файл. Подробно: [CUSTOMER_VIDEO](CUSTOMER_VIDEO.md).
 
+## Дополнение: выравнивание страницы входа
+
+По скриншоту пользователя исправлено пересечение подписи «Откройте новую перспективу» с нижним маркером `01 — ∞`. Подпись вынесена из абсолютного декоративного блока в обычный поток, две строки текста отделены от SVG-стрелки, нижняя строка получила собственный отступ. Это также сохраняет подпись внутри панели на планшете.
+
+На новой локальной production-сборке: typecheck, lint и build PASS; [26 проверок layout](qa/runs/2026-09-30-auth-caption-01/evidence/layout.json) PASS, без горизонтального overflow и browser console/page errors. `/login` проверен на всех семи заданных размерах в обеих темах; общий блок `/register`, `/forgot-password`, `/reset-password` — на 768×1024 и 1440×900 в обеих темах. [14 полноэкранных снимков и деталь исправления](qa/runs/2026-09-30-auth-caption-01/screenshots/). Вручную просмотрены login light 375×812, 768×1024, 1440×900 и dark 1440×900. Это ограниченная проверка оформления, не повтор полного Auth/security QA. При закрытии браузерных страниц снова наблюдалось ранее описанное Low-сообщение сервера `destination stream closed early`; оно не выдаётся за отсутствие server errors.
+
 ## Фактически выполненные проверки
 
 Windows, Node 22.19.0/npm 11.9.0, Next.js 16.3.7/React 19.3.0, Supabase CLI 2.118.0/PostgreSQL 17. Разрушительные fixtures ограничены локальными API 56321/DB 56322/Mailpit 56324. Browser: Chromium, для реальных PUBLIC видео — Chrome 154 с Widevine без пользовательского профиля. Shared Docker/WSL не перезапускался агентом; действия с контейнерами ограничены LMS.
