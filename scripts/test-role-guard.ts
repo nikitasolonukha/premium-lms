@@ -17,6 +17,7 @@ try {
   await db.query('update public.profiles set disabled_at=now() where id=$1', [accounts[1].id]);
   await db.query("select set_config('request.jwt.claims',$1,true)", [JSON.stringify(claims)]);
   await db.query('set local role authenticated');
+  assert.deepEqual((await db.query('select public.set_user_disabled($1,true) result', [accounts[1].id])).rows[0].result, { ok: true }, 'repeating disable on an already disabled Admin must be idempotent');
   assert.deepEqual(
     (await db.query("select public.set_role($1,'student') result", [accounts[1].id])).rows[0]
       .result,
