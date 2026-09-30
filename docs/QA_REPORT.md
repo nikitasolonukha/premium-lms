@@ -1,8 +1,14 @@
 # QA Report — Premium LMS hardening
 
-**Статус: NOT READY.** Дата: 30 сентября 2026. Проверенный code SHA: `45cf002bfa4998de02402038138d6e5037fbf609`; финальный documentation/evidence commit указан в Git/PR. Последний локальный E2E: **47 PASS, 0 FAIL, 2 UNVERIFIED**. Core GitHub CI PASS; настоящий Full QA FAIL на YouTube authorization requirement GitHub-hosted runner. Staging/production verification отсутствует.
+**Статус: NOT READY.** Дата: 30 сентября 2026. Проверенный baseline code SHA: `45cf002bfa4998de02402038138d6e5037fbf609`; финальный documentation/evidence commit указан в Git/PR. Последний полный локальный E2E baseline: **47 PASS, 0 FAIL, 2 UNVERIFIED**. Core GitHub CI baseline PASS; настоящий Full QA baseline FAIL на YouTube authorization requirement GitHub-hosted runner. Staging/production verification отсутствует. Более позднее дополнение для собственных видео заказчика проверяется отдельно ниже, а не выдаётся за повтор всего baseline QA.
 
 Архитектура и визуальный язык сохранены. [Первоначальный исторический отчёт](qa/history/initial-release-report.md) и все старые evidence сохранены. Новые прогоны записаны отдельно; неуспешные попытки остаются FAIL.
+
+## Дополнение: надпись на видео заказчика
+
+После уточнения задачи добавлено название академии из Admin Settings рядом с минимизированной меткой ученика. Окончательное название и разрешение скачивания заказчиком пока не выбраны. Для direct video метка привязана к области кадров по metadata и ResizeObserver: в мобильном fullscreen не остаётся в чёрной полосе. Для внешних iframe, где размеры исходных кадров недоступны, используется рамка 16:9; это не доказательство защиты произвольного portrait/embed источника.
+
+Отдельные результаты: [feature checks](qa/runs/2026-09-30-owner-watermark-frame-green-01/evidence/feature-checks.json), [browser QA](qa/runs/2026-09-30-owner-watermark-frame-green-01/evidence/playwright-summary.json), [overlay scope](qa/runs/2026-09-30-owner-watermark-frame-green-01/evidence/owner-watermark.json). Прогоны с ошибками до коррекции сохранены отдельно и не являются PASS. Проверяется DOM overlay на тестовом PUBLIC CC0 MP4 и тестовых изображениях, не live protected playback и не материалы заказчика. Автоматический video burn-in не реализован; метка не попадает в скачанный исходный файл. Подробно: [CUSTOMER_VIDEO](CUSTOMER_VIDEO.md).
 
 ## Фактически выполненные проверки
 

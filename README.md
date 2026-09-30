@@ -6,6 +6,8 @@
 
 Репозиторий: [nikitasolonukha/premium-lms](https://github.com/nikitasolonukha/premium-lms), [draft PR](https://github.com/nikitasolonukha/premium-lms/pull/1). Код, 17 migrations, tests, docs и безопасные QA evidence публичны; env/credentials/private backup/data/bundles не публикуются.
 
+Дополнение для собственных видео заказчика: watermark показывает редактируемое название академии и метку ученика; direct player удерживает надпись внутри области кадров и в мобильном fullscreen. Это DOM overlay. Автоматическое вшивание надписи в MP4 не реализовано; название и разрешение скачивания пока не выбраны. [Схема и ограничения](docs/CUSTOMER_VIDEO.md), [отдельный QA дополнения](docs/QA_REPORT.md#дополнение-надпись-на-видео-заказчика). Приведённые выше полные counts относятся к baseline до этого дополнения.
+
 ## Локальный запуск
 
 Нужны Node.js 22+, npm и Docker Desktop Linux containers. Версии закреплены lockfile. Порты: app 3000, API 56321, PostgreSQL 56322, Mailpit 56324. Последний локальный Engine и все probes healthy; исторический outage сохранён в QA evidence.

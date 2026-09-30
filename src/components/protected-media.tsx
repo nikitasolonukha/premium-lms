@@ -16,23 +16,48 @@ const ProtectedVideoEmbed = dynamic(() => import('./protected-video-embed'), {
     </div>
   ),
 });
-export type WatermarkOptions = { intervalSeconds?: number; opacity?: number };
+export type WatermarkOptions = { brandName?: string; intervalSeconds?: number; opacity?: number };
 export function Watermark({
   viewer,
   enabled,
+  brandName,
+  aspectRatio,
   intervalSeconds = 18,
   opacity = 0.28,
-}: { viewer: string; enabled: boolean } & WatermarkOptions) {
+}: { viewer: string; enabled: boolean; aspectRatio?: number } & WatermarkOptions) {
   const [position, setPosition] = useState(0);
+  const areaRef = useRef<HTMLDivElement>(null);
+  const [surface, setSurface] = useState<{ width: number; height: number }>();
+  useEffect(() => {
+    const area = areaRef.current;
+    if (!enabled || !area || !aspectRatio || !Number.isFinite(aspectRatio) || aspectRatio <= 0)
+      return;
+    const measure = () => {
+      const width = Math.min(area.clientWidth, area.clientHeight * aspectRatio);
+      const height = width / aspectRatio;
+      setSurface((previous) =>
+        previous?.width === width && previous.height === height ? previous : { width, height },
+      );
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(area);
+    measure();
+    return () => observer.disconnect();
+  }, [enabled, aspectRatio]);
   useEffect(() => {
     if (!enabled || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = setInterval(() => setPosition((p) => (p + 1) % 4), intervalSeconds * 1000);
     return () => clearInterval(timer);
   }, [enabled, intervalSeconds]);
   return enabled ? (
-    <span className={`watermark watermark-${position}`} style={{ opacity }} aria-hidden="true">
-      {viewer}
-    </span>
+    <div ref={areaRef} className="watermark-area" aria-hidden="true">
+      <div className="watermark-surface" style={surface}>
+        <span className={`watermark watermark-${position}`} style={{ opacity }}>
+          {brandName?.trim() && <span className="watermark-brand">{brandName.trim()}</span>}
+          <span className="watermark-viewer">{viewer}</span>
+        </span>
+      </div>
+    </div>
   ) : null;
 }
 export function ProtectedImage({
@@ -103,6 +128,7 @@ export function VideoPlayer({
     [started, setStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const remember = useRef<PlaybackPosition>({ seconds: 0, playing: true });
+  const [videoRatio, setVideoRatio] = useState(16 / 9);
   useEffect(() => {
     if (previewGrant) return;
     let cancelled = false;
@@ -209,19 +235,35 @@ export function VideoPlayer({
             controls
             playsInline
             preload="metadata"
-            controlsList="nodownload"
+            controlsList={watermark ? 'nodownload nofullscreen noremoteplayback' : 'nodownload'}
+            disablePictureInPicture={watermark}
+            disableRemotePlayback={watermark}
+            onLoadedMetadata={(event) => {
+              const video = event.currentTarget;
+              if (video.videoWidth > 0 && video.videoHeight > 0)
+                setVideoRatio(video.videoWidth / video.videoHeight);
+            }}
             onError={() => setError('Источник видео временно недоступен.')}
           />
         ) : (
           <iframe
             src={grant.url}
             title={title}
-            allow="autoplay; encrypted-media; picture-in-picture"
+            allow={
+              watermark
+                ? 'autoplay; encrypted-media'
+                : 'autoplay; encrypted-media; picture-in-picture'
+            }
             sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
             referrerPolicy="strict-origin-when-cross-origin"
           />
         )}
-        <Watermark viewer={viewer} enabled={watermark} {...watermarkOptions} />
+        <Watermark
+          viewer={viewer}
+          enabled={watermark}
+          aspectRatio={videoRatio}
+          {...watermarkOptions}
+        />
         {started && (
           <button
             className="media-expand icon-button"

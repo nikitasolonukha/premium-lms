@@ -121,6 +121,7 @@ export default async function LessonPage({
                 viewer={watermarkLabel(actor, settings.watermark_mode)}
                 watermark={settings.content_watermark_enabled}
                 watermarkOptions={{
+                  brandName: settings.brand_name,
                   intervalSeconds: settings.watermark_interval_seconds,
                   opacity: settings.watermark_opacity,
                 }}

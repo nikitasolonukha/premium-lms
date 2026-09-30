@@ -2,6 +2,8 @@
 
 **NOT READY.** Code SHA: `45cf002bfa4998de02402038138d6e5037fbf609`. Local E2E 47 PASS / 0 FAIL / 2 UNVERIFIED; static/DB/security/actual-DB Docker smoke and fresh backup PASS. Core CI PASS, Full QA FAIL on YouTube authorization requirement. No staging/production verification.
 
+Эта таблица фиксирует полный baseline указанного SHA. Более позднее дополнение для названия/метки на собственных видео имеет отдельный [QA scope](QA_REPORT.md#дополнение-надпись-на-видео-заказчика); оно не означает повтор всех базовых проверок или автоматическое вшивание надписи в скачанный файл. Решения заказчика по тексту и скачиванию пока открыты.
+
 | Area | Status | Evidence |
 |---|---|---|
 | Code build | PASS | [static-checks](qa/runs/2026-09-30-final-regression-04/evidence/static-checks.json) |

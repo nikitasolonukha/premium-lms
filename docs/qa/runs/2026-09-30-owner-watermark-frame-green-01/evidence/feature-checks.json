@@ -1,0 +1,96 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T14:51:18.430Z",
+  "sourceBaseCommit": "e44c35e",
+  "sourceFiles": {
+    "src/components/protected-media.tsx": "93476a4ddd534768dc43a5c451ca911761f886ac3cd6e45f9df10ed0294a7378",
+    "src/components/settings-form.tsx": "f1b3a56d4620814c30af76c9153c6cb64b13ae40ca9019afc6d8714316d37644",
+    "src/app/(student)/courses/[slug]/lessons/[lessonSlug]/page.tsx": "6c13eb721930ce7e894e086281899250effcf24466f0b93a658b72884cb1378d",
+    "src/app/admin/courses/[id]/preview/page.tsx": "251b635af79374d2c549104fd0bf112823ca07bb7ef8ad6bc8015523764614bf",
+    "src/styles/lesson.css": "a2c0aeede711042a88e339d2beea7bc2f8fd97099bdb3b65ada84ffa97a1e862",
+    "tests/e2e/owner-watermark.spec.ts": "4aaaf3857566471949233c89647fd4c0b2d3debf389584e224f09f7a4e7a7597",
+    "tests/e2e/settings-profile.spec.ts": "827d6a55d202b5260acd9f739642246717c71b9e31751ad8337ecb9f3c948b95"
+  },
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test -- tests/unit/watermark.test.ts tests/unit/player-bridge.test.ts tests/unit/video.test.ts",
+      "status": "PASS",
+      "tests": 11,
+      "scope": "selected unchanged core helpers, not component/whole-platform coverage"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "Playwright profile/branding + owner-watermark against rebuilt production server",
+      "status": "PASS",
+      "tests": 2
+    },
+    {
+      "command": "npm run security:client",
+      "status": "PASS",
+      "files": 1301,
+      "matches": 0
+    }
+  ],
+  "visualReview": {
+    "status": "PASS",
+    "scope": "All four final fullscreen screenshots viewed; labels visible inside video picture; no credentials or full email in images",
+    "viewports": [
+      "390x844",
+      "1440x900"
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ]
+  },
+  "historicalRuns": [
+    {
+      "run": "2026-09-30-owner-watermark-red-01",
+      "status": "FAIL",
+      "reason": "academy name absent in previous player"
+    },
+    {
+      "run": "2026-09-30-owner-watermark-green-01",
+      "status": "FAIL",
+      "reason": "test compared coordinates before CSS transition settled"
+    },
+    {
+      "run": "2026-09-30-owner-watermark-green-02",
+      "status": "FAIL",
+      "reason": "strict locator encountered transient duplicate while next page settled; three partial screenshots retained"
+    },
+    {
+      "run": "2026-09-30-owner-watermark-green-03",
+      "status": "PASS",
+      "scope": "identity/fullscreen/controls only; subsequent manual review found mobile label outside decoded picture"
+    },
+    {
+      "run": "2026-09-30-owner-watermark-frame-red-01",
+      "status": "FAIL",
+      "reason": "new decoded-picture invariant failed on prior production build"
+    }
+  ],
+  "limitations": [
+    "DOM overlay is not burned into downloaded media",
+    "automatic video burn-in not implemented",
+    "customer caption and download policy not decided",
+    "customer sources/live protected playback not configured or verified",
+    "external iframe uses 16:9 fallback because decoded metadata is unavailable",
+    "browser fullscreen/PiP hints have limited support and do not protect stream bytes"
+  ],
+  "scope": "This feature only. Existing 45+40 baseline results are preserved and not restated as a new complete platform QA. No deployment or release readiness claim."
+}

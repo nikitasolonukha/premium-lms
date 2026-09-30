@@ -1,0 +1,18 @@
+{
+  "status": "FAIL",
+  "executedAt": "2026-09-30T14:45:59.853Z",
+  "counts": {
+    "PASS": 0,
+    "FAIL": 1,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "owner name and viewer watermark: mobile, desktop, themes and video fullscreen",
+      "file": "owner-watermark.spec.ts",
+      "status": "FAIL",
+      "durationMs": 18628,
+      "failureLocation": "owner-watermark.spec.ts:144:12"
+    }
+  ]
+}
