@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect, type Page } from './test';
 import { writeFileSync } from 'node:fs';
 import { login, accounts } from './helpers';
@@ -51,7 +52,7 @@ test('lesson blocks: independent duplicate, keyboard reorder, confirmed delete a
       (await readDocument(db, course.id)).modules[0].lessons[0].blocks.map((b) => b.id),
     ).toEqual(before);
     writeFileSync(
-      'docs/qa/evidence/block-operations.json',
+      qaPath('evidence/block-operations.json'),
       JSON.stringify(
         {
           status: 'PASS',
@@ -195,7 +196,7 @@ test('CMS: keyboard sorting, duplication, deletion, preview, two tabs and networ
     await expect(page.getByText('Курс архивирован', { exact: true })).toBeVisible();
     expect((await db.from('courses').select('id').eq('id', copyId)).data).toEqual([]);
     writeFileSync(
-      'docs/qa/evidence/cms.json',
+      qaPath('evidence/cms.json'),
       JSON.stringify(
         {
           status: 'PASS',
@@ -267,7 +268,7 @@ test('large course: 21 modules, 63 lessons, long text, twelve tags, search and m
       course.modules[20].lessons[2].title,
     );
     writeFileSync(
-      'docs/qa/evidence/large-course.json',
+      qaPath('evidence/large-course.json'),
       JSON.stringify(
         {
           status: 'PASS',

@@ -18,4 +18,4 @@ COPY --from=build --chown=academy:academy /app/public ./public
 USER academy
 EXPOSE 3000
 ENV PORT=3000 HOSTNAME=0.0.0.0
-CMD ["node","server.js"]
+CMD ["node","runtime-entrypoint.mjs"]

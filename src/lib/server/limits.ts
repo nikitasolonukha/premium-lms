@@ -25,8 +25,11 @@ export async function authLimit(kind: 'login' | 'reset' | 'register', account: s
   databaseError(error);
   if (data && data > 0) throw new AppError('Лимит попыток исчерпан. Попробуйте позже.', 429, data);
   let ip: string | null;
-  try { ip = trustedClientIp(await headers(), runtimeEnvironment()); }
-  catch { throw new AppError('Не удалось определить источник запроса.', 503); }
+  try {
+    ip = trustedClientIp(await headers(), runtimeEnvironment());
+  } catch {
+    throw new AppError('Не удалось определить источник запроса.', 503);
+  }
   if (ip) {
     const result = await db.rpc('consume_service_limit', {
       k: `auth:${kind}:ip:${digest(ip)}`,

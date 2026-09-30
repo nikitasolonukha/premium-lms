@@ -48,7 +48,8 @@ export function rpcResult<T>(data: unknown): T {
   return data as T;
 }
 export type ActionResult<T = undefined> =
-  { ok: true; data?: T } | { ok: false; error: string; status: number; retryAfter?: number; requestId?: string };
+  | { ok: true; data?: T }
+  | { ok: false; error: string; status: number; retryAfter?: number; requestId?: string };
 export async function actionResult<T>(operation: () => Promise<T>): Promise<ActionResult<T>> {
   try {
     return { ok: true, data: await operation() };
@@ -57,7 +58,8 @@ export async function actionResult<T>(operation: () => Promise<T>): Promise<Acti
       return { ok: false, error: 'Проверьте параметры запроса.', status: 400 };
     if (error instanceof Error && 'digest' in error) throw error;
     if (error instanceof AppError) {
-      const correlation = error.status >= 500 ? await reportError('action.failed', error) : undefined;
+      const correlation =
+        error.status >= 500 ? await reportError('action.failed', error) : undefined;
       return {
         ok: false,
         error: error.message,
@@ -67,6 +69,11 @@ export async function actionResult<T>(operation: () => Promise<T>): Promise<Acti
       };
     }
     const correlation = await reportError('action.failed', error);
-    return { ok: false, error: 'Не удалось выполнить действие. Попробуйте ещё раз.', status: 500, requestId: correlation };
+    return {
+      ok: false,
+      error: 'Не удалось выполнить действие. Попробуйте ещё раз.',
+      status: 500,
+      requestId: correlation,
+    };
   }
 }

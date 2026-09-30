@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect, type Page, type APIRequestContext } from './test';
 import { randomBytes } from 'node:crypto';
 import { TOTP, Secret } from 'otpauth';
@@ -93,9 +94,9 @@ test('registration, test email confirmation, password recovery, MFA enrollment a
   await expect(page).toHaveURL(/\/profile$/);
   await page.reload();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Мой профиль');
-  mkdirSync('docs/qa/evidence', { recursive: true });
+  mkdirSync(qaPath('evidence'), { recursive: true });
   writeFileSync(
-    'docs/qa/evidence/auth.json',
+    qaPath('evidence/auth.json'),
     JSON.stringify(
       {
         executedAt: new Date().toISOString(),

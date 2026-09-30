@@ -1,3 +1,4 @@
+import { qaPath } from './qa-paths.mjs';
 import { readdirSync, readFileSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 if (!process.env.SUPABASE_SECRET_KEY || !process.env.RATE_LIMIT_SECRET)
@@ -51,8 +52,8 @@ const result = {
   secretClasses: ['Supabase server key', 'rate-limit secret', 'local account passwords and TOTP'],
   matchedFiles: matches,
 };
-mkdirSync('docs/qa/evidence', { recursive: true });
-writeFileSync('docs/qa/evidence/client-secrets.json', JSON.stringify(result, null, 2));
+mkdirSync(qaPath('evidence'), { recursive: true });
+writeFileSync(qaPath('evidence/client-secrets.json'), JSON.stringify(result, null, 2));
 console.log(
   `${result.status}: ${scanned} source, config, evidence and browser bundle files checked; ${matches.length} matches. Secret values never printed.`,
 );

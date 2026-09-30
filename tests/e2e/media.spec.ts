@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { login, accounts } from './helpers';
 import { fixtureId, demoAssets } from '../../scripts/fixtures';
@@ -43,9 +44,9 @@ test('private grant survives only its TTL; new grants stop immediately on revoke
       admin.getByRole('dialog').getByRole('button', { name: 'Отозвать', exact: true }),
     ).toBeVisible();
   }
-  mkdirSync('docs/qa/evidence', { recursive: true });
+  mkdirSync(qaPath('evidence'), { recursive: true });
   writeFileSync(
-    'docs/qa/evidence/file-expiry.json',
+    qaPath('evidence/file-expiry.json'),
     JSON.stringify(
       {
         executedAt: new Date().toISOString(),
@@ -125,7 +126,7 @@ test('media UI validates every supported format, Unicode and malformed uploads',
   await page.locator('input[type=file]').setInputFiles('.local/uploads/Слишком большой.pdf');
   await expect(page.locator('.field-error[role=alert]')).toContainText('размер');
   writeFileSync(
-    'docs/qa/evidence/media-formats.json',
+    qaPath('evidence/media-formats.json'),
     JSON.stringify(
       {
         executedAt: new Date().toISOString(),

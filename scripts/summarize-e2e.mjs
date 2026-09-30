@@ -1,6 +1,7 @@
+import { qaPath } from './qa-paths.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 const report = JSON.parse(readFileSync(process.argv[2] ?? '.local/e2e-results.json', 'utf8'));
-const target = 'docs/qa/evidence/e2e-summary.json';
+const target = qaPath('evidence/e2e-summary.json');
 const prior = existsSync(target)
   ? JSON.parse(readFileSync(target, 'utf8'))
   : { runs: [], checks: [] };
@@ -13,10 +14,10 @@ function visit(suites) {
         checks.push({
           title: spec.title,
           file: spec.file,
-          status: result?.status === 'passed' ? 'PASS' : 'FAIL',
+          status: result?.status === 'passed' ? 'PASS' : result?.status === 'skipped' ? 'UNVERIFIED' : 'FAIL',
           durationMs: result?.duration,
           executedAt: result?.startTime,
-          detail: result?.error?.message?.replace(/\u001b\[[0-9;]*m/g, '').split('\n')[0],
+          detail: result?.status === 'skipped' ? 'SKIP_EXTERNAL_CONFIGURATION' : result?.error ? 'Scenario failed; inspect sanitized diagnostics' : undefined,
         });
       }
     visit(suite.suites ?? []);

@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { writeFileSync } from 'node:fs';
 import { login, accounts } from './helpers';
@@ -80,7 +81,7 @@ test('discovery: RU/EN search, taxonomy, partial words, URL filters, saved and r
     await page.reload();
     await expect(page.locator('.course-card h3').filter({ hasText: course.title })).toHaveCount(0);
     writeFileSync(
-      'docs/qa/evidence/discovery.json',
+      qaPath('evidence/discovery.json'),
       JSON.stringify(
         {
           status: 'PASS',

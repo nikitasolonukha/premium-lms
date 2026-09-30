@@ -19,7 +19,7 @@ function copyDirectory(source, target) {
 }
 copyDirectory(resolve(root, '.next/static'), resolve(standalone, '.next/static'));
 copyDirectory(resolve(root, 'public'), resolve(standalone, 'public'));
-const child = spawn(process.execPath, [resolve(standalone, 'server.js')], {
+const child = spawn(process.execPath, [resolve(standalone, 'runtime-entrypoint.mjs')], {
   cwd: standalone,
   stdio: 'inherit',
   env: {

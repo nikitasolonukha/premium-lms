@@ -1,0 +1,9 @@
+{
+  "executedAt": "2026-09-30T09:24:26.104Z",
+  "status": "PASS",
+  "checks": [
+    "actual production standalone startup fails on unsafe APP_URL",
+    "process exits without timeout",
+    "safe config field names only; no secret values"
+  ]
+}

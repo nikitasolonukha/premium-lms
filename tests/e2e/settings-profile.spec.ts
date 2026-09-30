@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { writeFileSync } from 'node:fs';
 import { login, accounts } from './helpers';
@@ -81,7 +82,7 @@ test('profile changes persist, branding is editable, watermark moves and survive
     await expect(stage.locator('.watermark')).toBeVisible();
     await student.evaluate(() => document.exitFullscreen());
     writeFileSync(
-      'docs/qa/evidence/settings-profile.json',
+      qaPath('evidence/settings-profile.json'),
       JSON.stringify(
         {
           status: 'PASS',
@@ -140,7 +141,7 @@ test('private SEO, metadata, direct URLs, invalid filters and error pages', asyn
   expect(root.headers()['content-security-policy']).toContain("frame-ancestors 'none'");
   expect(root.headers()['x-content-type-options']).toBe('nosniff');
   writeFileSync(
-    'docs/qa/evidence/seo-errors.json',
+    qaPath('evidence/seo-errors.json'),
     JSON.stringify(
       {
         status: 'PASS',

@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { writeFileSync } from 'node:fs';
 import { login } from './helpers';
@@ -57,7 +58,7 @@ test('repeated upload selection while the request is pending creates one asset',
     expect(rows.data?.[0].status).toBe('ready');
     expect(storagePuts).toBe(1);
     writeFileSync(
-      'docs/qa/evidence/repeat-upload.json',
+      qaPath('evidence/repeat-upload.json'),
       JSON.stringify(
         {
           executedAt: new Date().toISOString(),

@@ -21,30 +21,26 @@ export async function proxy(request: NextRequest) {
   ];
   let response = NextResponse.next({ request: { headers: requestHeaders } });
   const secure = env.appUrl.startsWith('https://');
-  const db = createServerClient<Database>(
-    env.supabaseUrl,
-    env.publishableKey,
-    {
-      cookieOptions: { httpOnly: true, secure, sameSite: 'lax', path: '/' },
-      cookies: {
-        getAll: () => request.cookies.getAll(),
-        setAll(values) {
-          values.forEach(({ name, value }) => request.cookies.set(name, value));
-          requestHeaders.set('cookie', request.cookies.toString());
-          response = NextResponse.next({ request: { headers: requestHeaders } });
-          values.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, {
-              ...options,
-              httpOnly: true,
-              secure,
-              sameSite: 'lax',
-              path: '/',
-            }),
-          );
-        },
+  const db = createServerClient<Database>(env.supabaseUrl, env.publishableKey, {
+    cookieOptions: { httpOnly: true, secure, sameSite: 'lax', path: '/' },
+    cookies: {
+      getAll: () => request.cookies.getAll(),
+      setAll(values) {
+        values.forEach(({ name, value }) => request.cookies.set(name, value));
+        requestHeaders.set('cookie', request.cookies.toString());
+        response = NextResponse.next({ request: { headers: requestHeaders } });
+        values.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, {
+            ...options,
+            httpOnly: true,
+            secure,
+            sameSite: 'lax',
+            path: '/',
+          }),
+        );
       },
     },
-  );
+  });
   const { data } = await db.auth.getClaims();
   if (data?.claims) {
     const settings = await db.rpc('runtime_settings');

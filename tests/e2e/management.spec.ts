@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { randomUUID } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
@@ -102,7 +103,7 @@ test('user directory: pagination, role/email/course filters, role and disable UI
     ).toBe(1);
     await page.keyboard.press('Escape');
     writeFileSync(
-      'docs/qa/evidence/management.json',
+      qaPath('evidence/management.json'),
       JSON.stringify(
         {
           status: 'PASS',

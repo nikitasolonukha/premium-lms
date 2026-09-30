@@ -11,11 +11,20 @@ it('ignores spoofed IP headers unless explicitly configured and acknowledged', (
   const headers = new Headers({ 'x-forwarded-for': '1.2.3.4', 'x-real-ip': '5.6.7.8' });
   expect(trustedClientIp(headers, {})).toBeNull();
   expect(() => trustedClientIp(headers, { TRUSTED_IP_HEADER: 'x-real-ip' })).toThrow();
-  expect(trustedClientIp(headers, { TRUSTED_IP_HEADER: 'x-real-ip', TRUSTED_PROXY_ACKNOWLEDGED: true })).toBe('5.6.7.8');
+  expect(
+    trustedClientIp(headers, { TRUSTED_IP_HEADER: 'x-real-ip', TRUSTED_PROXY_ACKNOWLEDGED: true }),
+  ).toBe('5.6.7.8');
   for (const value of ['1.2.3.4, 5.6.7.8', 'unknown', '1.2.3.4:1234', ''])
-    expect(() => trustedClientIp(new Headers({ 'x-real-ip': value }), { TRUSTED_IP_HEADER: 'x-real-ip', TRUSTED_PROXY_ACKNOWLEDGED: true })).toThrow();
+    expect(() =>
+      trustedClientIp(new Headers({ 'x-real-ip': value }), {
+        TRUSTED_IP_HEADER: 'x-real-ip',
+        TRUSTED_PROXY_ACKNOWLEDGED: true,
+      }),
+    ).toThrow();
 });
 it('canonicalizes equivalent IPv6 representations to one rate-limit key', () => {
   const config = { TRUSTED_IP_HEADER: 'x-real-ip', TRUSTED_PROXY_ACKNOWLEDGED: true };
-  expect(trustedClientIp(new Headers({ 'x-real-ip': '2001:db8:0:0:0:0:0:1' }), config)).toBe('2001:db8::1');
+  expect(trustedClientIp(new Headers({ 'x-real-ip': '2001:db8:0:0:0:0:0:1' }), config)).toBe(
+    '2001:db8::1',
+  );
 });

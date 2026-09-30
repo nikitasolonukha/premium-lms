@@ -1,3 +1,4 @@
+import { qaPath } from './qa-paths.mjs';
 import { staffClient, fixtureCourse, document as readDocument } from '../tests/e2e/db-fixtures';
 import { accounts } from '../tests/e2e/helpers';
 import { createClient } from '@supabase/supabase-js';
@@ -64,7 +65,7 @@ try {
   assert.ok(elapsed < 10000, 'Local progress+catalog should finish within ten seconds');
   assert.equal((await readDocument(db, doc.id)).modules.flatMap((m) => m.lessons).length, 300);
   writeFileSync(
-    'docs/qa/evidence/scale-progress.json',
+    qaPath('evidence/scale-progress.json'),
     JSON.stringify(
       {
         status: 'PASS',

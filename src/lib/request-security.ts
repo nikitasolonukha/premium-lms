@@ -14,6 +14,7 @@ export function trustedClientIp(
   if (!config.TRUSTED_PROXY_ACKNOWLEDGED) throw new Error('Trusted proxy acknowledgement required');
   const value = headers.get(config.TRUSTED_IP_HEADER)?.trim() ?? '';
   const version = isIP(value);
-  if (!version || value.includes('%')) throw new Error('Trusted proxy must supply one valid IP address');
+  if (!version || value.includes('%'))
+    throw new Error('Trusted proxy must supply one valid IP address');
   return version === 6 ? new URL(`http://[${value}]`).hostname.slice(1, -1) : value;
 }

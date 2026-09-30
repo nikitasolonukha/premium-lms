@@ -1,3 +1,4 @@
+import { qaPath } from './qa-paths.mjs';
 import { createClient } from '@supabase/supabase-js';
 import { TOTP, Secret } from 'otpauth';
 import pg from 'pg';
@@ -457,9 +458,9 @@ try {
   });
 } finally {
   await db.end();
-  mkdirSync('docs/qa/evidence', { recursive: true });
+  mkdirSync(qaPath('evidence'), { recursive: true });
   writeFileSync(
-    'docs/qa/evidence/security-api.json',
+    qaPath('evidence/security-api.json'),
     JSON.stringify({ executedAt: new Date().toISOString(), results }, null, 2),
   );
 }

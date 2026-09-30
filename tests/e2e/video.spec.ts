@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { randomUUID } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
@@ -174,7 +175,7 @@ test('five public video adapters: grants, real player loading, playback, mobile 
           .toContain('video-frame');
         await expect(page.locator('.video-frame .watermark')).toBeVisible();
         await page.locator('.video-frame').screenshot({
-          path: `docs/qa/screenshots/provider-${provider.provider}-fullscreen.png`,
+          path: qaPath(`screenshots/provider-${provider.provider}-fullscreen.png`),
         });
         await page.evaluate(() => document.exitFullscreen());
         results.push({
@@ -224,7 +225,7 @@ test('five public video adapters: grants, real player loading, playback, mobile 
           : null;
         results.push({ provider: provider.provider, status: 'FAIL', detail, mediaState });
         await page.locator('.video-frame').screenshot({
-          path: `docs/qa/screenshots/provider-${provider.provider}-failure.png`,
+          path: qaPath(`screenshots/provider-${provider.provider}-failure.png`),
         });
         console.log(`${provider.provider}: ${detail}`);
       }
@@ -232,7 +233,7 @@ test('five public video adapters: grants, real player loading, playback, mobile 
     expect(results.filter((r) => r.status !== 'PASS')).toEqual([]);
   } finally {
     writeFileSync(
-      'docs/qa/evidence/video-providers.json',
+      qaPath('evidence/video-providers.json'),
       JSON.stringify(
         {
           executedAt: new Date().toISOString(),

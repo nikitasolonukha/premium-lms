@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect, type Page } from './test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { login } from './helpers';
@@ -19,7 +20,7 @@ for (const group of ['core', 'additional'] as const) {
     browser,
   }, testInfo) => {
     test.setTimeout(240000);
-    mkdirSync('docs/qa/screenshots', { recursive: true });
+    mkdirSync(qaPath('screenshots'), { recursive: true });
     const results: object[] = [];
     const studentContext = await browser.newContext(),
       adminContext = await browser.newContext(),
@@ -49,7 +50,7 @@ for (const group of ['core', 'additional'] as const) {
             ),
           });
           writeFileSync(
-            'docs/qa/evidence/responsive-http-diagnostic.json',
+            qaPath('evidence/responsive-http-diagnostic.json'),
             JSON.stringify({ executedAt: new Date().toISOString(), failedResponses }, null, 2),
           );
         }
@@ -97,7 +98,7 @@ for (const group of ['core', 'additional'] as const) {
           .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
           .analyze();
         writeFileSync(
-          `docs/qa/evidence/a11y-${screen.name}.json`,
+          qaPath(`evidence/a11y-${screen.name}.json`),
           JSON.stringify(
             { violations: accessibility.violations, passes: accessibility.passes.length },
             null,
@@ -168,7 +169,7 @@ for (const group of ['core', 'additional'] as const) {
                     })),
                 );
               writeFileSync(
-                `docs/qa/evidence/touch-${screen.name}.json`,
+                qaPath(`evidence/touch-${screen.name}.json`),
                 JSON.stringify(smallTargets, null, 2),
               );
               expect.soft(smallTargets, screen.name + ' mobile touch targets').toEqual([]);
@@ -176,7 +177,7 @@ for (const group of ['core', 'additional'] as const) {
                 .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
                 .analyze();
               writeFileSync(
-                `docs/qa/evidence/a11y-${screen.name}-mobile.json`,
+                qaPath(`evidence/a11y-${screen.name}-mobile.json`),
                 JSON.stringify({ violations: mobileA11y.violations }, null, 2),
               );
               expect
@@ -221,7 +222,7 @@ for (const group of ['core', 'additional'] as const) {
               )
               .toBe(0);
             await screen.page.screenshot({
-              path: `docs/qa/screenshots/${screen.name}-${width === 390 ? 'mobile' : 'desktop'}.png`,
+              path: qaPath(`screenshots/${screen.name}-${width === 390 ? 'mobile' : 'desktop'}.png`),
               fullPage: true,
             });
           }
@@ -232,7 +233,7 @@ for (const group of ['core', 'additional'] as const) {
           .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
           .analyze();
         writeFileSync(
-          `docs/qa/evidence/a11y-${screen.name}-dark.json`,
+          qaPath(`evidence/a11y-${screen.name}-dark.json`),
           JSON.stringify({ violations: darkA11y.violations }, null, 2),
         );
         expect
@@ -242,7 +243,7 @@ for (const group of ['core', 'additional'] as const) {
           )
           .toEqual([]);
         await screen.page.screenshot({
-          path: `docs/qa/screenshots/${screen.name}-dark.png`,
+          path: qaPath(`screenshots/${screen.name}-dark.png`),
           fullPage: true,
         });
         await screen.page.getByRole('button', { name: 'Переключить тему' }).click();
@@ -253,7 +254,7 @@ for (const group of ['core', 'additional'] as const) {
       completed = true;
     } finally {
       writeFileSync(
-        `docs/qa/evidence/${group === 'core' ? 'responsive' : 'responsive-secondary'}.json`,
+        qaPath(`evidence/${group === 'core' ? 'responsive' : 'responsive-secondary'}.json`),
         JSON.stringify(
           {
             executedAt: new Date().toISOString(),
