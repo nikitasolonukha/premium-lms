@@ -41,6 +41,8 @@ test('profile changes persist, branding is editable, watermark moves and survive
     await admin.getByLabel('Email поддержки', { exact: true }).fill('help@academy.local');
     await admin.getByLabel('HEX-код цвета', { exact: true }).fill('#294cce');
     await admin.getByLabel('Персональный водяной знак', { exact: false }).check();
+    // Default opacity must not block unrelated settings through native step validation.
+    expect(await admin.locator('form.settings-layout').evaluate((form) => (form as HTMLFormElement).checkValidity())).toBe(true);
     for (const [index, name] of ['Логотип', 'Иконка сайта'].entries()) {
       await admin
         .locator('input[type=file]')
