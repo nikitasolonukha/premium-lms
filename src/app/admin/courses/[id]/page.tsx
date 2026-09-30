@@ -4,6 +4,8 @@ import { userClient } from '@/lib/server/supabase';
 import { EditorLoader } from '@/components/editor/editor-loader';
 import type { CourseDraft } from '@/lib/schemas';
 import { notFound } from 'next/navigation';
+import { protectedProviders } from '@/lib/protected-video';
+import { runtimeEnvironment } from '@/lib/server/env';
 export default async function EditorPage({
   params,
   searchParams,
@@ -54,6 +56,7 @@ export default async function EditorPage({
       categories={categories}
       media={media.data ?? []}
       initialLesson={lesson}
+      protectedProviders={protectedProviders(runtimeEnvironment())}
     />
   );
 }

@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 import { Plus, Trash2 } from 'lucide-react';
 import type { LessonBlock } from '@/lib/schemas';
-import { videoProviders } from '@/lib/video';
+import { videoProviders, type VideoProvider } from '@/lib/video';
 import { Button, Field, Input } from '../ui';
 import { Uploader } from '../uploader';
 const RichEditor = dynamic(() => import('./rich-editor'), {
@@ -93,10 +93,12 @@ export function BlockEditor({
   block,
   onChange,
   media,
+  protectedProviders = [],
 }: {
   block: LessonBlock;
   onChange: (block: LessonBlock) => void;
   media: MediaOption[];
+  protectedProviders?: ('cloudflare' | 'mux')[];
 }) {
   switch (block.type) {
     case 'heading':
@@ -170,18 +172,32 @@ export function BlockEditor({
               <select
                 className="input"
                 value={block.data.provider}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const provider = e.target.value as VideoProvider;
                   onChange({
                     ...block,
-                    data: { ...block.data, provider: e.target.value as typeof block.data.provider },
-                  })
-                }
+                    data:
+                      provider === 'cloudflare' || provider === 'mux'
+                        ? { provider, sourceId: '', title: block.data.title }
+                        : { provider, url: '', title: block.data.title },
+                  });
+                }}
               >
                 {videoProviders.map((p) => (
                   <option key={p.value} value={p.value}>
-                    {p.label}
+                    {p.label} · PUBLIC VIDEO
                   </option>
                 ))}
+                {protectedProviders.map((provider) => (
+                  <option key={provider} value={provider}>
+                    {provider === 'cloudflare' ? 'Cloudflare Stream' : 'Mux'} · PROTECTED VIDEO
+                  </option>
+                ))}
+                {'sourceId' in block.data && !protectedProviders.includes(block.data.provider) && (
+                  <option value={block.data.provider} disabled>
+                    {block.data.provider} · не настроен
+                  </option>
+                )}
               </select>
             </Field>
             <Field label="Название видео">
@@ -194,20 +210,44 @@ export function BlockEditor({
               />
             </Field>
           </div>
-          <Field
-            label="Адрес видео"
-            hint="HTTPS-ссылка на видео. Для внешнего embed домен должен быть разрешён Admin в настройках."
-          >
-            <Input
-              type="url"
-              value={block.data.url}
-              onChange={(e) => onChange({ ...block, data: { ...block.data, url: e.target.value } })}
-              placeholder="https://…"
-            />
-          </Field>
+          {'sourceId' in block.data ? (
+            <Field
+              label="Идентификатор защищённого видео"
+              hint="Cloudflare Video UID или Mux signed playback ID. Настройте приватность источника у провайдера."
+            >
+              <Input
+                value={block.data.sourceId}
+                maxLength={128}
+                autoComplete="off"
+                onChange={(e) => {
+                  if ('sourceId' in block.data)
+                    onChange({
+                      ...block,
+                      data: { ...block.data, sourceId: e.target.value.trim() },
+                    });
+                }}
+              />
+            </Field>
+          ) : (
+            <Field
+              label="Адрес видео"
+              hint="HTTPS-ссылка на видео. Для внешнего embed домен должен быть разрешён Admin в настройках."
+            >
+              <Input
+                type="url"
+                value={block.data.url}
+                onChange={(e) => {
+                  if ('url' in block.data)
+                    onChange({ ...block, data: { ...block.data, url: e.target.value } });
+                }}
+                placeholder="https://…"
+              />
+            </Field>
+          )}
           <div className="field-hint">
-            Публичные видеосервисы не защищают поток от копирования. Доступ к уроку проверяется
-            Академией.
+            {'sourceId' in block.data
+              ? 'PROTECTED VIDEO · Сервер проверяет доступ и выдаёт короткое разрешение. Это не DRM.'
+              : 'PUBLIC VIDEO · Публичные видеосервисы не защищают поток от копирования. Доступ к уроку проверяется Академией.'}
           </div>
         </div>
       );

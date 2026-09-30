@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import type { Database } from './lib/database.types';
 import { requestId } from './lib/request-security';
-import { environment } from './lib/server/env';
+import { environment, runtimeEnvironment } from './lib/server/env';
 
 export async function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64'),
@@ -19,6 +19,10 @@ export async function proxy(request: NextRequest) {
     'https://player.vimeo.com',
     'https://rutube.ru',
   ];
+  const runtime = runtimeEnvironment();
+  if (runtime.CLOUDFLARE_STREAM_PLAYBACK_HOST)
+    frameOrigins.push(`https://${runtime.CLOUDFLARE_STREAM_PLAYBACK_HOST}`);
+  if (runtime.MUX_SIGNING_PRIVATE_KEY) frameOrigins.push('https://player.mux.com');
   let response = NextResponse.next({ request: { headers: requestHeaders } });
   const secure = env.appUrl.startsWith('https://');
   const db = createServerClient<Database>(env.supabaseUrl, env.publishableKey, {
@@ -54,7 +58,7 @@ export async function proxy(request: NextRequest) {
   }
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${development ? " 'unsafe-eval'" : ''}`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${runtime.CLOUDFLARE_STREAM_SIGNING_KEY ? ' https://embed.cloudflarestream.com' : ''}${development ? " 'unsafe-eval'" : ''}`,
     "style-src 'self' 'unsafe-inline'",
     `img-src 'self' data: blob: ${supabaseOrigin}`,
     "font-src 'self'",

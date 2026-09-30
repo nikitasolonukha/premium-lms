@@ -48,7 +48,7 @@ export function resolveVideo(
   allowedOrigins: string[] = [],
 ): PlaybackGrant {
   if (provider === 'mux' || provider === 'cloudflare')
-    throw new Error('Защищённый видеопровайдер ещё не подключён');
+    throw new Error('Защищённое видео требует серверного разрешения на воспроизведение');
   const safe = safeWebUrl(source);
   if (!safe) throw new Error('Укажите безопасный HTTPS-адрес видео');
   const u = new URL(safe),

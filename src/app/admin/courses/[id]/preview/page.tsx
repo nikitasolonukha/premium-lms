@@ -1,3 +1,4 @@
+import { watermarkLabel } from '@/lib/watermark';
 import Link from 'next/link';
 import { ArrowLeft, Eye } from 'lucide-react';
 import { getCourseById, getSettings } from '@/lib/server/data';
@@ -62,10 +63,13 @@ export default async function Preview({
               <BlockRenderer
                 blocks={lesson.blocks}
                 lessonId={lesson.id}
-                viewer={actor.email}
+                viewer={watermarkLabel(actor, settings.watermark_mode)}
                 watermark={settings.content_watermark_enabled}
+                watermarkOptions={{
+                  intervalSeconds: settings.watermark_interval_seconds,
+                  opacity: settings.watermark_opacity,
+                }}
                 preview
-                embedOrigins={settings.embed_origins}
               />
             </>
           ) : (
