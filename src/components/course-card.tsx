@@ -26,7 +26,7 @@ export function CourseCard({ course }: { course: Card }) {
       </Link>
       <div className="course-card-body">
         <Badge tone={course.accent}>{course.category_name ?? 'Программа'}</Badge>
-        <h3>
+        <h3 title={course.title}>
           <Link href={`/courses/${course.slug}`}>{course.title}</Link>
         </h3>
         <p>{course.summary}</p>

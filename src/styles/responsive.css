@@ -1,15 +1,12 @@
 @media (min-width: 1600px) {
   .student-main {
-    padding-top: 60px;
+    padding-top: 28px;
   }
   .continue-card {
-    min-height: 380px;
+    min-height: 280px;
   }
   .continue-copy {
-    padding: 43px;
-  }
-  .course-cover {
-    height: 235px;
+    padding: 28px;
   }
 }
 @media (max-width: 1100px) {
@@ -19,15 +16,6 @@
   .student-header .mobile-menu {
     display: inline-flex;
   }
-  .catalog-filters {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .catalog-filters .search-input {
-    grid-column: 1 / -1;
-  }
-  .catalog-filters > .button {
-    justify-self: start;
-  }
 }
 @media (max-width: 1200px) {
   .header-inner {
@@ -35,7 +23,7 @@
     gap: 15px;
   }
   .student-main {
-    padding: 36px 32px 55px;
+    padding: 24px 32px 48px;
   }
   .desktop-nav .nav-link {
     font-size: var(--text-sm);
@@ -50,7 +38,7 @@
     margin-left: 210px;
   }
   .admin-main {
-    padding: 32px 26px;
+    padding: 24px 26px;
   }
   .admin-topbar {
     padding: 0 26px;
@@ -62,10 +50,7 @@
     gap: 18px;
   }
   .course-card-body {
-    padding: 21px;
-  }
-  .course-cover {
-    height: 185px;
+    padding: 18px;
   }
   .course-card h3 {
     font-size: 22px;
@@ -102,7 +87,7 @@
     font-size: var(--text-xs);
   }
   .header-inner {
-    height: 78px;
+    height: 72px;
     padding: 0 25px;
   }
   .header-actions {
@@ -112,26 +97,23 @@
     font-size: 21px;
   }
   .student-main {
-    padding: 32px 25px 48px;
+    padding: 24px 25px 48px;
   }
   .student-footer {
     padding: 24px 25px;
   }
   .continue-card {
     grid-template-columns: 1.1fr 1fr;
-    min-height: 320px;
+    min-height: 280px;
   }
   .continue-copy {
-    padding: 26px;
+    padding: 22px;
   }
   .continue-copy h2 {
     font-size: 31px;
   }
   .course-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .course-cover {
-    height: 210px;
   }
   .admin-sidebar {
     display: none;
@@ -146,11 +128,11 @@
     height: 70px;
   }
   .admin-main {
-    padding: 30px 25px;
+    padding: 24px 25px;
   }
   .auth-story {
     padding: 34px;
-    min-height: 780px;
+    min-height: 100dvh;
   }
   .auth-story-copy h1 {
     font-size: 42px;
@@ -204,7 +186,7 @@
     font-size: 34px;
   }
   .header-inner {
-    height: 72px;
+    height: 64px;
     padding: 0 20px;
   }
   .desktop-nav {
@@ -220,7 +202,7 @@
     width: 38px;
   }
   .student-main {
-    padding: 29px 20px 40px;
+    padding: 20px 20px 40px;
   }
   .logo {
     font-size: 20px;
@@ -242,7 +224,7 @@
     display: none;
   }
   .page-heading {
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     align-items: flex-start;
     flex-direction: column;
     gap: 18px;
@@ -254,7 +236,7 @@
     font-size: var(--text-xs);
   }
   .dashboard-intro {
-    margin-bottom: 25px;
+    margin-bottom: 18px;
   }
   .dashboard-intro h1 {
     font-size: 33px;
@@ -272,27 +254,27 @@
     border-radius: 17px;
   }
   .continue-cover {
-    min-height: 210px;
+    min-height: clamp(112px, 17dvh, 144px);
   }
   .continue-copy {
-    padding: 25px;
+    padding: 18px;
   }
   .continue-copy h2 {
     font-size: 32px;
-    margin: 15px 0 12px;
+    margin: 10px 0;
   }
   .continue-copy .eyebrow {
     font-size: var(--text-xs);
   }
   .continue-copy > p {
     font-size: var(--text-sm);
-    margin-bottom: 19px;
+    margin-bottom: 12px;
   }
   .continue-copy .button {
     width: 100%;
   }
   .continue-copy .progress-wrap {
-    margin-bottom: 21px;
+    margin-bottom: 14px;
   }
   .continue-cover-caption {
     bottom: 15px;
@@ -345,11 +327,8 @@
     gap: 18px;
     grid-template-columns: 1fr;
   }
-  .course-cover {
-    height: 210px;
-  }
   .course-card-body {
-    padding: 23px;
+    padding: 18px;
   }
   .course-card h3 {
     font-size: 25px;
@@ -358,7 +337,7 @@
     font-size: var(--text-md);
   }
   .course-meta {
-    margin: 17px 0;
+    margin: 12px 0;
   }
   .material-row {
     padding: 16px;
@@ -388,10 +367,20 @@
     gap: 9px;
   }
   .catalog-filters {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .catalog-filters .search-input {
+    grid-column: 1 / -1;
   }
   .catalog-filters > .button {
     justify-self: stretch;
+  }
+  .catalog-advanced summary {
+    justify-content: flex-start;
+  }
+  .catalog-advanced-panel {
+    left: 0;
+    right: auto;
   }
   .filters .search-input {
     width: 100%;
@@ -404,7 +393,10 @@
   }
   .filter-tabs {
     gap: 6px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
+  }
+  .catalog-topics {
+    margin-bottom: 10px;
   }
   .filter-tab {
     font-size: var(--text-xs);
@@ -435,7 +427,7 @@
     color: var(--text);
   }
   .auth-form-wrap {
-    padding: 60px 0;
+    padding: 28px 0;
     max-width: 390px;
   }
   .auth-form-wrap h2 {
@@ -513,7 +505,7 @@
     width: calc(100% - 44px);
   }
   .admin-main {
-    padding: 26px 18px 45px;
+    padding: 20px 18px 40px;
   }
   .admin-main h1 {
     font-size: 33px;
@@ -556,7 +548,7 @@
     font-size: var(--text-xs);
   }
   .panel {
-    padding: 21px;
+    padding: 18px;
   }
   .table-wrap {
     margin: 0;

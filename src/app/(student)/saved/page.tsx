@@ -21,7 +21,6 @@ export default async function Saved({
   return (
     <>
       <PageHeading
-        eyebrow="ВЕРНУТЬСЯ К ВАЖНОМУ"
         title="Сохранённое"
         description="Программы и уроки, к которым вы хотите вернуться."
       />

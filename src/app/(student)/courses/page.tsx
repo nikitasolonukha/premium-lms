@@ -1,7 +1,7 @@
 export const metadata = { title: 'Программы' };
 import Link from 'next/link';
 import Form from 'next/form';
-import { Search } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 import { getCatalog, getCategories, getTags, pageNumber } from '@/lib/server/data';
 import { CourseCard } from '@/components/course-card';
 import { PageHeading, EmptyState, Pagination, Input, Button } from '@/components/ui';
@@ -30,7 +30,12 @@ export default async function Courses({
         title="Программы"
         description="Все курсы, к которым у вас есть доступ. Выберите тему или найдите нужный курс."
       />
-      <Form className="filters catalog-filters" action="/courses" scroll={false}>
+      <Form
+        key={[params.q, params.category, params.sort, params.tag].join('|')}
+        className="filters catalog-filters"
+        action="/courses"
+        scroll={false}
+      >
         <div className="search-input">
           <Search size={17} />
           <Input
@@ -40,36 +45,56 @@ export default async function Courses({
             defaultValue={params.q}
           />
         </div>
-        <select
-          className="input"
-          name="category"
-          aria-label="Категория"
-          defaultValue={params.category ?? ''}
-        >
-          <option value="">Все направления</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-        <select
-          className="input"
-          name="sort"
-          aria-label="Сортировка"
-          defaultValue={params.sort ?? 'recent'}
-        >
-          <option value="recent">Сначала актуальные</option>
-          <option value="newest">По обновлению</option>
-          <option value="title">По названию</option>
-          <option value="progress">По прогрессу</option>
-        </select>
+        <details className="catalog-advanced">
+          <summary className="button button-secondary">
+            <SlidersHorizontal size={17} />
+            Фильтры
+            {params.category || (params.sort && params.sort !== 'recent') ? ' · выбраны' : ''}
+          </summary>
+          <div className="catalog-advanced-panel">
+            <div className="field">
+              <label className="field-label" htmlFor="catalog-category">
+                Категория
+              </label>
+              <select
+                id="catalog-category"
+                className="input"
+                name="category"
+                defaultValue={params.category ?? ''}
+              >
+                <option value="">Все направления</option>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <label className="field-label" htmlFor="catalog-sort">
+                Сортировка
+              </label>
+              <select
+                id="catalog-sort"
+                className="input"
+                name="sort"
+                defaultValue={params.sort ?? 'recent'}
+              >
+                <option value="recent">Сначала актуальные</option>
+                <option value="newest">По обновлению</option>
+                <option value="title">По названию</option>
+                <option value="progress">По прогрессу</option>
+              </select>
+            </div>
+            <Button type="submit">Применить фильтры</Button>
+          </div>
+        </details>
         <input type="hidden" name="tag" value={params.tag ?? ''} />
         <Button type="submit" variant="secondary">
           Найти
         </Button>
       </Form>
-      <div className="filter-tabs">
+      <div className="filter-tabs catalog-topics" aria-label="Темы программ">
         <Link
           className={`filter-tab ${!params.tag ? 'active' : ''}`}
           href={`/courses?${new URLSearchParams({ ...params, page: '1', tag: '' })}`}

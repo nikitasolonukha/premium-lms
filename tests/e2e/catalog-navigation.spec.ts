@@ -41,6 +41,19 @@ for (const viewport of [
     await page.getByRole('button', { name: 'Переключить тему' }).click();
     await expect(page.locator('html')).toHaveClass(/dark/);
     expect(Math.abs((await page.evaluate(() => scrollY)) - beforeTheme)).toBeLessThanOrEqual(3);
+    const advanced = page.locator('.catalog-advanced');
+    await advanced.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    await expect(advanced).toHaveAttribute('open', '');
+    await expect(page.getByLabel('Категория', { exact: true })).toBeVisible();
+    await page.getByLabel('Сортировка', { exact: true }).selectOption('newest');
+    await page.getByRole('button', { name: 'Применить фильтры' }).click();
+    await expect(page).toHaveURL(/sort=newest/);
+    await expect(advanced).not.toHaveAttribute('open', '');
+    await expect(advanced.locator('summary')).toHaveText('Фильтры · выбраны');
+    await page.reload();
+    await advanced.locator('summary').click();
+    await expect(page.getByLabel('Сортировка', { exact: true })).toHaveValue('newest');
     writeFileSync(
       qaPath(`evidence/catalog-scroll-${viewport.width}.json`),
       JSON.stringify(
@@ -48,7 +61,7 @@ for (const viewport of [
           status: 'PASS',
           viewport,
           checks:
-            'tag filtering preserves visible position and sort/page/tag URL; theme switch preserves scroll',
+            'tag filtering preserves visible position and sort/page/tag URL; theme switch preserves scroll; advanced filters open with keyboard and preserve values after reload',
           measurements,
         },
         null,

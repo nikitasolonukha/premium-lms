@@ -1,0 +1,162 @@
+{
+  "status": "FAIL",
+  "executedAt": "2026-09-30T16:47:53.096Z",
+  "counts": {
+    "PASS": 24,
+    "FAIL": 1,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "catalog filters preserve scroll and URL state at 390px",
+      "file": "catalog-navigation.spec.ts",
+      "status": "PASS",
+      "durationMs": 3584
+    },
+    {
+      "title": "catalog filters preserve scroll and URL state at 1440px",
+      "file": "catalog-navigation.spec.ts",
+      "status": "PASS",
+      "durationMs": 4655
+    },
+    {
+      "title": "discovery: RU/EN search, taxonomy, partial words, URL filters, saved and revocation",
+      "file": "discovery.spec.ts",
+      "status": "FAIL",
+      "durationMs": 25350,
+      "failureLocation": "discovery.spec.ts:52:57"
+    },
+    {
+      "title": "student-home: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 7338
+    },
+    {
+      "title": "catalog: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5480
+    },
+    {
+      "title": "course: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5509
+    },
+    {
+      "title": "lesson: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5079
+    },
+    {
+      "title": "login: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 2762
+    },
+    {
+      "title": "admin-home: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6297
+    },
+    {
+      "title": "admin-courses: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6279
+    },
+    {
+      "title": "course-editor: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 7118
+    },
+    {
+      "title": "lesson-editor: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 9326
+    },
+    {
+      "title": "users: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6838
+    },
+    {
+      "title": "academy-entry: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 3034
+    },
+    {
+      "title": "register: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 3298
+    },
+    {
+      "title": "profile: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 4856
+    },
+    {
+      "title": "library: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6034
+    },
+    {
+      "title": "saved: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5084
+    },
+    {
+      "title": "search: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 3806
+    },
+    {
+      "title": "categories: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5563
+    },
+    {
+      "title": "media: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 7354
+    },
+    {
+      "title": "analytics: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6217
+    },
+    {
+      "title": "settings: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6659
+    },
+    {
+      "title": "audit: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 7634
+    },
+    {
+      "title": "mobile lesson drawer, focus return, keyboard and reduced motion",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 1474
+    }
+  ]
+}

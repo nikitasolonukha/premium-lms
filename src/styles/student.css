@@ -9,7 +9,7 @@
 .header-inner {
   max-width: 1440px;
   margin: auto;
-  height: 88px;
+  height: 76px;
   padding: 0 48px;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
 .student-main {
   max-width: 1344px;
   margin: 0 auto;
-  padding: 46px 48px 64px;
+  padding: 24px 48px 48px;
   min-height: calc(100vh - 180px);
 }
 .student-footer {
@@ -113,14 +113,14 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 .page-heading .eyebrow {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 .page-heading p {
   color: var(--muted);
-  margin-top: 12px;
+  margin-top: 8px;
   font-size: var(--text-base);
   max-width: 700px;
 }
@@ -192,6 +192,9 @@
   gap: 24px;
 }
 .course-card {
+  --course-cover-height: clamp(104px, 15dvh, 156px);
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -205,7 +208,8 @@
   box-shadow: var(--shadow);
 }
 .course-cover {
-  height: 205px;
+  height: var(--course-cover-height);
+  flex-shrink: 0;
   position: relative;
   display: block;
   overflow: hidden;
@@ -246,30 +250,46 @@
   color: #222;
 }
 .course-card-body {
-  padding: 24px;
+  padding: 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.course-card-body > .badge {
+  align-self: flex-start;
+}
+.course-card-body > .progress-wrap,
+.course-card-body > .course-author {
+  margin-top: auto;
+  width: 100%;
 }
 .course-card h3 {
-  margin-top: 16px;
+  margin-top: 10px;
   font-size: 24px;
   line-height: 1.25;
 }
-.course-card p {
-  color: var(--muted);
-  font-size: var(--text-md);
-  line-height: 1.75;
-  margin-top: 11px;
+.course-card h3 a {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 42px;
+}
+.course-card p {
+  color: var(--muted);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .course-meta {
   display: flex;
   align-items: center;
   gap: 17px;
   flex-wrap: wrap;
-  margin: 20px 0;
+  margin: 14px 0;
   color: var(--muted);
   font-size: var(--text-xs);
 }
@@ -281,7 +301,7 @@
 .course-author {
   font-size: var(--text-sm);
   border-top: 1px solid var(--border);
-  padding-top: 16px;
+  padding-top: 12px;
   color: var(--muted);
 }
 .progress-wrap {
@@ -319,14 +339,14 @@
 .continue-card {
   display: grid;
   grid-template-columns: 1.08fr 1fr;
-  min-height: 340px;
+  min-height: 280px;
   border: 1px solid var(--border);
   border-radius: 22px;
   overflow: hidden;
   background: var(--surface);
 }
 .continue-copy {
-  padding: 36px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -334,25 +354,25 @@
 .continue-copy h2 {
   font-size: 39px;
   max-width: 470px;
-  margin: 19px 0 14px;
+  margin: 12px 0 10px;
   line-height: 1.16;
 }
 .continue-copy > p {
   color: var(--muted);
   font-size: var(--text-md);
-  margin-bottom: 21px;
+  margin-bottom: 14px;
 }
 .continue-copy .progress-wrap {
   width: 100%;
   max-width: 420px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 .continue-copy .button {
   margin-top: auto;
 }
 .continue-cover {
   position: relative;
-  min-height: 280px;
+  min-height: 240px;
   overflow: hidden;
   background: #3155e7;
 }
@@ -400,7 +420,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 .dashboard-intro h1 {
   font-size: 42px;
@@ -451,7 +471,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  padding: 20px 24px;
+  padding: 16px 18px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--surface);
@@ -490,7 +510,7 @@
   gap: 12px;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
 .search-input {
   position: relative;
@@ -512,8 +532,9 @@
 }
 .catalog-filters {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(180px, 210px) minmax(180px, 210px) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
+  margin-bottom: 12px;
 }
 .catalog-filters .search-input {
   min-width: 0;
@@ -522,14 +543,55 @@
   min-width: 0;
   width: 100%;
 }
+.catalog-advanced {
+  position: relative;
+}
+.catalog-advanced summary {
+  list-style: none;
+  cursor: pointer;
+}
+.catalog-advanced summary::-webkit-details-marker {
+  display: none;
+}
+.catalog-advanced[open] summary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.catalog-advanced-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 35;
+  width: min(360px, calc(100vw - 40px));
+  padding: 18px;
+  display: grid;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
 .catalog-results {
-  min-height: calc(100dvh - 88px);
+  min-height: calc(100dvh - 76px);
 }
 .filter-tabs {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
+}
+.catalog-topics {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 6px;
+  margin-left: -6px;
+  margin-right: -6px;
+  margin-bottom: 10px;
+  scrollbar-width: thin;
+}
+.catalog-topics .filter-tab {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .filter-tab {
   display: inline-flex;
@@ -551,13 +613,13 @@
 .catalog-count {
   font-size: var(--text-sm);
   color: var(--muted);
-  margin-bottom: 17px;
+  margin-bottom: 12px;
 }
 .featured-label {
   display: flex;
   align-items: center;
   gap: 7px;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   color: var(--success-text);
   font-size: var(--text-sm);
   font-weight: 650;
@@ -709,7 +771,7 @@ textarea.input {
   padding: 48px 58px;
   display: flex;
   flex-direction: column;
-  min-height: 820px;
+  min-height: 100dvh;
 }
 .auth-story .logo-symbol {
   background: #dce7ff;
@@ -848,7 +910,7 @@ textarea.input {
   max-width: 420px;
   width: 100%;
   margin: auto;
-  padding: 65px 0;
+  padding: 32px 0;
 }
 .auth-form-wrap > .eyebrow {
   margin-bottom: 17px;

@@ -6,7 +6,7 @@
     font-size: 39px;
   }
   .course-intro-cover {
-    height: 330px;
+    height: clamp(180px, 30dvh, 280px);
   }
   .course-body-layout {
     grid-template-columns: minmax(0, 1fr) 250px;
@@ -37,7 +37,7 @@
   .breadcrumbs {
     font-size: var(--text-xs);
     gap: 7px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
   .breadcrumbs span {
     max-width: 170px;
@@ -45,17 +45,17 @@
   .course-intro {
     display: flex;
     flex-direction: column-reverse;
-    gap: 27px;
-    margin: 0 0 31px;
+    gap: 16px;
+    margin: 0 0 24px;
     align-items: stretch;
   }
   .course-intro-cover {
-    height: 230px;
+    height: clamp(104px, 16dvh, 144px);
     border-radius: 14px;
   }
   .course-intro h1 {
     font-size: 38px;
-    margin: 18px 0;
+    margin: 12px 0;
   }
   .course-intro-copy > p {
     font-size: var(--text-md);
@@ -63,11 +63,11 @@
   }
   .course-intro-meta {
     gap: 14px;
-    margin-top: 20px;
+    margin-top: 14px;
     font-size: var(--text-xs);
   }
   .author-line {
-    margin: 22px 0;
+    margin: 14px 0;
   }
   .course-intro-actions {
     gap: 9px;
