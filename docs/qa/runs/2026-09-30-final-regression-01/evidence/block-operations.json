@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T11:57:30.795Z",
+  "checks": [
+    "block duplicate has independent ID",
+    "keyboard order persisted",
+    "cancel keeps block",
+    "confirmed delete persists after reload"
+  ]
+}

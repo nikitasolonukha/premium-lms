@@ -59,3 +59,7 @@ Audit заполняют доверенные SQL-операции: actor, actio
 MFA recovery выполняет оператор после внешней проверки личности владельца: `npm run admin:create -- recover-mfa owner@example.com --confirm=owner@example.com`. Команда требует отдельного DATABASE_URL и secret key, сначала отзывает все сессии, затем удаляет факторы. Следующий вход требует подключения нового TOTP. Никогда не добавляйте «аварийный пароль» или публичный recovery endpoint.
 
 При подозрении на утечку: отозвать затронутые сессии, сменить секреты, проверить audit, ротацию инфраструктурных ключей выполнить через Supabase; заново выпустить сборку при изменении её секретов. Не публиковать `.env.local`, `.local`, резервные копии Auth и Storage или test-results.
+
+## Повторный mutation и RLS аудит
+
+Полная поверхность actions/HTTP и предусмотренные Auth/bearer исключения описаны в [MUTATION_AUDIT](MUTATION_AUDIT.md). Migration 17 кеширует только независимые от строки STABLE staff/session predicates в пределах SQL statement; row-dependent course/revision/lesson/media checks и grants сохранены. Свежий запрос повторно проверяет actual session/access. Реальные negative RPC/Storage и revoked/disabled/MFA suites прошли после изменения.

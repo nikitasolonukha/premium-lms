@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "checks": {
+    "appReady": 503,
+    "localAuthHealth": "CONNECTION_FAILED",
+    "dockerEngineAPI": 500
+  },
+  "scope": "Observed after failed external video grant timeout. Correlation does not prove the initial cause. No global Docker/WSL restart or unrelated container change performed."
+}

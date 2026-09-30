@@ -1,0 +1,79 @@
+{
+  "executedAt": "2026-09-30T12:03:05.639Z",
+  "status": "PASS",
+  "results": [
+    {
+      "screen": "audit",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 768,
+      "height": 1024,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1920,
+      "height": 1080,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1920,
+      "height": 1080,
+      "theme": "dark",
+      "overflow": false
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedResponses": []
+}

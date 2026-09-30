@@ -1,0 +1,70 @@
+{
+  "executedAt": "2026-09-30T12:03:45.354Z",
+  "environment": {
+    "browserVersion": "154.0.8037.92",
+    "headless": false,
+    "widevineAvailable": true
+  },
+  "results": [
+    {
+      "provider": "youtube",
+      "status": "PASS",
+      "playbackSeconds": 2.790991,
+      "fullscreenWatermark": true,
+      "sourceResponses": []
+    },
+    {
+      "provider": "vimeo",
+      "status": "PASS",
+      "playbackSeconds": 2.245388,
+      "fullscreenWatermark": true,
+      "sourceResponses": [
+        {
+          "status": 200,
+          "kind": "document"
+        }
+      ]
+    },
+    {
+      "provider": "rutube",
+      "status": "PASS",
+      "playbackSeconds": 2.91766,
+      "fullscreenWatermark": true,
+      "sourceResponses": []
+    },
+    {
+      "provider": "direct",
+      "status": "PASS",
+      "playbackSeconds": 2.913239,
+      "fullscreenWatermark": true,
+      "sourceResponses": [
+        {
+          "status": 206,
+          "kind": "media"
+        }
+      ]
+    },
+    {
+      "provider": "external",
+      "status": "PASS",
+      "playbackSeconds": 2.964492,
+      "fullscreenWatermark": true,
+      "sourceResponses": [
+        {
+          "status": 200,
+          "kind": "document"
+        },
+        {
+          "status": 206,
+          "kind": "media"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://developers.google.com/youtube/iframe_api_reference",
+    "https://github.com/vimeo/player.js",
+    "https://rutube.ru/info/embed/",
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video"
+  ]
+}

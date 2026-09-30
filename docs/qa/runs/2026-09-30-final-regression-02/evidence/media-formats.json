@@ -1,0 +1,22 @@
+{
+  "executedAt": "2026-09-30T12:25:43.041Z",
+  "status": "PASS",
+  "formats": [
+    "PDF",
+    "DOCX",
+    "XLSX",
+    "ZIP",
+    "WebP",
+    "PNG",
+    "JPEG"
+  ],
+  "checks": [
+    "Unicode filenames",
+    "real uploads and server finalization",
+    "byte-for-byte download of every format with RFC 5987 filename",
+    "confirmed deletion of unused assets and repeat upload",
+    "long Unicode filename",
+    "invalid PDF rejected",
+    "over-50MiB upload rejected before transfer"
+  ]
+}

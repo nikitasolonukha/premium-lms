@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "runId": 36711496294,
+  "commit": "da2affdb3d1c4ba869b399a7a16b9c58d4d53086",
+  "url": "https://github.com/nikitasolonukha/premium-lms/actions/runs/36711496294",
+  "reason": "YouTube provider requires authentication on GitHub-hosted runner; other four providers PASS. Protected live tests UNVERIFIED without configuration.",
+  "scope": "Actual manual Full QA workflow. Sanitized artifact only."
+}

@@ -1,0 +1,287 @@
+{
+  "tests": [
+    {
+      "title": "registration, test email confirmation, password recovery, MFA enrollment and logout",
+      "file": "auth.spec.ts",
+      "status": "PASS",
+      "durationMs": 8429
+    },
+    {
+      "title": "same-origin auth endpoints reject CSRF, unsafe redirects and return real rate headers",
+      "file": "auth.spec.ts",
+      "status": "PASS",
+      "durationMs": 1463
+    },
+    {
+      "title": "lesson blocks: independent duplicate, keyboard reorder, confirmed delete and reload",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 4365
+    },
+    {
+      "title": "CMS: keyboard sorting, duplication, deletion, preview, two tabs and network recovery",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 9185
+    },
+    {
+      "title": "large course: 21 modules, 63 lessons, long text, twelve tags, search and mobile",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 4965
+    },
+    {
+      "title": "discovery: RU/EN search, taxonomy, partial words, URL filters, saved and revocation",
+      "file": "discovery.spec.ts",
+      "status": "PASS",
+      "durationMs": 10299
+    },
+    {
+      "title": "user directory: pagination, role/email/course filters, role and disable UI; category integrity",
+      "file": "management.spec.ts",
+      "status": "PASS",
+      "durationMs": 13754
+    },
+    {
+      "title": "responsive private images use stored sizes and reject arbitrary transforms",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 5087
+    },
+    {
+      "title": "private grant survives only its TTL; new grants stop immediately on revoke",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 68243
+    },
+    {
+      "title": "media UI validates every supported format, Unicode and malformed uploads",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 12944
+    },
+    {
+      "title": "protected player contract: renewal restores position and access denial stops the embed",
+      "file": "playback-client.spec.ts",
+      "status": "PASS",
+      "durationMs": 10292
+    },
+    {
+      "title": "external protected cloudflare: CMS, A playback, B denied, revoke and token expiry",
+      "file": "protected-video.spec.ts",
+      "status": "UNVERIFIED",
+      "durationMs": 24
+    },
+    {
+      "title": "external protected mux: CMS, A playback, B denied, revoke and token expiry",
+      "file": "protected-video.spec.ts",
+      "status": "UNVERIFIED",
+      "durationMs": 14
+    },
+    {
+      "title": "readiness, correlation and security headers expose no configuration",
+      "file": "readiness.spec.ts",
+      "status": "PASS",
+      "durationMs": 46
+    },
+    {
+      "title": "repeated upload selection while the request is pending creates one asset",
+      "file": "repeat-upload.spec.ts",
+      "status": "PASS",
+      "durationMs": 4167
+    },
+    {
+      "title": "Student promoted to Admin must set up TOTP at next login; AAL1 cannot call Admin RPC",
+      "file": "session-security.spec.ts",
+      "status": "PASS",
+      "durationMs": 3982
+    },
+    {
+      "title": "revoked-session: existing browser loses pages, new media/playback grants and mutations immediately",
+      "file": "session-security.spec.ts",
+      "status": "PASS",
+      "durationMs": 2758
+    },
+    {
+      "title": "disabled-user: existing browser loses pages, new media/playback grants and mutations immediately",
+      "file": "session-security.spec.ts",
+      "status": "PASS",
+      "durationMs": 2763
+    },
+    {
+      "title": "profile changes persist, branding is editable, watermark moves and survives fullscreen",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 11037
+    },
+    {
+      "title": "private SEO, metadata, direct URLs, invalid filters and error pages",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 6263
+    },
+    {
+      "title": "Student navigates real learning screens",
+      "file": "smoke.spec.ts",
+      "status": "PASS",
+      "durationMs": 4377
+    },
+    {
+      "title": "Admin completes MFA and opens CMS",
+      "file": "smoke.spec.ts",
+      "status": "PASS",
+      "durationMs": 3533
+    },
+    {
+      "title": "staff warning reads deadlines without extending session; explicit continuation and expiry",
+      "file": "staff-session.spec.ts",
+      "status": "PASS",
+      "durationMs": 2375
+    },
+    {
+      "title": "UAT: Admin builds, publishes and assigns; Student learns; Editor draft stays private",
+      "file": "uat.spec.ts",
+      "status": "PASS",
+      "durationMs": 31130
+    },
+    {
+      "title": "five public video adapters: grants, real player loading, playback, mobile and fullscreen",
+      "file": "video.spec.ts",
+      "status": "FAIL",
+      "durationMs": 60822,
+      "failureLocation": "video.spec.ts:282:56"
+    },
+    {
+      "title": "student-home: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 7239
+    },
+    {
+      "title": "catalog: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6078
+    },
+    {
+      "title": "course: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5212
+    },
+    {
+      "title": "lesson: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5364
+    },
+    {
+      "title": "login: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 2796
+    },
+    {
+      "title": "admin-home: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6017
+    },
+    {
+      "title": "admin-courses: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5888
+    },
+    {
+      "title": "course-editor: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6082
+    },
+    {
+      "title": "lesson-editor: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 8082
+    },
+    {
+      "title": "users: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5948
+    },
+    {
+      "title": "academy-entry: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 2756
+    },
+    {
+      "title": "register: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 2953
+    },
+    {
+      "title": "profile: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 4514
+    },
+    {
+      "title": "library: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5418
+    },
+    {
+      "title": "saved: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 4562
+    },
+    {
+      "title": "search: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 4051
+    },
+    {
+      "title": "categories: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5319
+    },
+    {
+      "title": "media: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 7457
+    },
+    {
+      "title": "analytics: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5915
+    },
+    {
+      "title": "settings: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 6126
+    },
+    {
+      "title": "audit: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 7118
+    },
+    {
+      "title": "mobile lesson drawer, focus return, keyboard and reduced motion",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 1411
+    }
+  ]
+}

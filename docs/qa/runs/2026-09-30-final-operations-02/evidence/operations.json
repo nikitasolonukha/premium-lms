@@ -1,0 +1,17 @@
+{
+  "executedAt": "2026-09-30T12:19:30.285Z",
+  "status": "PASS",
+  "checks": [
+    "first Admin CLI on empty database",
+    "real local SMTP invitation and password UI",
+    "staff cannot enter Admin before TOTP",
+    "TOTP enrollment and Admin access",
+    "empty analytics",
+    "bootstrap cannot create second Admin",
+    "cleanup removes old pending/rejected and preserves ready",
+    "cleanup is repeatable",
+    "MFA recovery requires explicit matching email",
+    "MFA recovery removes factors, revokes all sessions and denies old browser cookies",
+    "operator actions audited"
+  ]
+}
