@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { safePlaywrightReport, safeServerLog } from '../../scripts/lib/safe-artifacts';
+import { safePlaywrightReport, safeServerLog, safeVideoReport } from '../../scripts/lib/safe-artifacts';
 it('publishes only test outcomes and fixed server fields, never error bodies, auth data or call logs', () => {
   const secret = 'private-test-value';
   const input = {
@@ -59,4 +59,20 @@ it('publishes only test outcomes and fixed server fields, never error bodies, au
   expect(
     safeServerLog(JSON.stringify({ event: secret, requestId: secret, errorKind: secret })),
   ).toEqual([]);
+});
+
+it('retains real public provider failures and numeric diagnostics while removing source URLs and error text', () => {
+  const input = {
+    executedAt: '2026-09-30T00:00:00Z',
+    environment: { browserVersion: '154.0.8037.92', headless: false, widevineAvailable: true },
+    results: [
+      { provider: 'direct', status: 'FAIL', detail: 'secret-token-value', url: 'https://private.example/secret-token-value', mediaState: { time: 0, ready: 0, network: 3, error: 4 }, sourceResponses: [{ status: 403, kind: 'media', url: 'secret-token-value' }] },
+      { provider: 'youtube', status: 'PASS', playbackSeconds: 3.5, fullscreenWatermark: true },
+    ],
+  };
+  const report = safeVideoReport(input);
+  expect(report.status).toBe('FAIL');
+  expect(report.results[0]).toMatchObject({ provider: 'direct', status: 'FAIL', mediaState: { error: 4 }, sourceResponses: [{ status: 403, kind: 'media' }] });
+  expect(JSON.stringify(report)).not.toContain('secret-token-value');
+  expect(() => safeVideoReport({ ...input, results: [{ provider: 'invented', status: 'PASS' }] })).toThrow();
 });
