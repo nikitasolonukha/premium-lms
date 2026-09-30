@@ -1,6 +1,6 @@
 # RLS / grants / RPC matrix
 
-Generated from the migrated local PostgreSQL catalog at 2026-09-30T01:43:16.763Z. These are effective privileges, not inferred permissions.
+Generated from the migrated local PostgreSQL catalog at 2026-09-30T11:06:34.764Z. These are effective privileges, not inferred permissions.
 
 ## Tables
 
@@ -12,6 +12,9 @@ Generated from the migrated local PostgreSQL catalog at 2026-09-30T01:43:16.763Z
 | private.rate_limits | yes | anon | no | no | no | no |
 | private.rate_limits | yes | authenticated | no | no | no | no |
 | private.rate_limits | yes | service_role | no | no | no | no |
+| private.video_config_state | yes | anon | no | no | no | no |
+| private.video_config_state | yes | authenticated | no | no | no | no |
+| private.video_config_state | yes | service_role | no | no | no | no |
 | public.access_grants | yes | anon | no | no | no | no |
 | public.access_grants | yes | authenticated | yes | no | no | no |
 | public.access_grants | yes | service_role | no | no | no | no |
@@ -127,6 +130,8 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | Function(signature) | SECURITY DEFINER | anon EXECUTE | authenticated EXECUTE | service_role EXECUTE |
 |---|---|---|---|---|
 | private.analytics() | yes | no | yes | no |
+| private.analytics_page(page integer) | yes | no | yes | no |
+| private.audit_index(q_action text, q_actor text, q_entity text, date_from text, date_to text, page integer) | yes | no | yes | no |
 | private.branding() | yes | yes | yes | no |
 | private.branding_media(kind text) | yes | no | no | yes |
 | private.can_media(mid uuid) | yes | no | yes | no |
@@ -138,6 +143,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | private.delete_media(mid uuid) | yes | no | yes | no |
 | private.download_asset(mid uuid) | yes | no | no | yes |
 | private.finalize_media(mid uuid, owner uuid, sha text, width integer, height integer, accepted boolean) | yes | no | no | yes |
+| private.finalize_media_v2(mid uuid, owner uuid, sha text, session_id uuid, width integer, height integer, accepted boolean, variant_version integer) | yes | no | no | yes |
 | private.has_course(cid uuid) | yes | no | yes | no |
 | private.is_staff(admin_only boolean) | yes | no | yes | no |
 | private.lesson_available(lid uuid) | yes | no | yes | no |
@@ -145,6 +151,8 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | private.live_session() | yes | no | yes | no |
 | private.mutate_category(cid uuid, label text, color text, remove boolean) | yes | no | yes | no |
 | private.new_user() | yes | no | no | no |
+| private.observe_video_config(environment text, fingerprint text, cloudflare boolean, mux boolean) | yes | no | no | yes |
+| private.playback_context(lid uuid, bid uuid, draft boolean) | yes | no | yes | no |
 | private.publish_course(cid uuid, expected_version integer) | yes | no | yes | no |
 | private.readable_revisions() | yes | no | yes | no |
 | private.record_progress(lid uuid, complete boolean, seconds integer) | yes | no | yes | no |
@@ -159,6 +167,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | private.set_role(target_user uuid, new_role text) | yes | no | yes | no |
 | private.set_user_disabled(target_user uuid, disabled boolean) | yes | no | yes | no |
 | private.staff_identity(admin_only boolean) | yes | no | yes | no |
+| private.staff_session_status() | yes | no | yes | no |
 | private.touch_staff_session() | yes | no | yes | no |
 | private.track_learning() | yes | no | no | no |
 | private.update_profile(first_name text, last_name text, avatar_id uuid) | yes | no | yes | no |
@@ -168,6 +177,8 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | private.validate_semantics(doc jsonb, settings_doc boolean) | no | no | no | no |
 | private.validate_semantics_base(doc jsonb, settings_doc boolean) | no | no | no | no |
 | public.analytics() | no | no | yes | no |
+| public.analytics_page(page integer) | no | no | yes | no |
+| public.audit_index(q_action text, q_actor text, q_entity text, date_from text, date_to text, page integer) | no | no | yes | no |
 | public.branding() | no | yes | yes | no |
 | public.branding_media(kind text) | no | no | no | yes |
 | public.catalog(q text, category uuid, tag text, sort text, page integer, staff boolean, saved boolean, status_filter text) | no | no | yes | no |
@@ -180,10 +191,13 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | public.delete_media(mid uuid) | no | no | yes | no |
 | public.download_asset(mid uuid) | no | no | no | yes |
 | public.finalize_media(mid uuid, owner uuid, sha text, width integer, height integer, accepted boolean) | no | no | no | yes |
+| public.finalize_media_v2(mid uuid, owner uuid, sha text, session_id uuid, width integer, height integer, accepted boolean, variant_version integer) | no | no | no | yes |
 | public.lesson_index(q text, page integer, saved boolean) | no | no | yes | no |
 | public.library(q text, page integer) | no | no | yes | no |
 | public.list_users(q text, role_filter text, course_filter uuid, verified_filter text, page integer) | no | no | yes | no |
 | public.mutate_category(cid uuid, label text, color text, remove boolean) | no | no | yes | no |
+| public.observe_video_config(environment text, fingerprint text, cloudflare boolean, mux boolean) | no | no | no | yes |
+| public.playback_context(lid uuid, bid uuid, draft boolean) | no | no | yes | no |
 | public.publish_course(cid uuid, expected_version integer) | no | no | yes | no |
 | public.record_progress(lid uuid, complete boolean, seconds integer) | no | no | yes | no |
 | public.runtime_settings() | no | no | yes | no |
@@ -192,6 +206,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | public.set_access(target_user uuid, cid uuid, enabled boolean) | no | no | yes | no |
 | public.set_role(target_user uuid, new_role text) | no | no | yes | no |
 | public.set_user_disabled(target_user uuid, disabled boolean) | no | no | yes | no |
+| public.staff_session_status() | no | no | yes | no |
 | public.student_summary() | no | no | yes | no |
 | public.touch_staff_session() | no | no | yes | no |
 | public.update_profile(first_name text, last_name text, avatar_id uuid) | no | no | yes | no |

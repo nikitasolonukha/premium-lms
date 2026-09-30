@@ -25,6 +25,7 @@ const environment = [
   'RATE_LIMIT_SECRET=' + randomBytes(32).toString('hex'),
 ];
 writeFileSync(envPath, environment.join('\n'), { mode: 0o600 });
+let evidence;
 try {
   const user = docker('image', 'inspect', image, '--format', '{{.Config.User}}');
   assert.ok(user === 'academy' || user === '1001');
@@ -58,21 +59,25 @@ try {
     '3000/tcp'
   ][0].HostPort;
   let healthy = false;
-  for (let attempt = 0; attempt < 30; attempt++) {
+  for (let attempt = 0; attempt < 10; attempt++) {
     try {
       const response = await fetch('http://127.0.0.1:' + port + '/api/health', {
-        signal: AbortSignal.timeout(2000),
+        signal: AbortSignal.timeout(6500),
       });
-      if (response.ok && (await response.json()).status === 'ok') {
+      if (response.status === 503 && (await response.json()).status === 'unavailable') {
         healthy = true;
         break;
       }
     } catch {}
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
-  assert.ok(healthy, 'container must serve health as an unprivileged user');
+  assert.ok(
+    healthy,
+    'container must serve the original DB-aware health contract as an unprivileged user',
+  );
   assert.equal(
-    (await fetch('http://127.0.0.1:' + port + '/api/ready')).status,
+    (await fetch('http://127.0.0.1:' + port + '/api/ready', { signal: AbortSignal.timeout(6500) }))
+      .status,
     503,
     'dummy DB credentials must not claim readiness',
   );
@@ -93,32 +98,28 @@ try {
   );
   assert.equal(invalid.status, 1, 'production must refuse HTTP configuration before listen');
   assert.match(invalid.stderr, /Invalid server configuration/);
-  writeFileSync(
-    qaPath('evidence/docker-runtime.json'),
-    JSON.stringify(
-      {
-        status: 'PASS',
-        image,
-        revision: labels['org.opencontainers.image.revision'],
-        checks: [
-          'non-root user',
-          'read-only filesystem runtime',
-          'health 200',
-          'unavailable DB returns readiness 503',
-          'production HTTP configuration exits before listen',
-          'OCI source/version/revision',
-        ],
-        scope:
-          'Container runtime with intentionally invalid DB credentials; real DB paths verified separately by production E2E',
-      },
-      null,
-      2,
-    ),
-  );
-  console.log(
-    'PASS: non-root Docker runtime, OCI labels, readiness failure and unsafe startup rejection.',
-  );
+  evidence = {
+    status: 'PASS',
+    image,
+    revision: labels['org.opencontainers.image.revision'],
+    checks: [
+      'non-root user',
+      'read-only filesystem runtime',
+      'DB-aware health 503 with unavailable database',
+      'unavailable DB returns readiness 503',
+      'production HTTP configuration exits before listen',
+      'OCI source/version/revision',
+      'owned container and temporary environment removed',
+    ],
+    scope:
+      'Container runtime with intentionally invalid DB credentials; real DB paths verified separately by production E2E',
+  };
 } finally {
-  spawnSync('docker', ['rm', '-f', name], { stdio: 'ignore' });
+  const cleanup = spawnSync('docker', ['rm', '-f', name], { stdio: 'ignore', timeout: 30000 });
   rmSync(envPath, { force: true });
+  assert.equal(cleanup.status, 0, 'owned QA container must be removed before PASS');
 }
+writeFileSync(qaPath('evidence/docker-runtime.json'), JSON.stringify(evidence, null, 2));
+console.log(
+  'PASS: non-root Docker runtime, OCI labels, readiness failure, unsafe startup rejection and cleanup.',
+);

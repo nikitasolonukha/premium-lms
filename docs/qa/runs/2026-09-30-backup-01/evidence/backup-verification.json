@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "objectCount": 262,
+  "totalBytes": 11539887,
+  "migrationVersion": "20260930102026",
+  "checks": [
+    "real local pg_dump custom archive",
+    "pg_restore TOC and version validation",
+    "every physical Storage object downloaded",
+    "every byte SHA256 and complete file inventory",
+    "migration versions match this release"
+  ],
+  "scope": "Read-only source snapshot / verifier test; isolated restoration and functional staging UAT remain UNVERIFIED. Private dump and manifest are gitignored.",
+  "consistencyDeclaration": "best-effort"
+}

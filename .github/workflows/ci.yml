@@ -96,6 +96,8 @@ jobs:
           echo $! > .local/server.pid
           node scripts/wait-ready.mjs
       - run: npm run test:db
+      - name: Verify database archive and every backed up Storage object
+        run: npm run test:backup
       - name: Real database and RPC security suite
         run: npm run test:security > .local/security.log 2>&1
       - name: Core production E2E

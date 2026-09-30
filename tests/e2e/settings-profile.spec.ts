@@ -4,6 +4,7 @@ import { writeFileSync } from 'node:fs';
 import { login, accounts } from './helpers';
 import { staffClient } from './db-fixtures';
 import { demoAssets } from '../../scripts/fixtures';
+import { watermarkLabel } from '../../src/lib/watermark';
 test('profile changes persist, branding is editable, watermark moves and survives fullscreen', async ({
   browser,
 }) => {
@@ -72,7 +73,10 @@ test('profile changes persist, branding is editable, watermark moves and survive
     }
     const stage = student.locator('.image-stage').first();
     await expect(stage).toBeVisible();
-    await expect(stage.locator('.watermark')).toContainText(accounts[4].email);
+    await expect(stage.locator('.watermark')).toContainText(
+      watermarkLabel(accounts[4], original.watermark_mode ?? 'email_and_id'),
+    );
+    await expect(stage.locator('.watermark')).not.toContainText(accounts[4].email);
     await student.clock.fastForward(19000);
     await expect(stage.locator('.watermark')).toHaveClass(/watermark-1/);
     await stage.getByRole('button', { name: 'Развернуть изображение' }).click();
@@ -90,7 +94,7 @@ test('profile changes persist, branding is editable, watermark moves and survive
           checks: [
             'name and avatar survive reload and login',
             'Admin branding text/color/logo/favicon',
-            'watermark viewer identity',
+            'masked watermark viewer identity; full email absent',
             'watermark 18-second timer with browser clock',
             'fullscreen wrapper retains watermark',
           ],

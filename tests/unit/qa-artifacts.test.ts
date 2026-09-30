@@ -33,6 +33,15 @@ it('publishes only test outcomes and fixed server fields, never error bodies, au
   expect(report.tests).toEqual([
     { title: 'auth flow', file: 'auth.spec.ts', status: 'FAIL', durationMs: 13 },
   ]);
+  input.suites[0].specs[0].tests[0].results[0].error = {
+    message: secret,
+    ...{
+      stack: `Error: ${secret}\n at /private/${secret}/tests/e2e/auth.spec.ts:91:23\n at https://${secret}/callback`,
+    },
+  };
+  const located = safePlaywrightReport(input);
+  expect(located.tests[0].failureLocation).toBe('auth.spec.ts:91:23');
+  expect(JSON.stringify(located)).not.toContain(secret);
   const log = safeServerLog(
     JSON.stringify({
       event: 'action.failed',

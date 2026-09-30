@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "verifiedDate": "2026-09-30",
+  "repository": "https://github.com/nikitasolonukha/premium-lms",
+  "branch": "main",
+  "source": "Authenticated GET /repos/nikitasolonukha/premium-lms/branches/main/protection and repository security APIs",
+  "requiredPR": true,
+  "requiredApprovingReviews": 0,
+  "requiredStatusChecks": [
+    {"context": "Code checks", "app_id": 15368},
+    {"context": "Database security and E2E", "app_id": 15368}
+  ],
+  "strictUpToDate": true,
+  "enforceAdmins": true,
+  "allowForcePushes": false,
+  "allowDeletions": false,
+  "requireConversationResolution": true,
+  "dismissStaleReviews": true,
+  "visibility": "public",
+  "dependabotSecurityUpdates": "enabled",
+  "automatedSecurityFixes": {"enabled": true, "paused": false},
+  "secretScanning": "enabled",
+  "secretScanningPushProtection": "enabled",
+  "scope": "Actual configuration at verification time. Checks must still pass on each proposed PR revision; settings alone do not prove CI success. Solo-owner PR approval count is zero."
+}

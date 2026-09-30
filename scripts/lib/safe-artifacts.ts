@@ -5,22 +5,40 @@ type Suite = {
   specs?: {
     title: string;
     file: string;
-    tests?: { results?: { status?: string; duration?: number }[] }[];
+    tests?: {
+      results?: {
+        status?: string;
+        duration?: number;
+        error?: { stack?: string; message?: string };
+      }[];
+    }[];
   }[];
   suites?: Suite[];
 };
 export function safePlaywrightReport(input: { suites?: Suite[] }) {
-  const tests: { title: string; file: string; status: string; durationMs: number }[] = [];
+  const tests: {
+    title: string;
+    file: string;
+    status: string;
+    durationMs: number;
+    failureLocation?: string;
+  }[] = [];
   function visit(suites: Suite[]) {
     for (const suite of suites) {
       for (const spec of suite.specs ?? [])
         for (const test of spec.tests ?? []) {
           const last = test.results?.at(-1);
+          const location = last?.error?.stack?.match(
+            /(?:tests[\\/]e2e[\\/]([\w.-]+\.ts)):(\d{1,6}):(\d{1,6})/,
+          );
           tests.push({
             title: String(spec.title).slice(0, 300),
             file: String(spec.file).slice(0, 200),
             status: status(last?.status),
             durationMs: Math.max(0, Number(last?.duration) || 0),
+            ...(location
+              ? { failureLocation: location[1] + ':' + location[2] + ':' + location[3] }
+              : {}),
           });
         }
       visit(suite.suites ?? []);
