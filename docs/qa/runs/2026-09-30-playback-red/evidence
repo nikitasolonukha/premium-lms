@@ -1,0 +1,33 @@
+{
+  "scope": "local Supabase; no external playback",
+  "results": [
+    {
+      "name": "protected source schema accepted through authenticated RPC",
+      "status": "FAIL"
+    },
+    {
+      "name": "Student A gets published source; B and anonymous denied",
+      "status": "FAIL"
+    },
+    {
+      "name": "draft and sequentially locked sources cannot be extracted",
+      "status": "FAIL"
+    },
+    {
+      "name": "Editor changes stay in draft until Admin publishes",
+      "status": "FAIL"
+    },
+    {
+      "name": "malformed protected source rejected by direct save RPC",
+      "status": "FAIL"
+    },
+    {
+      "name": "completion unlocks next lesson; revocation denies all new contexts",
+      "status": "FAIL"
+    },
+    {
+      "name": "archived course denies playback even in staff preview",
+      "status": "PASS"
+    }
+  ]
+}

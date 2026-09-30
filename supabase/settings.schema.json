@@ -53,6 +53,27 @@
     "content_watermark_enabled": {
       "type": "boolean"
     },
+    "watermark_mode": {
+      "default": "email_and_id",
+      "type": "string",
+      "enum": [
+        "email",
+        "user_id",
+        "email_and_id"
+      ]
+    },
+    "watermark_interval_seconds": {
+      "default": 18,
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 120
+    },
+    "watermark_opacity": {
+      "default": 0.28,
+      "type": "number",
+      "minimum": 0.15,
+      "maximum": 0.65
+    },
     "social_links": {
       "maxItems": 6,
       "type": "array",
@@ -79,6 +100,9 @@
     "logo_asset_id",
     "favicon_asset_id",
     "content_watermark_enabled",
+    "watermark_mode",
+    "watermark_interval_seconds",
+    "watermark_opacity",
     "social_links",
     "embed_origins"
   ],

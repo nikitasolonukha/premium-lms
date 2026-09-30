@@ -571,6 +571,9 @@ isOneToOne: true
 "mutate_category":
 { Args: { "cid": string,"color": string,"label": string,"remove"?: boolean }; Returns: Json
                            },
+"playback_context":
+{ Args: { "bid": string,"draft"?: boolean,"lid": string }; Returns: Json
+                           },
 "publish_course":
 { Args: { "cid": string,"expected_version": number }; Returns: Json
                            },

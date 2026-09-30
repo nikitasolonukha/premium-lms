@@ -362,31 +362,79 @@
               "const": "video"
             },
             "data": {
-              "type": "object",
-              "properties": {
-                "provider": {
-                  "type": "string",
-                  "enum": [
-                    "youtube",
-                    "vimeo",
-                    "rutube",
-                    "direct",
-                    "external"
-                  ]
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "enum": [
+                        "youtube",
+                        "vimeo",
+                        "rutube",
+                        "direct",
+                        "external"
+                      ]
+                    },
+                    "url": {
+                      "$ref": "#/$defs/__schema22"
+                    },
+                    "title": {
+                      "$ref": "#/$defs/__schema3"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "url",
+                    "title"
+                  ],
+                  "additionalProperties": false
                 },
-                "url": {
-                  "$ref": "#/$defs/__schema22"
+                {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "const": "cloudflare"
+                    },
+                    "sourceId": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{32}$"
+                    },
+                    "title": {
+                      "$ref": "#/$defs/__schema3"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "sourceId",
+                    "title"
+                  ],
+                  "additionalProperties": false
                 },
-                "title": {
-                  "$ref": "#/$defs/__schema3"
+                {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
+                      "const": "mux"
+                    },
+                    "sourceId": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9]{8,128}$"
+                    },
+                    "title": {
+                      "$ref": "#/$defs/__schema3"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "sourceId",
+                    "title"
+                  ],
+                  "additionalProperties": false
                 }
-              },
-              "required": [
-                "provider",
-                "url",
-                "title"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "required": [

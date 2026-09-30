@@ -68,7 +68,7 @@ try {
     assert.ok((await editor.rpc('save_course', { doc: current, expected_version: current.version })).error);
   });
   await check('completion unlocks next lesson; revocation denies all new contexts', async () => {
-    assert.equal((await a.rpc('record_progress', { lid, completed: true, position_seconds: 0 })).error, null);
+    assert.equal((await a.rpc('record_progress', { lid, complete: true, seconds: 0 })).error, null);
     assert.equal((await context(a, second, secondBlock)).error, null);
     assert.equal((await admin.rpc('set_access', { target_user: accounts[2].id, cid: id, enabled: false })).error, null);
     assert.ok((await context(a)).error); assert.ok((await context(a, second, secondBlock)).error);
