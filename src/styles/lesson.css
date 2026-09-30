@@ -11,11 +11,11 @@
   margin: 15px 0 27px;
 }
 .lesson-heading .eyebrow {
-  font-size: 9px;
+  font-size: var(--text-xs);
   margin-bottom: 16px;
 }
 .lesson-heading h1 {
-  font-size: 37px;
+  font-size: 41px;
   line-height: 1.2;
   max-width: 750px;
 }
@@ -29,7 +29,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--muted);
 }
 .lesson-heading-meta .button {
@@ -52,7 +52,7 @@
 }
 .lesson-sidebar-head > a {
   font-weight: 650;
-  font-size: 15px;
+  font-size: var(--text-lg);
   letter-spacing: -0.03em;
   display: block;
   margin-bottom: 18px;
@@ -67,10 +67,10 @@
   gap: 10px;
 }
 .curriculum-compact .program-module summary strong {
-  font-size: 11px;
+  font-size: var(--text-sm);
 }
 .curriculum-compact .program-module summary small {
-  font-size: 7px;
+  font-size: var(--text-xs);
 }
 .curriculum-compact .module-lessons {
   padding: 0 8px 12px;
@@ -81,10 +81,10 @@
   min-height: 60px;
 }
 .curriculum-compact .lesson-name {
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 .curriculum-compact .lesson-name small {
-  font-size: 8px;
+  font-size: var(--text-xs);
 }
 .curriculum-compact .lesson-status {
   width: 25px;
@@ -100,17 +100,17 @@
   padding-bottom: 28px;
 }
 .lesson-content h2 {
-  font-size: 27px;
+  font-size: 31px;
   margin-top: 9px;
 }
 .lesson-content h3 {
-  font-size: 22px;
+  font-size: 24px;
   margin-top: 6px;
 }
 .lesson-content p,
 .rich-content {
-  font-size: 14px;
-  line-height: 1.95;
+  font-size: var(--text-lg);
+  line-height: 1.75;
 }
 .rich-content p + p {
   margin-top: 18px;
@@ -141,7 +141,7 @@
   padding-left: 20px;
 }
 .rich-content code {
-  font-size: 12px;
+  font-size: var(--text-md);
   font-family: monospace;
   background: var(--surface-alt);
   padding: 2px 5px;
@@ -157,10 +157,10 @@
   position: relative;
   aspect-ratio: 16/9;
   min-height: 200px;
-  background: #1b2520;
+  background: #141e30;
   border-radius: 14px;
   overflow: hidden;
-  color: #ecf0e5;
+  color: #edf3ff;
 }
 .video-frame iframe,
 .video-frame video {
@@ -185,7 +185,7 @@
   gap: 20px;
   text-align: center;
   padding: 30px;
-  font-size: 12px;
+  font-size: var(--text-md);
 }
 .video-start {
   position: absolute;
@@ -195,24 +195,24 @@
   justify-content: center;
   flex-direction: column;
   gap: 19px;
-  background: radial-gradient(ellipse at 50% 45%, #536148, #1b2520 65%);
-  color: #f1f5e9;
+  background: radial-gradient(ellipse at 50% 45%, #3a517c, #141e30 65%);
+  color: #edf3ff;
 }
 .video-start > span:not(.video-play) {
-  font-size: 13px;
+  font-size: var(--text-md);
   font-weight: 550;
   max-width: 85%;
 }
 .video-start small {
-  font-size: 8px;
+  font-size: var(--text-xs);
   letter-spacing: 0.11em;
   opacity: 0.55;
 }
 .video-play {
   width: 65px;
   height: 65px;
-  border: 1px solid #cedcbd66;
-  background: #deedc71a;
+  border: 1px solid #c5d6fa66;
+  background: #cfddff1a;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -224,13 +224,13 @@
 }
 .video-start:hover .video-play {
   transform: scale(1.08);
-  background: #deedc733;
+  background: #cfddff33;
 }
 .video-caption {
   display: flex;
   justify-content: space-between;
   gap: 15px;
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: var(--muted);
   margin-top: 10px;
 }
@@ -257,7 +257,7 @@
   z-index: 5;
   pointer-events: none;
   user-select: none;
-  font-size: clamp(10px, 1vw, 13px);
+  font-size: clamp(14px, 1.1vw, 16px);
   color: #fff;
   background: #0004;
   border-radius: 3px;
@@ -337,7 +337,7 @@
   margin: 0;
 }
 .lesson-figure figcaption {
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--muted);
   margin: 10px 0 0;
   text-align: center;
@@ -361,12 +361,12 @@
 }
 .lesson-file strong {
   display: block;
-  font-size: 13px;
+  font-size: var(--text-md);
   overflow-wrap: anywhere;
 }
 .lesson-file small {
   display: block;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--muted);
   margin-top: 4px;
 }
@@ -387,30 +387,30 @@
 .lesson-link small {
   display: block;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--text-xs);
   margin-top: 6px;
   font-weight: 400;
 }
 .lesson-quote {
   margin: 0;
   padding: 30px;
-  background: var(--lime);
+  background: var(--success-soft);
   border-radius: 13px;
-  color: var(--green);
+  color: var(--success-text);
 }
 .lesson-quote > svg {
   margin-bottom: 16px;
   opacity: 0.6;
 }
 .lesson-quote p {
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.5;
   font-weight: 500;
   letter-spacing: -0.025em;
 }
 .lesson-quote cite {
   display: block;
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-style: normal;
   margin-top: 20px;
 }
@@ -426,12 +426,12 @@
   margin-top: 3px;
 }
 .lesson-callout p {
-  font-size: 12px;
+  font-size: var(--text-md);
   line-height: 1.85;
 }
 .callout-success {
-  background: var(--lime);
-  color: var(--green);
+  background: var(--success-soft);
+  color: var(--success-text);
 }
 .callout-warning {
   background: var(--peach);
@@ -441,8 +441,8 @@
   color: #f3c4a6;
 }
 .code-block {
-  background: #252c27;
-  color: #e5eddc;
+  background: #172239;
+  color: #e8eefc;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -450,14 +450,14 @@
   display: block;
   padding: 12px 19px;
   border-bottom: 1px solid #ffffff12;
-  font: 10px monospace;
-  color: #9eae96;
+  font: var(--text-sm) monospace;
+  color: #b0c0dc;
 }
 .code-block pre {
   padding: 22px;
   margin: 0;
   overflow-x: auto;
-  font-size: 12px;
+  font-size: var(--text-md);
   line-height: 1.8;
 }
 .lesson-gallery {
@@ -480,7 +480,7 @@
   margin-top: 15px;
 }
 .lesson-controls .button {
-  font-size: 11px;
+  font-size: var(--text-sm);
   padding: 10px 14px;
 }
 .profile-layout {
@@ -499,10 +499,10 @@
   margin-bottom: 30px;
 }
 .profile-header h2 {
-  font-size: 21px;
+  font-size: 23px;
 }
 .profile-header p {
-  font-size: 12px;
+  font-size: var(--text-md);
   color: var(--muted);
   margin-top: 7px;
 }
@@ -513,12 +513,12 @@
   margin: 21px 0;
 }
 .security-status p {
-  font-size: 11px;
+  font-size: var(--text-sm);
   color: var(--muted);
   margin-top: 5px;
 }
 .security-status strong {
-  font-size: 12px;
+  font-size: var(--text-md);
 }
 .upload-field {
   border: 1px dashed var(--border);
@@ -533,7 +533,7 @@
   text-align: center;
 }
 .upload-field p {
-  font-size: 11px;
+  font-size: var(--text-sm);
   color: var(--muted);
 }
 .upload-field img {
@@ -542,6 +542,6 @@
   object-fit: cover;
 }
 .upload-progress {
-  font-size: 11px;
+  font-size: var(--text-sm);
   color: var(--accent);
 }

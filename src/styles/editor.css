@@ -6,7 +6,7 @@
   margin-bottom: 26px;
 }
 .editor-back {
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--muted);
   display: inline-flex;
   align-items: center;
@@ -15,7 +15,7 @@
   margin-bottom: 8px;
 }
 .editor-heading h1 {
-  font-size: 29px;
+  font-size: 33px;
   line-height: 1.25;
   max-width: 600px;
   overflow-wrap: anywhere;
@@ -27,7 +27,7 @@
   flex-shrink: 0;
 }
 .editor-heading-actions .button {
-  font-size: 10px;
+  font-size: var(--text-xs);
   padding: 10px 14px;
   min-height: 42px;
   gap: 7px;
@@ -37,7 +37,7 @@
   align-items: center;
   gap: 6px;
   margin-top: 12px;
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: var(--muted);
 }
 .save-status .status-dot {
@@ -52,7 +52,7 @@
   color: var(--danger);
 }
 .status-saved {
-  color: var(--green);
+  color: var(--success-text);
 }
 .editor-tabs {
   display: flex;
@@ -68,7 +68,7 @@
   gap: 7px;
   background: transparent;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--text-md);
   padding: 14px 1px;
   border-bottom: 2px solid transparent;
   white-space: nowrap;
@@ -86,7 +86,7 @@
   height: 18px;
   min-width: 20px;
   border-radius: 5px;
-  font-size: 9px;
+  font-size: var(--text-xs);
 }
 .editor-general {
   display: grid;
@@ -98,32 +98,32 @@
   margin-bottom: 2px;
 }
 .editor-general aside h2 {
-  font-size: 17px;
+  font-size: 19px;
 }
 .tall-input {
   min-height: 190px !important;
 }
 .editor-tip {
-  background: var(--lime);
+  background: var(--success-soft);
   padding: 25px;
   border-radius: 13px;
-  color: var(--green);
+  color: var(--success-text);
 }
 .editor-tip h3 {
-  font-size: 18px;
+  font-size: 20px;
   margin: 15px 0 12px;
 }
 .editor-tip p {
-  font-size: 11px;
+  font-size: var(--text-sm);
   line-height: 1.85;
   margin-bottom: 20px;
 }
 .editor-tip .button {
-  font-size: 10px;
+  font-size: var(--text-xs);
   min-height: 40px;
   background: transparent;
-  border-color: color-mix(in srgb, var(--green) 25%, transparent);
-  color: var(--green);
+  border-color: color-mix(in srgb, var(--success-text) 25%, transparent);
+  color: var(--success-text);
 }
 .editor-notice {
   display: flex;
@@ -133,7 +133,7 @@
   margin-bottom: 22px;
 }
 .editor-notice .button {
-  font-size: 10px;
+  font-size: var(--text-xs);
   min-height: 38px;
 }
 .sortable-item {
@@ -176,7 +176,7 @@
   border-bottom: 1px solid var(--border);
 }
 .module-editor-heading > .input {
-  font-size: 13px;
+  font-size: var(--text-md);
   font-weight: 650;
   background: transparent;
   border-color: transparent;
@@ -208,7 +208,7 @@
   flex: 1;
   background: transparent;
   color: var(--text);
-  font-size: 11px;
+  font-size: var(--text-sm);
 }
 .module-editor-lesson > button:first-child span {
   flex: 1;
@@ -218,7 +218,7 @@
 }
 .module-editor > .button {
   margin: 9px 20px 11px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   min-height: 38px;
 }
 .editor-lesson-layout {
@@ -242,14 +242,14 @@
   margin: 0 5px 15px;
 }
 .editor-lesson-nav h2 {
-  font-size: 15px;
+  font-size: var(--text-lg);
 }
 .editor-nav-module {
   margin-bottom: 20px;
 }
 .editor-nav-module > strong {
   display: block;
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 650;
   color: var(--muted);
   padding: 8px 10px;
@@ -265,7 +265,7 @@
   min-height: 43px;
   padding: 10px;
   width: 100%;
-  font-size: 10px;
+  font-size: var(--text-xs);
   line-height: 1.5;
   margin-top: 3px;
 }
@@ -278,7 +278,7 @@
   background: var(--surface-alt);
 }
 .editor-nav-module > .add-lesson-inline {
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: var(--accent);
 }
 .lesson-editor-body {
@@ -291,11 +291,11 @@
   margin-bottom: 0;
 }
 .lesson-editor-body .panel-header .eyebrow {
-  font-size: 8px;
+  font-size: var(--text-xs);
   margin-bottom: 9px;
 }
 .lesson-editor-body .panel-header h2 {
-  font-size: 20px;
+  font-size: 22px;
 }
 .checkbox-row {
   display: flex;
@@ -303,7 +303,7 @@
   gap: 11px;
   min-height: 44px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--text-md);
   padding: 7px 0;
 }
 .checkbox-row input {
@@ -315,7 +315,7 @@
 }
 .checkbox-row span small {
   display: block;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--muted);
   margin-top: 6px;
 }
@@ -337,7 +337,7 @@
   justify-content: space-between;
   gap: 15px;
   margin: -8px -5px 16px;
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: var(--muted);
   letter-spacing: 0.05em;
 }
@@ -352,10 +352,10 @@
   padding: 18px;
 }
 .block-panel .field-label {
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 .block-panel .input {
-  font-size: 12px;
+  font-size: var(--text-md);
 }
 .block-palette {
   margin: 22px 0 0 34px;
@@ -365,7 +365,7 @@
   background: var(--surface);
 }
 .block-palette .eyebrow {
-  font-size: 9px;
+  font-size: var(--text-xs);
   margin-bottom: 15px;
 }
 .block-palette > div:last-child {
@@ -378,7 +378,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   padding: 9px 12px;
   background: var(--surface-alt);
   color: var(--muted);
@@ -420,7 +420,7 @@
   min-height: 185px;
   padding: 19px;
   outline: none;
-  font-size: 13px;
+  font-size: var(--text-md);
   line-height: 1.8;
 }
 .tiptap p + p {
@@ -458,7 +458,7 @@
   gap: 8px;
 }
 .rich-link-input .button {
-  font-size: 9px;
+  font-size: var(--text-xs);
   padding: 8px;
   min-height: 36px;
 }
@@ -473,7 +473,7 @@
   padding: 25px 0;
   color: var(--muted);
   text-align: center;
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 .editor-divider hr {
   border: 0;
@@ -503,12 +503,12 @@
   margin-top: 25px;
 }
 .preview-nav strong {
-  font-size: 11px;
+  font-size: var(--text-sm);
   display: block;
   margin-bottom: 8px;
 }
 .preview-nav a {
-  font-size: 11px;
+  font-size: var(--text-sm);
   display: block;
   min-height: 40px;
   padding: 10px;
@@ -524,7 +524,7 @@
 }
 .preview-content > h2 {
   margin: 5px 0 30px;
-  font-size: 31px;
+  font-size: 35px;
 }
 @media (max-width: 1200px) {
   .editor-heading {
@@ -547,7 +547,7 @@
     margin-bottom: 18px;
   }
   .editor-heading h1 {
-    font-size: 26px;
+    font-size: 30px;
   }
   .editor-heading-actions {
     width: 100%;
@@ -555,7 +555,7 @@
   }
   .editor-heading-actions .button {
     flex: 1;
-    font-size: 9px;
+    font-size: var(--text-xs);
     padding: 10px 9px;
     gap: 6px;
     min-height: 44px;
@@ -571,7 +571,7 @@
     margin-bottom: 21px;
   }
   .editor-tabs button {
-    font-size: 11px;
+    font-size: var(--text-sm);
     padding: 12px 1px;
   }
   .editor-general {
@@ -607,10 +607,10 @@
     margin-bottom: 10px;
   }
   .editor-nav-module > strong {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .editor-nav-module > button {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .lesson-editor-body {
     width: 100%;
@@ -635,7 +635,7 @@
     padding: 18px;
   }
   .block-palette button {
-    font-size: 9px;
+    font-size: var(--text-xs);
     padding: 8px 10px;
     min-height: 40px;
   }
@@ -649,7 +649,7 @@
     gap: 0;
   }
   .module-editor-heading > .input {
-    font-size: 11px;
+    font-size: var(--text-sm);
     padding: 8px;
   }
   .module-editor-heading .icon-button {
@@ -662,7 +662,7 @@
     padding: 3px 4px;
   }
   .module-editor-lesson > button:first-child {
-    font-size: 10px;
+    font-size: var(--text-xs);
     gap: 7px;
   }
   .course-editor > .panel {
@@ -675,7 +675,7 @@
     padding: 3px 6px;
   }
   .course-editor > .panel .panel-header h2 {
-    font-size: 20px;
+    font-size: 22px;
   }
   .preview-layout {
     display: flex;
@@ -692,7 +692,7 @@
     width: 100%;
   }
   .preview-content > h2 {
-    font-size: 27px;
+    font-size: 31px;
   }
   .rich-link-input {
     flex-wrap: wrap;
@@ -714,7 +714,7 @@
   flex: 1;
 }
 .small-heading {
-  font-size: 18px;
+  font-size: 20px;
 }
 .assignment-list {
   max-height: 320px;
@@ -730,12 +730,12 @@
   gap: 15px;
 }
 .assignment-row strong {
-  font-size: 12px;
+  font-size: var(--text-md);
   line-height: 1.5;
   display: block;
 }
 .assignment-row small {
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: var(--muted);
   display: block;
   margin-top: 5px;
@@ -743,7 +743,7 @@
 .assignment-row .button {
   min-height: 38px;
   padding: 8px 13px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
 }
 .assignment-pagination {
@@ -751,7 +751,7 @@
   align-items: center;
   justify-content: center;
   gap: 17px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--muted);
 }
 .user-disable {
@@ -763,12 +763,12 @@
   gap: 12px;
 }
 .user-disable .button {
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 .inline-icon {
   display: inline;
   vertical-align: middle;
-  color: var(--green);
+  color: var(--success-text);
 }
 .category-add {
   display: flex;
@@ -805,7 +805,7 @@
   align-items: start;
 }
 .settings-layout h2 {
-  font-size: 21px;
+  font-size: 23px;
 }
 .settings-layout .panel {
   gap: 23px;
@@ -832,12 +832,12 @@
 }
 .audit-id {
   font-family: monospace;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--muted);
 }
 .audit-details summary {
   cursor: pointer;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--accent);
   min-height: 30px;
   padding: 6px 0;
@@ -845,7 +845,7 @@
 .audit-details pre {
   max-width: 300px;
   overflow: auto;
-  font-size: 9px;
+  font-size: var(--text-xs);
   padding: 10px;
   background: var(--surface-alt);
   border-radius: 6px;
@@ -865,17 +865,17 @@
     gap: 9px;
   }
   .role-editor .input {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .role-editor > .button {
-    font-size: 10px;
+    font-size: var(--text-xs);
     padding: 11px 12px;
   }
   .assignment-row strong {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .assignment-row .button {
-    font-size: 9px;
+    font-size: var(--text-xs);
     padding: 8px 10px;
     min-height: 44px;
   }
@@ -884,7 +884,7 @@
     align-items: flex-end;
   }
   .category-add .button {
-    font-size: 10px;
+    font-size: var(--text-xs);
     padding: 11px 12px;
   }
   .category-editor-row {
@@ -934,4 +934,3 @@
     gap: 12px;
   }
 }
-

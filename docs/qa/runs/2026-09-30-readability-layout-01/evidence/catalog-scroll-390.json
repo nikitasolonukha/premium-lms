@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "checks": "tag filtering preserves visible position and sort/page/tag URL; theme switch preserves scroll",
+  "measurements": [
+    {
+      "tag": "ИИ",
+      "before": 365,
+      "after": 365
+    },
+    {
+      "tag": "мышление",
+      "before": 365,
+      "after": 365
+    },
+    {
+      "tag": "Все темы",
+      "before": 365,
+      "after": 365
+    }
+  ]
+}

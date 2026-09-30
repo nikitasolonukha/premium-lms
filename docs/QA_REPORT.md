@@ -4,6 +4,20 @@
 
 Архитектура и визуальный язык сохранены. [Первоначальный исторический отчёт](qa/history/initial-release-report.md) и все старые evidence сохранены. Новые прогоны записаны отдельно; неуспешные попытки остаются FAIL.
 
+## Дополнение: читаемость, нейтральная палитра и прокрутка каталога
+
+После обратной связи пользователя Manrope заменён на локальный Golos Text 5.3.0 с кириллицей. Основной текст увеличен с 14 до 17 px, текст уроков — с 14 до 18 px; вспомогательные подписи теперь 14–16 px. Обновлены исходные стили Student, Auth, Admin, CMS и обеих тем, без CSS zoom. Фоны светлой темы нейтральные, тёмной — графитовые; зелёные цвета элементов интерфейса заменены синими. Из учебных обложек или авторских материалов цвет не удаляется. Убраны лозунги, декоративная сфера на входе и повторяющаяся подпись логотипа. В локальной академии только прежние стандартные тексты обновлены штатным Admin AAL2 RPC; пользовательские настройки и данные обучения сохранены.
+
+Каталог использует client navigation `Form` и `Link` с `scroll={false}`. Результаты имеют минимальную высоту для сохранения позиции при сокращении выдачи; URL хранит фильтры. Desktop-фильтры собраны в одну строку, на мобильном — в столбец. Единственная рекомендуемая программа занимает отдельную горизонтальную карточку, на мобильном — вертикальную, без пустой вложенной панели.
+
+Проверки выполнены на локальной production-сборке:
+
+- [RED на прежнем приложении](qa/runs/2026-09-30-readability-scroll-red-01/evidence/playwright-summary.json): две проверки прокрутки FAIL, исправление воспроизводимого поведения подтверждено. Первый проход увеличенной типографики выявил 14 px overflow общей Student-шапки на 375 px; [неуспешный прерванный проход сохранён](qa/runs/2026-09-30-readability-layout-01/evidence/interrupted-run.json). Подпись логотипа удалена без уменьшения текста или touch targets.
+- Typecheck, lint, 78 unit tests, production build и production dependency audit PASS. [24 browser scenarios](qa/runs/2026-09-30-readability-layout-green-01/evidence/playwright-summary.json) PASS: 21 экран на всех семи размерах в светлой теме, 390×844, 1440×900 и 1920×1080 в тёмной, a11y, touch, keyboard, console, overflow. [105 снимков](qa/runs/2026-09-30-readability-layout-green-01/screenshots/) и [source manifest](qa/runs/2026-09-30-readability-layout-green-01/evidence/source-manifest.json). Вручную просмотрены каталог desktop dark/mobile light, login desktop light, lesson mobile dark, course editor desktop light.
+- После отдельной финальной правки только карточки подборки: повторный production build и [четыре целевых сценария](qa/runs/2026-09-30-readability-final-01/evidence/playwright-summary.json) PASS — каталог, две проверки прокрутки и watermark/fullscreen. [9 итоговых снимков](qa/runs/2026-09-30-readability-final-01/screenshots/); каталог desktop dark/mobile light просмотрен вручную. Это последующий ограниченный прогон, не повтор всех 24 сценариев. [Фактические размеры текста, загрузка шрифта и хеши финальных исходников](qa/runs/2026-09-30-readability-final-01/evidence/typography.json), [client secret scan: 1524 файла, 0 совпадений](qa/runs/2026-09-30-readability-final-01/evidence/client-secrets.json).
+
+В обеих проверках итоговая прокрутка после смены каждой темы совпала с исходной: [mobile](qa/runs/2026-09-30-readability-final-01/evidence/catalog-scroll-390.json), [desktop](qa/runs/2026-09-30-readability-final-01/evidence/catalog-scroll-1440.json). Это дополнение проверяет оформление и навигацию; полный security/DB/UAT baseline и статус release gate остаются указанными отдельно ниже.
+
 ## Дополнение: надпись на видео заказчика
 
 После уточнения задачи добавлено название академии из Admin Settings рядом с минимизированной меткой ученика. Окончательное название и разрешение скачивания заказчиком пока не выбраны. Для direct video метка привязана к области кадров по metadata и ResizeObserver: в мобильном fullscreen не остаётся в чёрной полосе. Для внешних iframe, где размеры исходных кадров недоступны, используется рамка 16:9; это не доказательство защиты произвольного portrait/embed источника.

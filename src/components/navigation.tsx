@@ -53,10 +53,7 @@ export function Logo({
       <span className="logo-symbol">
         <GraduationCap size={22} />
       </span>
-      <span>
-        {brand}
-        <small>СРЕДА РАЗВИТИЯ</small>
-      </span>
+      <span>{brand}</span>
     </Link>
   );
 }

@@ -1,6 +1,7 @@
 export const metadata = { title: 'Программы' };
 import Link from 'next/link';
-import { Search, Sparkles } from 'lucide-react';
+import Form from 'next/form';
+import { Search } from 'lucide-react';
 import { getCatalog, getCategories, getTags, pageNumber } from '@/lib/server/data';
 import { CourseCard } from '@/components/course-card';
 import { PageHeading, EmptyState, Pagination, Input, Button } from '@/components/ui';
@@ -26,17 +27,16 @@ export default async function Courses({
   return (
     <>
       <PageHeading
-        eyebrow="УЧИТЬСЯ. ПРОБОВАТЬ. МЕНЯТЬ."
-        title="Ваш следующий уровень"
-        description="Программы, которые помогают смотреть шире и действовать увереннее."
+        title="Программы"
+        description="Все курсы, к которым у вас есть доступ. Выберите тему или найдите нужный курс."
       />
-      <form className="filters" action="/courses">
+      <Form className="filters catalog-filters" action="/courses" scroll={false}>
         <div className="search-input">
           <Search size={17} />
           <Input
             name="q"
             aria-label="Поиск программ"
-            placeholder="Что хотите изучить?"
+            placeholder="Название курса или тема"
             defaultValue={params.q}
           />
         </div>
@@ -68,11 +68,13 @@ export default async function Courses({
         <Button type="submit" variant="secondary">
           Найти
         </Button>
-      </form>
+      </Form>
       <div className="filter-tabs">
         <Link
           className={`filter-tab ${!params.tag ? 'active' : ''}`}
           href={`/courses?${new URLSearchParams({ ...params, page: '1', tag: '' })}`}
+          scroll={false}
+          aria-current={!params.tag ? 'true' : undefined}
         >
           Все темы
         </Link>
@@ -84,49 +86,53 @@ export default async function Courses({
               key={tag}
               className={`filter-tab ${params.tag === tag ? 'active' : ''}`}
               href={`/courses?${new URLSearchParams({ ...params, page: '1', tag })}`}
+              scroll={false}
+              aria-current={params.tag === tag ? 'true' : undefined}
             >
               {tag}
             </Link>
           ))}
       </div>
-      {page === 1 &&
-        !params.q &&
-        !params.category &&
-        !params.tag &&
-        featured.items.some((c) => c.featured) && (
-          <section className="featured-section">
-            <div className="featured-label">
-              <Sparkles size={15} /> Подборка для вашего развития
-            </div>
-            <div className="course-grid">
-              {featured.items
-                .filter((c) => c.featured)
-                .slice(0, 3)
-                .map((c) => (
-                  <CourseCard key={c.id} course={c} />
-                ))}
-            </div>
-          </section>
+      <section className="catalog-results" aria-label="Результаты поиска программ">
+        {page === 1 &&
+          !params.q &&
+          !params.category &&
+          !params.tag &&
+          featured.items.some((c) => c.featured) && (
+            <section className="featured-section">
+              <div className="featured-label">Рекомендуемые программы</div>
+              <div className="course-grid">
+                {featured.items
+                  .filter((c) => c.featured)
+                  .slice(0, 3)
+                  .map((c) => (
+                    <CourseCard key={c.id} course={c} />
+                  ))}
+              </div>
+            </section>
+          )}
+        <p className="catalog-count" role="status">
+          Доступно программ: {catalog.total}
+        </p>
+        {catalog.items.length ? (
+          <div className="course-grid">
+            {catalog.items.map((c) => (
+              <CourseCard key={c.id} course={c} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="Программы не найдены"
+            description="Попробуйте другую формулировку или сбросьте фильтры."
+            action={
+              <Link href="/courses" scroll={false} className="button button-secondary">
+                Сбросить фильтры
+              </Link>
+            }
+          />
         )}
-      <p className="catalog-count">Доступно программ: {catalog.total}</p>
-      {catalog.items.length ? (
-        <div className="course-grid">
-          {catalog.items.map((c) => (
-            <CourseCard key={c.id} course={c} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState
-          title="Программы не найдены"
-          description="Попробуйте другую формулировку или сбросьте фильтры."
-          action={
-            <Link href="/courses" className="button button-secondary">
-              Сбросить фильтры
-            </Link>
-          }
-        />
-      )}
-      <Pagination {...catalog} path="/courses" query={params} />
+        <Pagination {...catalog} path="/courses" query={params} />
+      </section>
     </>
   );
 }

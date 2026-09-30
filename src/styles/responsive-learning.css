@@ -3,7 +3,7 @@
     gap: 30px;
   }
   .course-intro h1 {
-    font-size: 35px;
+    font-size: 39px;
   }
   .course-intro-cover {
     height: 330px;
@@ -17,13 +17,13 @@
     gap: 26px;
   }
   .lesson-heading h1 {
-    font-size: 31px;
+    font-size: 35px;
   }
   .lesson-sidebar {
     top: 103px;
   }
   .lesson-controls .button {
-    font-size: 10px;
+    font-size: var(--text-xs);
     padding: 10px;
   }
   .lesson-controls .button span {
@@ -35,7 +35,7 @@
 }
 @media (max-width: 767px) {
   .breadcrumbs {
-    font-size: 9px;
+    font-size: var(--text-xs);
     gap: 7px;
     margin-bottom: 24px;
   }
@@ -54,17 +54,17 @@
     border-radius: 14px;
   }
   .course-intro h1 {
-    font-size: 34px;
+    font-size: 38px;
     margin: 18px 0;
   }
   .course-intro-copy > p {
-    font-size: 12px;
+    font-size: var(--text-md);
     line-height: 1.9;
   }
   .course-intro-meta {
     gap: 14px;
     margin-top: 20px;
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .author-line {
     margin: 22px 0;
@@ -74,11 +74,11 @@
   }
   .course-intro-actions > .button:first-child {
     flex: 1;
-    font-size: 12px;
+    font-size: var(--text-md);
     padding: 11px 13px;
   }
   .course-intro-actions > .button:last-child {
-    font-size: 11px;
+    font-size: var(--text-sm);
     padding: 11px 12px;
   }
   .course-body-layout {
@@ -97,11 +97,11 @@
     padding: 20px;
   }
   .large-progress {
-    font-size: 43px;
+    font-size: 47px;
     margin: 10px 0;
   }
   .large-progress span {
-    font-size: 23px;
+    font-size: 25px;
   }
   .course-tags {
     margin-top: 14px;
@@ -110,17 +110,17 @@
     padding-top: 25px;
   }
   .course-description h2 {
-    font-size: 25px;
+    font-size: 27px;
   }
   .course-description p {
-    font-size: 12px;
+    font-size: var(--text-md);
   }
   .course-body-layout .section-heading {
     gap: 12px;
     align-items: flex-start;
   }
   .course-body-layout .section-heading .text-small {
-    font-size: 8px;
+    font-size: var(--text-xs);
     white-space: nowrap;
     padding-top: 5px;
   }
@@ -128,7 +128,7 @@
     padding: 20px;
   }
   .program-module summary strong {
-    font-size: 14px;
+    font-size: var(--text-base);
   }
   .module-lessons {
     padding: 0 8px 10px;
@@ -138,10 +138,10 @@
     gap: 10px;
   }
   .lesson-name {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .lesson-name small {
-    font-size: 8px;
+    font-size: var(--text-xs);
   }
   .lesson-layout {
     display: block;
@@ -153,30 +153,30 @@
     margin-top: 7px;
   }
   .lesson-heading .eyebrow {
-    font-size: 8px;
+    font-size: var(--text-xs);
   }
   .lesson-heading h1 {
-    font-size: 30px;
+    font-size: 34px;
   }
   .mobile-curriculum-button {
     display: flex;
     width: 100%;
     margin-top: 17px;
-    font-size: 11px;
+    font-size: var(--text-sm);
     min-height: 43px;
   }
   .lesson-content {
     gap: 22px;
   }
   .lesson-content h2 {
-    font-size: 24px;
+    font-size: 26px;
   }
   .lesson-content h3 {
-    font-size: 21px;
+    font-size: 23px;
   }
   .lesson-content p,
   .rich-content {
-    font-size: 13px;
+    font-size: var(--text-md);
     line-height: 1.9;
   }
   .lesson-callout {
@@ -184,23 +184,23 @@
     gap: 11px;
   }
   .lesson-callout p {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .lesson-file {
     padding: 17px;
     gap: 12px;
   }
   .lesson-file strong {
-    font-size: 12px;
+    font-size: var(--text-md);
   }
   .lesson-file small {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .lesson-quote {
     padding: 24px;
   }
   .lesson-quote p {
-    font-size: 18px;
+    font-size: 20px;
   }
   .video-frame {
     border-radius: 10px;
@@ -209,7 +209,7 @@
     gap: 11px;
   }
   .video-start > span:not(.video-play) {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .video-play {
     width: 48px;
@@ -219,10 +219,10 @@
     width: 20px;
   }
   .video-start small {
-    font-size: 7px;
+    font-size: var(--text-xs);
   }
   .video-caption {
-    font-size: 8px;
+    font-size: var(--text-xs);
     gap: 10px;
   }
   .video-caption > span:last-child {
@@ -236,7 +236,7 @@
     border-bottom: 1px solid var(--border);
   }
   .lesson-controls .button {
-    font-size: 10px;
+    font-size: var(--text-xs);
     padding: 10px 11px;
     min-height: 46px;
   }
@@ -262,7 +262,7 @@
     margin-top: 23px;
   }
   .profile-header h2 {
-    font-size: 19px;
+    font-size: 21px;
   }
   .profile-layout .form-row {
     grid-template-columns: 1fr;
@@ -271,13 +271,13 @@
     padding: 20px;
   }
   .program-drawer .curriculum-compact .lesson-name {
-    font-size: 12px;
+    font-size: var(--text-md);
   }
   .program-drawer .curriculum-compact .program-module summary strong {
-    font-size: 13px;
+    font-size: var(--text-md);
   }
   .program-drawer .curriculum-compact .lesson-name small {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
 }
 
@@ -291,7 +291,7 @@
   margin-top: 10px;
 }
 .table-substatus {
-  font-size: 8px;
+  font-size: var(--text-xs);
   color: var(--muted);
   margin-top: 5px;
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import '@fontsource-variable/manrope';
+import '@fontsource-variable/golos-text';
 import './globals.css';
 import { Providers } from '@/components/providers';
 import { getBranding } from '@/lib/server/data';

@@ -29,7 +29,7 @@
   padding: 10px;
   background: transparent;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--text-md);
   border-radius: 8px;
 }
 .course-filter-option:hover {
@@ -39,10 +39,17 @@
   grid-template-columns: 1fr 44px;
 }
 .featured-section {
-  padding: 24px;
-  background: var(--surface-alt);
-  border-radius: var(--radius);
+  padding: 0;
   margin: 22px 0 32px;
+}
+.featured-section .course-card:only-child {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
+}
+.featured-section .course-card:only-child .course-cover {
+  height: 100%;
+  min-height: 280px;
 }
 .student-footer {
   flex-wrap: wrap;
@@ -72,10 +79,17 @@
     min-height: 44px;
   }
   .input {
-    font-size: 16px;
+    font-size: 18px;
   }
   .featured-section {
-    padding: 16px;
+    padding: 0;
+  }
+  .featured-section .course-card:only-child {
+    display: block;
+  }
+  .featured-section .course-card:only-child .course-cover {
+    height: 220px;
+    min-height: 0;
   }
   .header-actions {
     gap: 2px;
@@ -127,7 +141,18 @@
   border-radius: 16px;
   background: var(--surface);
 }
-.staff-session-warning p { margin: 6px 0 0; }
-.audit-filters { flex-wrap: wrap; align-items: end; }
-.audit-filters > .input { flex: 1 1 200px; min-width: 0; }
-.audit-filters > .field { flex: 1 1 150px; min-width: 0; }
+.staff-session-warning p {
+  margin: 6px 0 0;
+}
+.audit-filters {
+  flex-wrap: wrap;
+  align-items: end;
+}
+.audit-filters > .input {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.audit-filters > .field {
+  flex: 1 1 150px;
+  min-width: 0;
+}

@@ -111,9 +111,23 @@ const boundedRichNode = z
   .pipe(richNode);
 const base = { id: uuid, version: z.literal(1) };
 export const videoSourceSchema = z.discriminatedUnion('provider', [
-  z.object({ provider: z.enum(['youtube', 'vimeo', 'rutube', 'direct', 'external']), url, title }).strict(),
-  z.object({ provider: z.literal('cloudflare'), sourceId: z.string().regex(/^[a-f0-9]{32}$/), title }).strict(),
-  z.object({ provider: z.literal('mux'), sourceId: z.string().regex(/^[A-Za-z0-9]{8,128}$/), title }).strict(),
+  z
+    .object({ provider: z.enum(['youtube', 'vimeo', 'rutube', 'direct', 'external']), url, title })
+    .strict(),
+  z
+    .object({
+      provider: z.literal('cloudflare'),
+      sourceId: z.string().regex(/^[a-f0-9]{32}$/),
+      title,
+    })
+    .strict(),
+  z
+    .object({
+      provider: z.literal('mux'),
+      sourceId: z.string().regex(/^[A-Za-z0-9]{8,128}$/),
+      title,
+    })
+    .strict(),
 ]);
 export const blockSchema = z.discriminatedUnion('type', [
   z.object({
@@ -251,12 +265,12 @@ export const settingsSchema = z
 export type AcademySettings = z.infer<typeof settingsSchema>;
 export const defaultSettings: AcademySettings = {
   brand_name: 'Академия',
-  login_title: 'Знания, которые становятся действием.',
+  login_title: 'Курсы и материалы вашей академии.',
   login_description:
-    'Программы для тех, кто создаёт продукты, развивает команды и меняет привычный ход вещей.',
+    'Открывайте уроки, сохраняйте материалы и продолжайте обучение с того места, где остановились.',
   support_email: 'support@example.com',
-  footer_text: 'Учиться. Пробовать. Менять.',
-  seo_description: 'Ваша среда для осмысленного обучения',
+  footer_text: 'Курсы, уроки и учебные материалы.',
+  seo_description: 'Учебные курсы, материалы и прогресс в одном личном кабинете.',
   accent_color: '#3155e7',
   logo_asset_id: null,
   favicon_asset_id: null,

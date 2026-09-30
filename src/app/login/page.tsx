@@ -13,7 +13,7 @@ export default async function Login({
     link: 'Ссылка недействительна или уже использована. Запросите новую.',
   };
   return (
-    <AuthShell title="С возвращением" description="Ваш следующий шаг начинается здесь.">
+    <AuthShell title="Вход в академию" description="Войдите, чтобы открыть свои курсы и материалы.">
       <AuthForm
         mode="login"
         next={params.next}

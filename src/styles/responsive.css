@@ -12,6 +12,23 @@
     height: 235px;
   }
 }
+@media (max-width: 1100px) {
+  .desktop-nav {
+    display: none;
+  }
+  .student-header .mobile-menu {
+    display: inline-flex;
+  }
+  .catalog-filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .catalog-filters .search-input {
+    grid-column: 1 / -1;
+  }
+  .catalog-filters > .button {
+    justify-self: start;
+  }
+}
 @media (max-width: 1200px) {
   .header-inner {
     padding: 0 32px;
@@ -21,7 +38,7 @@
     padding: 36px 32px 55px;
   }
   .desktop-nav .nav-link {
-    font-size: 11px;
+    font-size: var(--text-sm);
     padding: 10px 12px;
   }
   .admin-sidebar {
@@ -39,7 +56,7 @@
     padding: 0 26px;
   }
   .continue-copy h2 {
-    font-size: 30px;
+    font-size: 34px;
   }
   .course-grid {
     gap: 18px;
@@ -51,13 +68,13 @@
     height: 185px;
   }
   .course-card h3 {
-    font-size: 20px;
+    font-size: 22px;
   }
   .auth-story {
     padding: 40px;
   }
   .auth-story-copy h1 {
-    font-size: 45px;
+    font-size: 49px;
   }
   .landing-main {
     padding: 40px 48px 70px;
@@ -73,7 +90,7 @@
     padding: 17px;
   }
   .stat-value {
-    font-size: 30px;
+    font-size: 34px;
   }
 }
 @media (max-width: 1023px) {
@@ -82,7 +99,7 @@
   }
   .desktop-nav .nav-link {
     padding: 10px;
-    font-size: 10px;
+    font-size: var(--text-xs);
   }
   .header-inner {
     height: 78px;
@@ -92,7 +109,7 @@
     gap: 1px;
   }
   .logo {
-    font-size: 19px;
+    font-size: 21px;
   }
   .student-main {
     padding: 32px 25px 48px;
@@ -108,7 +125,7 @@
     padding: 26px;
   }
   .continue-copy h2 {
-    font-size: 27px;
+    font-size: 31px;
   }
   .course-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -136,7 +153,7 @@
     min-height: 780px;
   }
   .auth-story-copy h1 {
-    font-size: 38px;
+    font-size: 42px;
   }
   .auth-story-copy {
     margin-top: 80px;
@@ -149,7 +166,7 @@
     padding: 28px 34px;
   }
   .auth-form-wrap h2 {
-    font-size: 30px;
+    font-size: 34px;
   }
   .landing-main {
     gap: 32px;
@@ -169,10 +186,10 @@
     width: 370px;
   }
   .landing-copy h1 {
-    font-size: 48px;
+    font-size: 52px;
   }
   .landing-copy > p {
-    font-size: 13px;
+    font-size: var(--text-md);
   }
   .landing-benefits {
     margin-top: 34px;
@@ -184,7 +201,7 @@
 }
 @media (max-width: 767px) {
   h1 {
-    font-size: 30px;
+    font-size: 34px;
   }
   .header-inner {
     height: 72px;
@@ -206,19 +223,19 @@
     padding: 29px 20px 40px;
   }
   .logo {
-    font-size: 18px;
+    font-size: 20px;
   }
   .logo-symbol {
     width: 34px;
     height: 34px;
   }
   .logo small {
-    font-size: 6px;
+    font-size: var(--text-xs);
   }
   .student-footer {
     padding: 24px 20px;
     flex-wrap: wrap;
-    font-size: 10px;
+    font-size: var(--text-xs);
     gap: 12px;
   }
   .student-footer > span:nth-child(2) {
@@ -231,19 +248,19 @@
     gap: 18px;
   }
   .page-heading p {
-    font-size: 12px;
+    font-size: var(--text-md);
   }
   .page-heading .eyebrow {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .dashboard-intro {
     margin-bottom: 25px;
   }
   .dashboard-intro h1 {
-    font-size: 29px;
+    font-size: 33px;
   }
   .dashboard-intro p {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .date-mark {
     display: none;
@@ -261,14 +278,14 @@
     padding: 25px;
   }
   .continue-copy h2 {
-    font-size: 28px;
+    font-size: 32px;
     margin: 15px 0 12px;
   }
   .continue-copy .eyebrow {
-    font-size: 8px;
+    font-size: var(--text-xs);
   }
   .continue-copy > p {
-    font-size: 11px;
+    font-size: var(--text-sm);
     margin-bottom: 19px;
   }
   .continue-copy .button {
@@ -285,10 +302,10 @@
     gap: 10px;
   }
   .continue-cover-caption strong {
-    font-size: 10px;
+    font-size: var(--text-xs);
   }
   .continue-cover-caption small {
-    font-size: 8px;
+    font-size: var(--text-xs);
   }
   .play-circle {
     width: 34px;
@@ -306,23 +323,23 @@
     padding-left: 14px;
   }
   .activity-strip strong {
-    font-size: 18px;
+    font-size: 20px;
   }
   .activity-strip span {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .section-heading {
     margin: 32px 0 18px;
   }
   .section-heading h2 {
-    font-size: 22px;
+    font-size: 24px;
   }
   .section-heading .count {
-    font-size: 10px;
+    font-size: var(--text-xs);
     margin-left: 8px;
   }
   .section-heading .text-link {
-    font-size: 10px;
+    font-size: var(--text-xs);
   }
   .course-grid {
     gap: 18px;
@@ -335,10 +352,10 @@
     padding: 23px;
   }
   .course-card h3 {
-    font-size: 23px;
+    font-size: 25px;
   }
   .course-card p {
-    font-size: 12px;
+    font-size: var(--text-md);
   }
   .course-meta {
     margin: 17px 0;
@@ -351,10 +368,10 @@
     gap: 12px;
   }
   .material-row h3 {
-    font-size: 12px;
+    font-size: var(--text-md);
   }
   .material-row p {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .material-row .button {
     padding: 8px;
@@ -370,6 +387,12 @@
   .filters {
     gap: 9px;
   }
+  .catalog-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .catalog-filters > .button {
+    justify-self: stretch;
+  }
   .filters .search-input {
     width: 100%;
     flex-basis: 100%;
@@ -377,24 +400,24 @@
   .filters select {
     flex: 1;
     min-width: 120px;
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .filter-tabs {
     gap: 6px;
     margin-bottom: 20px;
   }
   .filter-tab {
-    font-size: 10px;
+    font-size: var(--text-xs);
     padding: 8px 11px;
   }
   .empty-state {
     padding: 42px 20px;
   }
   .empty-state h3 {
-    font-size: 21px;
+    font-size: 23px;
   }
   .empty-state p {
-    font-size: 12px;
+    font-size: var(--text-md);
   }
   .auth-shell {
     display: block;
@@ -407,7 +430,7 @@
     padding: 20px 26px;
   }
   .auth-panel-top {
-    font-size: 14px;
+    font-size: var(--text-base);
     font-weight: 650;
     color: var(--text);
   }
@@ -416,13 +439,13 @@
     max-width: 390px;
   }
   .auth-form-wrap h2 {
-    font-size: 33px;
+    font-size: 37px;
   }
   .auth-description {
     margin-bottom: 28px;
   }
   .auth-panel-footer {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .form-row {
     gap: 12px;
@@ -430,8 +453,11 @@
   .landing-header {
     padding: 24px 22px;
   }
+  .landing-header .logo small {
+    display: none;
+  }
   .landing-header .button {
-    font-size: 11px;
+    font-size: var(--text-sm);
     padding: 9px 13px;
     min-height: 42px;
   }
@@ -443,33 +469,33 @@
     gap: 38px;
   }
   .landing-copy h1 {
-    font-size: 47px;
+    font-size: 51px;
     max-width: 470px;
     margin: 24px 0;
   }
   .landing-copy .eyebrow {
-    font-size: 8px;
+    font-size: var(--text-xs);
   }
   .landing-copy > p {
-    font-size: 13px;
+    font-size: var(--text-md);
   }
   .landing-cta {
     gap: 18px;
     margin-top: 26px;
   }
   .landing-cta .button {
-    font-size: 12px;
+    font-size: var(--text-md);
     min-height: 50px;
   }
   .landing-cta .text-link {
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .landing-benefits {
     margin-top: 27px;
     gap: 17px;
   }
   .landing-benefits span {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .landing-art {
     height: 340px;
@@ -490,13 +516,13 @@
     padding: 26px 18px 45px;
   }
   .admin-main h1 {
-    font-size: 29px;
+    font-size: 33px;
   }
   .admin-topbar {
     padding: 0 16px;
   }
   .admin-context {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .admin-context span {
     margin: 0 6px;
@@ -505,7 +531,7 @@
     display: inline-flex;
     width: 34px;
     height: 34px;
-    font-size: 10px;
+    font-size: var(--text-xs);
   }
   .admin-two-col {
     grid-template-columns: 1fr;
@@ -520,14 +546,14 @@
     padding: 18px;
   }
   .stat-label {
-    font-size: 9px;
+    font-size: var(--text-xs);
   }
   .stat-value {
-    font-size: 31px;
+    font-size: 35px;
     margin-top: 15px;
   }
   .stat-note {
-    font-size: 8px;
+    font-size: var(--text-xs);
   }
   .panel {
     padding: 21px;
@@ -559,17 +585,17 @@
     height: 370px;
   }
   .pagination {
-    font-size: 10px;
+    font-size: var(--text-xs);
   }
   .pagination .button {
     padding: 10px 12px;
-    font-size: 11px;
+    font-size: var(--text-sm);
   }
   .dialog-content {
     padding: 24px;
   }
   .dialog-title {
-    font-size: 22px;
+    font-size: 24px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -587,4 +613,3 @@
     transform: none;
   }
 }
-

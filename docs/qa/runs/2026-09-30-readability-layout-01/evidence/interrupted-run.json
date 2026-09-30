@@ -1,0 +1,527 @@
+{
+  "status": "FAIL",
+  "scope": "Initial typography layout run interrupted after common student header overflow was identified. Completed per-screen records retained; remaining screens not verified by this run.",
+  "defect": "Redundant enlarged logo subtitle made student header 389px wide in 375px viewport; removed subtitle without shrinking text or touch targets",
+  "scrollEvidence": [
+    "catalog-scroll-390.json",
+    "catalog-scroll-1440.json"
+  ],
+  "results": [
+    {
+      "file": "responsive-admin-courses.json",
+      "executedAt": "2026-09-30T16:05:06.772Z",
+      "status": "PASS",
+      "results": [
+        {
+          "screen": "admin-courses",
+          "width": 375,
+          "height": 812,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 390,
+          "height": 844,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 430,
+          "height": 932,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 768,
+          "height": 1024,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 1024,
+          "height": 768,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 1440,
+          "height": 900,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 1920,
+          "height": 1080,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 1440,
+          "height": 900,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 390,
+          "height": 844,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "admin-courses",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "overflow": false
+        }
+      ],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-admin-home.json",
+      "executedAt": "2026-09-30T16:05:00.698Z",
+      "status": "PASS",
+      "results": [
+        {
+          "screen": "admin-home",
+          "width": 375,
+          "height": 812,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 390,
+          "height": 844,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 430,
+          "height": 932,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 768,
+          "height": 1024,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 1024,
+          "height": 768,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 1440,
+          "height": 900,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 1920,
+          "height": 1080,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 1440,
+          "height": 900,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 390,
+          "height": 844,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "admin-home",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "overflow": false
+        }
+      ],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-catalog.json",
+      "executedAt": "2026-09-30T16:04:35.368Z",
+      "status": "FAIL",
+      "results": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-course-editor.json",
+      "executedAt": "2026-09-30T16:05:13.054Z",
+      "status": "PASS",
+      "results": [
+        {
+          "screen": "course-editor",
+          "width": 375,
+          "height": 812,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 390,
+          "height": 844,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 430,
+          "height": 932,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 768,
+          "height": 1024,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 1024,
+          "height": 768,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 1440,
+          "height": 900,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 1920,
+          "height": 1080,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 1440,
+          "height": 900,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 390,
+          "height": 844,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "course-editor",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "overflow": false
+        }
+      ],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-course.json",
+      "executedAt": "2026-09-30T16:04:42.665Z",
+      "status": "FAIL",
+      "results": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-lesson-editor.json",
+      "executedAt": "2026-09-30T16:05:22.137Z",
+      "status": "PASS",
+      "results": [
+        {
+          "screen": "lesson-editor",
+          "width": 375,
+          "height": 812,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 390,
+          "height": 844,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 430,
+          "height": 932,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 768,
+          "height": 1024,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 1024,
+          "height": 768,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 1440,
+          "height": 900,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 1920,
+          "height": 1080,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 1440,
+          "height": 900,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 390,
+          "height": 844,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "lesson-editor",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "overflow": false
+        }
+      ],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-lesson.json",
+      "executedAt": "2026-09-30T16:04:49.141Z",
+      "status": "FAIL",
+      "results": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-login.json",
+      "executedAt": "2026-09-30T16:04:54.261Z",
+      "status": "PASS",
+      "results": [
+        {
+          "screen": "login",
+          "width": 375,
+          "height": 812,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 390,
+          "height": 844,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 430,
+          "height": 932,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 768,
+          "height": 1024,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 1024,
+          "height": 768,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 1440,
+          "height": 900,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 1920,
+          "height": 1080,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 1440,
+          "height": 900,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 390,
+          "height": 844,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "login",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "overflow": false
+        }
+      ],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-student-home.json",
+      "executedAt": "2026-09-30T16:04:27.816Z",
+      "status": "FAIL",
+      "results": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    },
+    {
+      "file": "responsive-users.json",
+      "executedAt": "2026-09-30T16:05:28.774Z",
+      "status": "PASS",
+      "results": [
+        {
+          "screen": "users",
+          "width": 375,
+          "height": 812,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 390,
+          "height": 844,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 430,
+          "height": 932,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 768,
+          "height": 1024,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 1024,
+          "height": 768,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 1440,
+          "height": 900,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 1920,
+          "height": 1080,
+          "theme": "light",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 1440,
+          "height": 900,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 390,
+          "height": 844,
+          "theme": "dark",
+          "overflow": false
+        },
+        {
+          "screen": "users",
+          "width": 1920,
+          "height": 1080,
+          "theme": "dark",
+          "overflow": false
+        }
+      ],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedResponses": []
+    }
+  ]
+}
