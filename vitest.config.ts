@@ -22,6 +22,7 @@ export default defineConfig({
         'src/lib/malware-scanner.ts',
         'src/lib/image-variants.ts',
         'src/lib/media-images.ts',
+        'src/lib/staff-session.ts',
       ],
       thresholds: { lines: 80, functions: 80, statements: 80, branches: 80 },
     },

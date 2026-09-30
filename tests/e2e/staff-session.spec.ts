@@ -103,6 +103,8 @@ test('Admin prefetch checks actual session without extending idle; expired prefe
       { 'next-router-segment-prefetch': '/_tree' },
       { purpose: 'prefetch' },
       { 'sec-purpose': 'prefetch;prerender' },
+      { rsc: '1', 'next-router-prefetch': '1' },
+      { rsc: '1', 'next-router-prefetch': '1', 'next-router-segment-prefetch': '/_tree' },
     ];
     for (const headers of transports) {
       const response = await page.request.get('/admin/courses', { headers });
@@ -122,7 +124,9 @@ test('Admin prefetch checks actual session without extending idle; expired prefe
     expect(navigation.status()).toBe(200);
     expect(
       (
-        await db.query('select last_active_at from private.admin_sessions where session_id=$1', [sid])
+        await db.query('select last_active_at from private.admin_sessions where session_id=$1', [
+          sid,
+        ])
       ).rows[0].last_active_at.toISOString(),
     ).not.toBe(before);
     await db.query(
@@ -133,8 +137,21 @@ test('Admin prefetch checks actual session without extending idle; expired prefe
       headers: { purpose: 'prefetch' },
       maxRedirects: 0,
     });
-    expect(denied.status()).toBe(307);
-    expect(denied.headers().location).toContain('/login?reason=session');
+    // App Router can start streaming before a nested redirect; a 200 is
+    // acceptable only with the redirect payload and no course identities.
+    expect([200, 307]).toContain(denied.status());
+    if (denied.status() === 307) {
+      expect(denied.headers().location).toContain('/login?reason=session');
+    } else {
+      const body = await denied.text();
+      expect(body).toContain('NEXT_REDIRECT');
+      expect(body).toContain('/login?reason=session');
+      const identities = (await db.query('select id from public.courses limit 20')).rows;
+      expect(identities.length).toBeGreaterThan(0);
+      for (const row of identities) expect(body).not.toContain(row.id);
+    }
+    await page.goto('/admin/courses');
+    await expect(page).toHaveURL(/\/login\?reason=session/);
     writeFileSync(
       qaPath('evidence/staff-prefetch.json'),
       JSON.stringify(
@@ -142,7 +159,7 @@ test('Admin prefetch checks actual session without extending idle; expired prefe
           status: 'PASS',
           checks: [
             'actual browser session ID',
-            'four background prefetch transports preserve idle',
+            'six background transports, including actual RSC prefetch, preserve idle',
             'proxy overwrites forged marker; real navigation records activity',
             'expired prefetch denied',
           ],

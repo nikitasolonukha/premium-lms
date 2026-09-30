@@ -2,6 +2,9 @@ import type { NextConfig } from 'next';
 const config: NextConfig = {
   output: 'standalone',
   poweredByHeader: false,
+  // Preserve RSC transport headers in Proxy so background prefetch cannot
+  // silently renew staff idle time. headers() still hides Next internals.
+  skipProxyUrlNormalize: true,
   // Arguments can contain passwords, OTPs and signed upload grants.
   logging: {
     serverFunctions: false,

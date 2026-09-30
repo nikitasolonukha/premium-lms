@@ -3,11 +3,15 @@ import { createServerClient } from '@supabase/ssr';
 import type { Database } from './lib/database.types';
 import { requestId } from './lib/request-security';
 import { environment, runtimeEnvironment } from './lib/server/env';
+import { STAFF_PREFETCH_HEADER, staffPrefetchHeaderValue } from './lib/staff-session';
 
 export async function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64'),
     development = process.env.NODE_ENV !== 'production';
   const requestHeaders = new Headers(request.headers);
+  // Always overwrite the client value; Next hides its own prefetch headers
+  // from Server Components, so preserve only this derived activity hint.
+  requestHeaders.set(STAFF_PREFETCH_HEADER, staffPrefetchHeaderValue(request.headers));
   const correlation = requestId(request.headers.get('x-request-id'));
   requestHeaders.set('x-request-id', correlation);
   requestHeaders.set('x-nonce', nonce);

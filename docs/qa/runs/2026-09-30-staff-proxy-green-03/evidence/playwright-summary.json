@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:26:29.416Z",
+  "counts": {
+    "PASS": 4,
+    "FAIL": 0,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "registration, test email confirmation, password recovery, MFA enrollment and logout",
+      "file": "auth.spec.ts",
+      "status": "PASS",
+      "durationMs": 8615
+    },
+    {
+      "title": "same-origin auth endpoints reject CSRF, unsafe redirects and return real rate headers",
+      "file": "auth.spec.ts",
+      "status": "PASS",
+      "durationMs": 1198
+    },
+    {
+      "title": "staff warning reads deadlines without extending session; explicit continuation and expiry",
+      "file": "staff-session.spec.ts",
+      "status": "PASS",
+      "durationMs": 3152
+    },
+    {
+      "title": "Admin prefetch checks actual session without extending idle; expired prefetch is denied",
+      "file": "staff-session.spec.ts",
+      "status": "PASS",
+      "durationMs": 3817
+    }
+  ]
+}

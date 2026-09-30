@@ -7,6 +7,7 @@ import { environment } from './env';
 import { AppError, databaseError } from './errors';
 import type { Role } from '../domain';
 import { safeNext } from '../domain';
+import { staffSessionRpcForRequest } from '../staff-session';
 export const getActor = cache(async () => {
   const db = await userClient();
   const {
@@ -39,7 +40,7 @@ export async function requireActor(level: 'auth' | 'staff' | 'admin' = 'auth') {
     if (actor.role === 'student' || (level === 'admin' && actor.role !== 'admin')) forbidden();
     if (actor.aal !== 'aal2') redirect('/mfa');
     const db = await userClient();
-    const { error } = await db.rpc('touch_staff_session');
+    const { error } = await db.rpc(staffSessionRpcForRequest(await headers()));
     if (error) redirect('/login?reason=session');
   }
   return actor;
