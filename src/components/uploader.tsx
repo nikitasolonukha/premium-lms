@@ -1,9 +1,12 @@
 'use client';
-import { useId, useRef, useState } from 'react';
+import { useId, useRef, useState, useSyncExternalStore } from 'react';
 import { FileText, UploadCloud } from 'lucide-react';
 import { createUpload, finalizeUpload } from '@/lib/actions/media';
 import { allowedFiles } from '@/lib/files';
 import { Button } from './ui';
+const subscribeToHydration = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 export function Uploader({
   id: providedId,
   value,
@@ -19,6 +22,9 @@ export function Uploader({
   imagesOnly?: boolean;
   label?: string;
 }) {
+  // File change events are not replayed reliably before hydration. Keep the SSR
+  // controls disabled until React has attached the upload handler.
+  const ready = useSyncExternalStore(subscribeToHydration, clientReady, serverReady);
   const input = useRef<HTMLInputElement>(null),
     inFlight = useRef(false),
     generatedId = useId(),
@@ -70,7 +76,7 @@ export function Uploader({
   return (
     <div className="upload-field">
       {value && imagesOnly ? (
-        <img src={`/api/media/${value}`} alt="Загруженное изображение" />
+        <img src={`/api/media/${value}?size=small`} alt="Загруженное изображение" />
       ) : value ? (
         <FileText size={27} />
       ) : (
@@ -85,13 +91,19 @@ export function Uploader({
         accept={
           imagesOnly ? '.jpg,.jpeg,.png,.webp' : '.pdf,.docx,.xlsx,.zip,.jpg,.jpeg,.png,.webp'
         }
-        disabled={busy}
+        disabled={!ready || busy}
         onChange={(e) => {
           const f = e.target.files?.[0];
           if (f) void upload(f);
         }}
       />
-      <Button variant="secondary" type="button" busy={busy} onClick={() => input.current?.click()}>
+      <Button
+        variant="secondary"
+        type="button"
+        disabled={!ready}
+        busy={busy}
+        onClick={() => input.current?.click()}
+      >
         {value ? 'Заменить файл' : label}
       </Button>
       <p>

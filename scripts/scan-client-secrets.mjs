@@ -1,15 +1,34 @@
+import { qaPath } from './qa-paths.mjs';
 import { readdirSync, readFileSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 if (!process.env.SUPABASE_SECRET_KEY || !process.env.RATE_LIMIT_SECRET)
   throw new Error('Run with --env-file=.env.local so both server secrets are included');
-const secrets = [process.env.SUPABASE_SECRET_KEY, process.env.RATE_LIMIT_SECRET].filter(Boolean);
+const secrets = Object.entries(process.env)
+  .filter(
+    ([key, value]) =>
+      value &&
+      /^(SUPABASE_SECRET_KEY|RATE_LIMIT_SECRET|CLOUDFLARE_STREAM_(API_TOKEN|SIGNING_KEY)|MUX_(TOKEN_SECRET|SIGNING_PRIVATE_KEY)|MALWARE_SCANNER_TOKEN|SENTRY_AUTH_TOKEN|TELEGRAM_BOT_TOKEN|TELEGRAM_WEBHOOK_SECRET)$/.test(
+        key,
+      ),
+  )
+  .map(([, value]) => value);
+for (const key of ['CLOUDFLARE_STREAM_SIGNING_KEY', 'MUX_SIGNING_PRIVATE_KEY']) {
+  const value = process.env[key];
+  if (value)
+    secrets.push(
+      value.replaceAll('\\n', '\n'),
+      value.includes('-----BEGIN')
+        ? Buffer.from(value.replaceAll('\\n', '\n')).toString('base64')
+        : Buffer.from(value, 'base64').toString('utf8'),
+    );
+}
 if (existsSync('.local/seed-accounts.json'))
   for (const a of JSON.parse(readFileSync('.local/seed-accounts.json', 'utf8'))) {
     secrets.push(a.password);
     if (a.totpSecret) secrets.push(a.totpSecret);
   }
 if (!secrets.length) throw new Error('Load the local test environment before scanning');
-const roots = ['.next/static', 'src', 'public', 'docs', 'scripts', 'tests', 'supabase'],
+const roots = ['.next/static', 'src', 'public', 'docs', 'scripts', 'tests', 'supabase', '.github','workers'],
   matches = [];
 let scanned = 0;
 function scanFile(file) {
@@ -48,11 +67,16 @@ const result = {
   executedAt: new Date().toISOString(),
   status: matches.length ? 'FAIL' : 'PASS',
   scanned,
-  secretClasses: ['Supabase server key', 'rate-limit secret', 'local account passwords and TOTP'],
+  secretClasses: [
+    'Supabase server key',
+    'rate-limit secret',
+    'provider/scanner/monitoring secrets when configured',
+    'local account passwords and TOTP',
+  ],
   matchedFiles: matches,
 };
-mkdirSync('docs/qa/evidence', { recursive: true });
-writeFileSync('docs/qa/evidence/client-secrets.json', JSON.stringify(result, null, 2));
+mkdirSync(qaPath('evidence'), { recursive: true });
+writeFileSync(qaPath('evidence/client-secrets.json'), JSON.stringify(result, null, 2));
 console.log(
   `${result.status}: ${scanned} source, config, evidence and browser bundle files checked; ${matches.length} matches. Secret values never printed.`,
 );

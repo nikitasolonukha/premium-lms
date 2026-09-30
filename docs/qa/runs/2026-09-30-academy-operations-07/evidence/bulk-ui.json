@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "checks": [
+    "assignment confirmation",
+    "learner grant and history",
+    "revoke confirmation",
+    "revoked grant and retained history"
+  ]
+}

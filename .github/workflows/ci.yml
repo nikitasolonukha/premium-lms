@@ -1,0 +1,138 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+    inputs:
+      full:
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}-${{ inputs.full || false }}
+  cancel-in-progress: true
+env:
+  NEXT_TELEMETRY_DISABLED: '1'
+  DO_NOT_TRACK: '1'
+  QA_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
+jobs:
+  code:
+    name: Code checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run test:coverage
+      - run: npm audit --omit=dev
+      - run: npm run security:install
+      - run: npm run security:secrets
+      - run: npm run build
+  database:
+    name: Database security and E2E
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PLAYWRIGHT_JSON_OUTPUT_NAME: .local/e2e-results.json
+      # Never expose integration credentials to a pull-request revision.
+      CLOUDFLARE_ACCOUNT_ID: ${{ inputs.full && github.event_name != 'pull_request' && secrets.CLOUDFLARE_ACCOUNT_ID || '' }}
+      CLOUDFLARE_STREAM_API_TOKEN: ${{ inputs.full && github.event_name != 'pull_request' && secrets.CLOUDFLARE_STREAM_API_TOKEN || '' }}
+      CLOUDFLARE_STREAM_SIGNING_KEY_ID: ${{ inputs.full && github.event_name != 'pull_request' && secrets.CLOUDFLARE_STREAM_SIGNING_KEY_ID || '' }}
+      CLOUDFLARE_STREAM_SIGNING_KEY: ${{ inputs.full && github.event_name != 'pull_request' && secrets.CLOUDFLARE_STREAM_SIGNING_KEY || '' }}
+      CLOUDFLARE_STREAM_PLAYBACK_HOST: ${{ inputs.full && github.event_name != 'pull_request' && secrets.CLOUDFLARE_STREAM_PLAYBACK_HOST || '' }}
+      MUX_TOKEN_ID: ${{ inputs.full && github.event_name != 'pull_request' && secrets.MUX_TOKEN_ID || '' }}
+      MUX_TOKEN_SECRET: ${{ inputs.full && github.event_name != 'pull_request' && secrets.MUX_TOKEN_SECRET || '' }}
+      MUX_SIGNING_KEY_ID: ${{ inputs.full && github.event_name != 'pull_request' && secrets.MUX_SIGNING_KEY_ID || '' }}
+      MUX_SIGNING_PRIVATE_KEY: ${{ inputs.full && github.event_name != 'pull_request' && secrets.MUX_SIGNING_PRIVATE_KEY || '' }}
+      QA_CLOUDFLARE_VIDEO_ID: ${{ inputs.full && github.event_name != 'pull_request' && secrets.QA_CLOUDFLARE_VIDEO_ID || '' }}
+      QA_MUX_PLAYBACK_ID: ${{ inputs.full && github.event_name != 'pull_request' && secrets.QA_MUX_PLAYBACK_ID || '' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Install FFmpeg with drawtext and Cyrillic font
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
+      - if: inputs.full
+        run: npx playwright install --with-deps chrome
+      - name: Start isolated Supabase and apply migrations
+        run: |
+          mkdir -p .local
+          npx supabase start --exclude studio,realtime,imgproxy,edge-runtime,logflare,vector,supavisor > .local/supabase-start.log 2>&1
+      - run: npm run setup:local
+      - run: npm run build
+      - name: Start production server
+        run: |
+          mkdir -p .local
+          setsid npm start > .local/server.log 2>&1 &
+          echo $! > .local/server.pid
+          node scripts/wait-ready.mjs
+      - name: Empty database bootstrap and MFA recovery
+        run: npm run test:operations > .local/operator.log 2>&1
+      - name: Reset only isolated QA database; repeat seed
+        run: |
+          kill -- -"$(cat .local/server.pid)"
+          npx supabase db reset --local --no-seed > .local/supabase-reset.log 2>&1
+          npm run seed
+          npm run seed
+      - name: Restart production server after isolated reset
+        run: |
+          setsid npm start > .local/server.log 2>&1 &
+          echo $! > .local/server.pid
+          node scripts/wait-ready.mjs
+      - run: npm run test:db
+      - name: Bounded list RPCs and authorization query cost
+        run: npm run test:performance
+      - name: Verify database archive and every backed up Storage object
+        run: npm run test:backup
+      - name: Real database and RPC security suite
+        run: npm run test:security > .local/security.log 2>&1
+      - name: Real operational queue, import and burned video checks
+        run: |
+          if ! npm run test:academy > .local/academy-db.log 2>&1; then
+            node scripts/summarize-qa-command.mjs .local/academy-db.log
+            exit 1
+          fi
+      - name: Start independent LMS background worker
+        run: |
+          setsid npm run worker > .local/worker.log 2>&1 &
+          echo $! > .local/worker.pid
+      - name: Core production E2E
+        if: ${{ !inputs.full }}
+        run: npx playwright test tests/e2e/auth.spec.ts tests/e2e/cms.spec.ts tests/e2e/uat.spec.ts tests/e2e/readiness.spec.ts tests/e2e/staff-session.spec.ts tests/e2e/session-security.spec.ts tests/e2e/uploader-hydration.spec.ts tests/e2e/academy-operations.spec.ts --reporter=list,json > .local/e2e.log 2>&1
+      - name: Full production E2E, visual and live video
+        if: inputs.full
+        run: xvfb-run -a npm run e2e -- --reporter=list,json > .local/e2e.log 2>&1
+      - name: Check client bundles and deliverable evidence for runtime secrets
+        run: npm run security:client
+      - name: Prepare sanitized Playwright report and screenshots
+        if: always()
+        run: npx tsx scripts/prepare-qa-artifacts.ts
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: qa-${{ github.run_id }}-${{ inputs.full && 'full' || 'core' }}
+          path: .local/ci-artifacts
+          include-hidden-files: true
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Stop isolated QA stack
+        if: always()
+        run: npx supabase stop --no-backup

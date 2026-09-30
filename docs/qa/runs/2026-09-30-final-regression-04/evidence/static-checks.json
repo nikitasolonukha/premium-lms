@@ -1,0 +1,61 @@
+{
+  "unitTests": 78,
+  "checks": [
+    {
+      "status": "PASS",
+      "command": "npm ci",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm run lint",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm test",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm run test:coverage",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm audit --omit=dev",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm run security:secrets",
+      "exitCode": 0
+    },
+    {
+      "status": "PASS",
+      "command": "npm run security:client",
+      "exitCode": 0
+    }
+  ],
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:31:53.4227389Z",
+  "codeCommit": "45cf002bfa4998de02402038138d6e5037fbf609",
+  "coverage": {
+    "branches": 90.01,
+    "statements": 91.73,
+    "functions": 92.94,
+    "scope": "16 selected critical modules, not whole LMS",
+    "lines": 93.58
+  },
+  "scope": "Actual complete clean install/static/build/scans on this source commit. Runtime/database gates are recorded separately."
+}

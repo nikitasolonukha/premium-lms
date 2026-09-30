@@ -4,7 +4,7 @@ import { AuthForm } from '@/components/auth-form';
 export default function Register() {
   return (
     <AuthShell
-      title="Начнём знакомство"
+      title="Регистрация"
       description="Создайте аккаунт, чтобы получить доступ к своим программам."
     >
       <AuthForm mode="register" />

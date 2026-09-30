@@ -1,41 +1,30 @@
-# Академия — образовательная LMS
+# Академия — Premium LMS
 
-Русскоязычная LMS на Next.js, TypeScript и Supabase. Владелец создаёт структуру курса, редактирует 11 типов блоков, загружает материалы, публикует редакцию и назначает обучение через Admin.
+Русскоязычная LMS на Next.js 16.3.7, React 19.3.0, TypeScript и Supabase. Admin создаёт курсы/модули/уроки и 11 типов блоков, загружает материалы, публикует редакцию и назначает доступ через интерфейс. Editor меняет draft; Student видит только опубликованное доступное обучение.
 
-Репозиторий: [nikitasolonukha/premium-lms](https://github.com/nikitasolonukha/premium-lms). Публичная поставка содержит исходники, миграции, тесты, документацию и QA-материалы. Локальные credentials, база, загруженные приватные файлы, зависимости и результаты сборки в Git не входят.
+**Статус: NOT READY.** Последний полный локальный E2E: 47 PASS, 0 FAIL, 2 live protected-video UNVERIFIED. Чистая установка, 78 unit-тестов, DB/security/UAT/visual, production build, Linux Docker с реальной БД и свежий backup прошли. Исправлено продление staff idle фоновым Next prefetch. Core GitHub CI PASS (13/13 E2E); обязательный Full QA FAIL: YouTube требует авторизацию на GitHub-hosted runner (46 PASS, 1 FAIL, 2 UNVERIFIED). Полные доказательства: [QA_REPORT](docs/QA_REPORT.md), [RELEASE_READINESS](docs/RELEASE_READINESS.md). Staging/production deployment не выполнялся.
 
-**Статус выпуска: READY FOR PRODUCTION** в границах поставки проекта для развёртывания. Финальный единый E2E-прогон: 19/19, UAT и пять реальных видеопровайдеров пройдены; проверены 21 экран на семи размерах, обе темы, Windows standalone и Linux-контейнер. Доказательства и эксплуатационные ограничения — в [docs/QA_REPORT.md](docs/QA_REPORT.md). Проект не размещён в интернете.
+Репозиторий: [nikitasolonukha/premium-lms](https://github.com/nikitasolonukha/premium-lms), [draft PR](https://github.com/nikitasolonukha/premium-lms/pull/1). Код, 21 миграция, tests, docs и безопасные QA evidence публичны; env/credentials/private backup/data/bundles не публикуются.
 
-Локальный Docker восстановлен после OOM. Сохранность прежнего UAT-курса, прогресса и приватных файлов проверена без reset/seed; актуальный Linux-образ собран и прошёл runtime smoke. Диагностика и границы проверки описаны в QA_REPORT. На этом хосте перед Docker build требуется остановить только локальный стек LMS, сохранив данные, чтобы освободить память VM.
+Собственные MP4 теперь загружаются через `/admin/videos`: отдельный FFmpeg worker вшивает заданное название в кадры и создаёт обложку. Ученику выдаётся только готовая версия; разрешение скачивания задаётся при загрузке и по умолчанию выключено. Персональный движущийся watermark остаётся отдельным DOM overlay. Карточка ученика, импорт CSV/XLSX, массовые доступы и Telegram/расписания описаны в [ACADEMY_OPERATIONS](docs/ACADEMY_OPERATIONS.md), ограничения видео — в [CUSTOMER_VIDEO](docs/CUSTOMER_VIDEO.md), проверки нового модуля — в [QA_REPORT](docs/QA_REPORT.md#дополнение-операционная-админка-и-собственные-видео). Полные counts выше относятся к предыдущему baseline; новая отправка Telegram без токена владельца не проверена.
 
 ## Локальный запуск
 
-Нужны Node.js 22+, npm и Docker Desktop с Linux containers. Все версии npm закреплены в `package-lock.json`. Порты 3000 и 56320–56324 должны быть свободны.
+Нужны Node.js 22+, npm и Docker Desktop Linux containers. Версии закреплены lockfile. Порты: app 3000, API 56321, PostgreSQL 56322, Mailpit 56324. Последний локальный Engine и все probes healthy; исторический outage сохранён в QA evidence.
 
 ```powershell
 git clone https://github.com/nikitasolonukha/premium-lms.git
 cd premium-lms
-npm install
-npm run db:start
+npm ci
+npx supabase start --exclude studio,realtime,edge-runtime,logflare,vector,supavisor,imgproxy
 npm run setup:local
-npm run db:reset
+# Только отдельная локальная QA-БД:
+npx supabase db reset --local --no-seed
 npm run seed
 npm run dev
 ```
 
-Откройте `http://localhost:3000`. Тестовые письма доступны на `http://localhost:56324`.
-
-Seed разрешён только для `http://127.0.0.1:56321` / `http://localhost:56321`: пять аккаунтов, три курса, шесть модулей, двенадцать уроков, все типы блоков, настоящие PDF/DOCX/XLSX/ZIP и изображения. Повторный запуск обновляет те же сущности. Пароли и TOTP-секреты генерируются в **`.local/seed-accounts.json`**; этот файл и `.env.local` запрещены к публикации. Никогда не запускайте seed на production.
-
-Для входа возьмите email и password нужной роли из этого локального файла. У seed Admin/Editor MFA уже подключена: добавьте их `totpSecret` в приложение-аутентификатор как TOTP (6 цифр, SHA-1, 30 секунд) и введите текущий код. Для нового production-владельца используйте bootstrap из OPERATIONS: он подключает собственный TOTP через QR в интерфейсе.
-
-Для экономного локального стека без необязательных сервисов:
-
-```powershell
-npx supabase start --exclude studio,realtime,edge-runtime,logflare,vector,supavisor,imgproxy
-```
-
-`setup:local` заполняет только локальные переменные из Supabase status. В чистой среде браузер для E2E устанавливается командой `npx playwright install chromium`. Не запускайте `npm ci` одновременно с командами Supabase CLI: Windows блокирует замену работающего supabase.exe.
+Откройте http://localhost:3000; тестовые письма — http://localhost:56324. Seed local-only, повторяемый: 5 accounts, 3 courses, 6 modules, 12 lessons, все 11 блоков/форматы. Passwords/TOTP генерируются в ignored .local/seed-accounts.json. Admin/Editor используют TOTP SHA-1, 6 digits, 30 seconds. Первый настоящий Admin подключает собственный MFA через bootstrap из OPERATIONS. Не запускайте seed/reset на production; не запускайте npm ci параллельно работающему Supabase CLI на Windows.
 
 ## Проверки
 
@@ -45,38 +34,42 @@ npm run lint
 npm test
 npm run test:coverage
 npm run test:db
-npx tsx --env-file=.env.local scripts/test-security.ts
+npm run test:performance
+npm run test:security
 npm run build
-npm run start
-# В другом терминале, с запущенным локальным Supabase:
+npm start
+# Другой терминал, healthy isolated Supabase:
+npx playwright install chromium
 npm run e2e
+npm run test:backup
+npm audit --omit=dev
+npm run security:install
+npm run security:secrets
+npm run security:client
 ```
 
-Деструктивные security-тесты ограничены локальным Supabase. После чистого reset сначала запускайте seed и security suite, затем E2E: UAT создаёт отдельный курс. Между независимыми browser-сценариями локальный fixture очищает только rate counters, поскольку сценарии используют одинаковые seed-аккаунты. Само ограничение не отключается: проверки 429/Retry-After и конкурентного счётчика выполняются внутри выделенных сценариев. Сетевые trace-файлы отключены, чтобы не сохранять пароли, OTP и токены. Скриншоты находятся в `docs/qa/screenshots`, структурированные результаты — в `docs/qa/evidence`.
+Operator empty-DB scenarios: npm run test:operations **до seed**, затем отдельный reset перед demo/security fixtures: bootstrap оставляет собственного Admin. Security/performance/seed/reset fixtures restricted to local 56321/56322. Browser tests sequential; rate fixture очищает только counters между независимыми сценариями, сами limits и 429/Retry-After проверяются. Coverage относится к выбранным 16 критическим модулям, не ко всей платформе.
 
-Не запускайте Docker build одновременно с E2E на малоресурсной VM. Next.js использует два build workers; в Docker ограничен Node heap. Тест внешних видео использует установленный Google Chrome с видимым окном, штатными media-компонентами/Widevine и реальную сеть. Нужна графическая сессия; тест создаёт изолированный профиль, разрешает штатное обновление компонентов и не использует пользовательский профиль. Отказ провайдера не подменяется mock-ответом и оставляет общий QA непрошедшим.
+Public video тест использует настоящий установленный Google Chrome с GUI/Widevine и сеть, без пользовательского профиля; Linux CI использует Xvfb. Разрешённые альтернативные examples задаются QA_YOUTUBE_URL/QA_VIMEO_URL/QA_RUTUBE_URL. Provider refusal не подменяется mock/PASS. Cloudflare/Mux live tests требуют real QA credentials/source IDs; иначе явный SKIP_EXTERNAL_CONFIGURATION/UNVERIFIED.
 
-Для повторной проверки своих разрешённых к встраиванию роликов задайте `QA_YOUTUBE_URL`, `QA_VIMEO_URL`, `QA_RUTUBE_URL` в окружении теста и выполните `npx playwright test tests/e2e/video.spec.ts`. Без этих переменных используются публичные примеры. Итог сохраняется в `docs/qa/evidence/video-providers.json`; успешная загрузка iframe без начавшегося воспроизведения не считается PASS. Проверка известных секретов: `node --env-file=.env.local scripts/scan-client-secrets.mjs`.
+Не запускайте Docker build одновременно с browser QA на малоресурсной VM. Допустимо остановить только собственные семь LMS containers, сохранив volumes, затем восстановить их; shared Docker/WSL restart и другие проекты требуют согласованного окна.
 
-Дополнительные локальные проверки: `npx tsx --env-file=.env.local scripts/test-scale.ts`, `node scripts/test-container.mjs` после сборки образа `premium-lms-qa:local`. `scripts/test-operations.ts` запускается **до seed на пустой локальной БД** и создаёт первого владельца для теста; после него выполните локальный reset и seed. Эти команды не предназначены для production-базы.
+## Production hardening
 
-## Роли
+Реальные Cloudflare Stream/Mux adapters: server RS256, source inspection, 180-second grants, повторная access/session/revision/sequence проверка перед подписью, CMS config gating и player renewal. Credentials и live assets сейчас NOT CONFIGURED. Watermark masked email/ID с interval/opacity и LMS fullscreen не является DRM.
 
-| Роль | Полномочия |
-|---|---|
-| Student | Доступные опубликованные программы, прогресс, сохранённое, собственный профиль |
-| Editor | Черновики, структура и учебные материалы; обязательный TOTP |
-| Admin | Публикация, пользователи, роли, доступы, категории, бренд, аналитика и аудит; обязательный TOTP |
+Private Storage, HMAC download namespace/60-second TTL, prepared WebP 480/960/1800, ZIP CRC/expansion/path/macro и PDF active-content rejection сохранены/усилены. External malware scanner имеет реальный контракт; disabled возвращает SKIPPED, не CLEAN. Staff MFA/live session/12h absolute/30min idle, near-expiry warning и explicit continuation; audit filters и readonly events. Shared RLS predicates кешируются в пределах одного SQL statement; row-dependent access сохранён.
 
-Editor не изменяет редакцию, которую видят ученики. Назначение роли само по себе не заменяет MFA. Последний действующий Admin защищён от отключения и понижения.
+Strict local/staging/production env, explicit trusted-proxy ACK, UUID logs, DB health/ready, optional sanitized Sentry, CSP/HSTS и same-origin guards. CI/Full QA/tag Release/Dependabot реализованы; main protection, alerts/secret scanning/push protection фактически включены. Restore, SMTP, domain, monitoring и protected live требуют настоящей staging проверки.
 
-## Эксплуатация
+## Документация
 
-- [Архитектура и расширения](docs/ARCHITECTURE.md)
-- [Дизайн и сохранённые референсы](docs/DESIGN.md)
-- [Защита, ограничения, MFA recovery](docs/SECURITY.md)
-- [Реальные grants, RLS и RPC](docs/RLS_MATRIX.md)
-- [Развёртывание, SMTP, резервные копии и восстановление](docs/OPERATIONS.md)
-- [QA и критерии выпуска](docs/QA_REPORT.md)
+Новые рабочие функции: карточка ученика по клику на имя, CSV/XLSX импорт с предпросмотром, массовые доступы, `/admin/automations` с правилами/Telegram/очередью и `/admin/videos` с вшитым названием и обложкой. Отдельно от сайта запустите `npm run worker`. Подключение бота требует серверного токена; платежи не добавлялись. Полная настройка и ограничения: [ACADEMY_OPERATIONS](docs/ACADEMY_OPERATIONS.md).
 
-Оплата, подписки, организации, community, экзамены, сертификаты, SSO и DRM в пользовательскую поставку не входят. Mux и Cloudflare Stream представлены контрактом расширения; работающими интеграциями они не обозначаются.
+- [ARCHITECTURE](docs/ARCHITECTURE.md), [SECURITY](docs/SECURITY.md), [RLS_MATRIX](docs/RLS_MATRIX.md), [MUTATION_AUDIT](docs/MUTATION_AUDIT.md).
+- [OPERATIONS](docs/OPERATIONS.md): Vercel/Supabase и Docker/reverse proxy, bootstrap/MFA recovery/SMTP/monitoring.
+- [PROTECTED_VIDEO](docs/PROTECTED_VIDEO.md), [UPLOAD_SECURITY](docs/UPLOAD_SECURITY.md), [STAFF_SECURITY](docs/STAFF_SECURITY.md).
+- [BACKUP_RESTORE](docs/BACKUP_RESTORE.md), [STAGING_CHECKLIST](docs/STAGING_CHECKLIST.md), [PRODUCTION_UAT](docs/PRODUCTION_UAT.md).
+- [QA_REPORT](docs/QA_REPORT.md), [RELEASE_READINESS](docs/RELEASE_READINESS.md), [GITHUB_PROTECTION](docs/GITHUB_PROTECTION.md), [CSS_ORGANIZATION](docs/CSS_ORGANIZATION.md).
+
+Новые evidence/screenshots — docs/qa/runs/<run-id>/; исторические материалы сохранены отдельно. Release levels: NOT READY → CODE READY FOR STAGING → READY FOR PRODUCTION DEPLOYMENT → PRODUCTION VERIFIED, каждый после своих реальных gates. Payments/community/exams/certificates/SSO/DRM остаются extension points.

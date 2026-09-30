@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T16:15:36.802Z",
+  "counts": {
+    "PASS": 4,
+    "FAIL": 0,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "catalog filters preserve scroll and URL state at 390px",
+      "file": "catalog-navigation.spec.ts",
+      "status": "PASS",
+      "durationMs": 3823
+    },
+    {
+      "title": "catalog filters preserve scroll and URL state at 1440px",
+      "file": "catalog-navigation.spec.ts",
+      "status": "PASS",
+      "durationMs": 3532
+    },
+    {
+      "title": "owner name and viewer watermark: mobile, desktop, themes and video fullscreen",
+      "file": "owner-watermark.spec.ts",
+      "status": "PASS",
+      "durationMs": 9425
+    },
+    {
+      "title": "catalog: all seven viewports, desktop/mobile light/dark evidence and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 5836
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "checks": [
+    "deadline GET does not extend session",
+    "idle warning visible",
+    "explicit continuation extends idle",
+    "expired session denied and warning visible"
+  ]
+}

@@ -69,7 +69,7 @@ export default async function Media({
                   <td>
                     <div className="table-title">
                       {m.mime_type.startsWith('image/') ? (
-                        <img className="table-thumb" src={`/api/media/${m.id}`} alt="" />
+                        <img className="table-thumb" src={`/api/media/${m.id}?size=small`} alt="" />
                       ) : (
                         <span className="file-icon">
                           <FileText size={21} />

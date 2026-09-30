@@ -1,0 +1,5 @@
+{
+  "status": "FAIL",
+  "scope": "Static coordinator did not execute npm ci successfully: Windows npm.ps1 reparsed indirect '& npm' as an invalid pm command. No install/build/test ran in this attempt; the command in static-checks.json names the intended check.",
+  "fix": "Invoke the installed Node npm-cli.js with argument array. A fresh run ID is used; this attempt is retained."
+}

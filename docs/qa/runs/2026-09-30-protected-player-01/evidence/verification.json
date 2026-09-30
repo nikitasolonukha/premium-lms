@@ -1,0 +1,29 @@
+{
+  "executedAt": "2026-09-30T09:57:45.452Z",
+  "commands": [
+    {
+      "command": "npm run typecheck",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS"
+    },
+    {
+      "command": "playwright test playback-client protected-video smoke --reporter=list",
+      "status": "PASS",
+      "passed": 3,
+      "skipped": 2
+    }
+  ],
+  "externalProviders": {
+    "cloudflare": "UNVERIFIED",
+    "mux": "UNVERIFIED",
+    "reason": "SKIP_EXTERNAL_CONFIGURATION"
+  },
+  "clientProtocol": "PASS: mocked iframe contract, not live playback"
+}

@@ -4,9 +4,13 @@
 
 Модульный монолит: App Router отвечает за страницы и same-origin HTTP, `src/lib/actions` — за команды, `src/lib/server` — за пользовательский доступ к данным, сессии и привилегированные операции. Типизированные доменные правила и схемы находятся в `src/lib`. PostgreSQL — окончательная граница полномочий и целостности.
 
-Next.js 16.3.7, React 19.3.0, TypeScript, Node 22+, Tailwind, Manrope с кириллицей. Доступные диалоги построены на Radix primitives в стиле shadcn/ui. TipTap загружается отдельным динамическим чанком; dnd-kit поддерживает pointer и keyboard. Авторизационные формы используют React Hook Form. Zod проверяет команды; JSON Schema-снимки дополнительно проверяются расширением `pg_jsonschema` внутри SQL RPC.
+Next.js 16.3.7, React 19.3.0, TypeScript, Node 22+, Tailwind, Golos Text с кириллицей, локально поставляемый через закреплённый Fontsource 5.3.0. Текстовые tokens задают размеры 14–18 px, заголовки используют отдельную шкалу. Светлая тема нейтральная, тёмная графитовая, основной акцент синий. Доступные диалоги построены на Radix primitives в стиле shadcn/ui. TipTap загружается отдельным динамическим чанком; dnd-kit поддерживает pointer и keyboard. Авторизационные формы используют React Hook Form. Zod проверяет команды; JSON Schema-снимки дополнительно проверяются расширением `pg_jsonschema` внутри SQL RPC.
 
 Браузер не получает Supabase client, refresh token в JavaScript или service key. Сервер создаёт клиент от имени пользователя, читает HttpOnly-cookie и выполняет обычные запросы с RLS. Исключения с service key: счётчики входа, подготовка/проверка загрузок, короткие разрешения на материалы, публичный логотип/иконка из узкого RPC, приглашение Student. Они собраны в явно серверных файлах.
+
+Runtime configuration и startup validator используют одну Zod schema (`config.ts`); standalone trace включает Zod как внешнюю зависимость, чтобы Docker не зависел от соседнего node_modules. Protected-video signing, provider audit и monitoring остаются в server-области. `backup.ts` и operator verifier проверяют полный manifest/байты без изменения источника или target. [CSS_ORGANIZATION](CSS_ORGANIZATION.md) фиксирует порядок областей styles и браузерный regression scope.
+
+Proxy получает исходные Flight headers через `skipProxyUrlNormalize` и перезаписывает внутренний признак фонового prefetch. `requireActor` выбирает readonly staff-status RPC для таких запросов, чтобы автопредзагрузка маршрутов не продлевала idle. Оба RPC проверяют авторизацию и живую настоящую сессию в БД; признак не является источником прав. Обычная навигация и изменения учитывают активность.
 
 ## Модель контента
 
@@ -43,6 +47,8 @@ Server Components вызывают серверный DAL. Каталог воз
 Изображения: сервер проверяет права и выдаёт Storage signed URL до 300 секунд. Скачивание: 60-секундный HMAC grant на конкретный asset; конечный маршрут проверяет срок, запрашивает короткую Storage-ссылку и стримит ответ с RFC 5987 `filename*` для кириллицы. Уже выданное разрешение действует до TTL; новое после отзыва не выдаётся.
 
 ## Расширения
+
+Операционный модуль описан в [ACADEMY_OPERATIONS](ACADEMY_OPERATIONS.md). Private очередь содержит снимок параметров, lease и результаты; `operations` доступен сотруднику через существующие gates, `worker_api` только сервису. Отдельный Node worker выполняет импорт приглашений, планирование и Telegram delivery, FFmpeg/Sharp. Uploaded video добавляет тип `upload/assetId` в валидируемый блок и `block_assets`; исходник и готовое медиа хранятся в разных приватных buckets. Ученический плеер получает готовую версию через существующий `playback_context`, без клиентского service key.
 
 `VideoProviderAdapter` / `PlaybackGrant` описывают источник, возможности, защищённость и срок. YouTube, Vimeo, Rutube, direct и allowlisted embed реализованы. Mux/Cloudflare возвращают явное состояние «не подключён», отсутствуют в выборе CMS. Для них требуется серверная реализация подписи playback после той же проверки доступа и отдельный integration QA.
 

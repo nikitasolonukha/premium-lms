@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect, type Page } from './test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { login } from './helpers';
@@ -14,12 +15,34 @@ const sizes = [
 ];
 // Separate layout scenarios keep reused QA identities within real media quotas.
 // The per-test fixture resets only local counters; rate enforcement stays on.
-for (const group of ['core', 'additional'] as const) {
-  test(`${group} screens: all seven viewports, desktop/mobile evidence, themes and console`, async ({
+for (const screenName of [
+  'student-home',
+  'catalog',
+  'course',
+  'lesson',
+  'login',
+  'admin-home',
+  'admin-courses',
+  'course-editor',
+  'lesson-editor',
+  'users',
+  'academy-entry',
+  'register',
+  'profile',
+  'library',
+  'saved',
+  'search',
+  'categories',
+  'media',
+  'analytics',
+  'settings',
+  'audit',
+]) {
+  test(`${screenName}: all seven viewports, desktop/mobile light/dark evidence and console`, async ({
     browser,
   }, testInfo) => {
     test.setTimeout(240000);
-    mkdirSync('docs/qa/screenshots', { recursive: true });
+    mkdirSync(qaPath('screenshots'), { recursive: true });
     const results: object[] = [];
     const studentContext = await browser.newContext(),
       adminContext = await browser.newContext(),
@@ -49,14 +72,12 @@ for (const group of ['core', 'additional'] as const) {
             ),
           });
           writeFileSync(
-            'docs/qa/evidence/responsive-http-diagnostic.json',
+            qaPath('evidence/responsive-http-diagnostic.json'),
             JSON.stringify({ executedAt: new Date().toISOString(), failedResponses }, null, 2),
           );
         }
       });
     }
-    await login(student, 2);
-    await login(admin, 0);
     const screens: { name: string; path: string; page: Page; editor?: boolean }[] = [
       { name: 'student-home', path: '/dashboard', page: student },
       { name: 'catalog', path: '/courses', page: student },
@@ -85,9 +106,12 @@ for (const group of ['core', 'additional'] as const) {
       { name: 'settings', path: '/admin/settings', page: admin },
       { name: 'audit', path: '/admin/audit', page: admin },
     ];
+    const selected = screens.find((screen) => screen.name === screenName)!;
+    if (selected.page === student) await login(student, 2);
+    if (selected.page === admin) await login(admin, 0);
     let completed = false;
     try {
-      for (const screen of group === 'core' ? screens.slice(0, 10) : screens.slice(10)) {
+      for (const screen of [selected]) {
         await screen.page.setViewportSize({ width: 1440, height: 900 });
         await screen.page.goto(screen.path);
         await expect(screen.page.locator('main')).toBeVisible();
@@ -97,7 +121,7 @@ for (const group of ['core', 'additional'] as const) {
           .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
           .analyze();
         writeFileSync(
-          `docs/qa/evidence/a11y-${screen.name}.json`,
+          qaPath(`evidence/a11y-${screen.name}.json`),
           JSON.stringify(
             { violations: accessibility.violations, passes: accessibility.passes.length },
             null,
@@ -128,7 +152,7 @@ for (const group of ['core', 'additional'] as const) {
             overflow.document,
             `${screen.name} horizontal overflow at ${width}`,
           ).toBeLessThanOrEqual(width + 1);
-          results.push({ screen: screen.name, width, height, overflow: false });
+          results.push({ screen: screen.name, width, height, theme: 'light', overflow: false });
           if (width === 390 || width === 1440) {
             if (width === 390) {
               if (screen.name === 'analytics') {
@@ -168,7 +192,7 @@ for (const group of ['core', 'additional'] as const) {
                     })),
                 );
               writeFileSync(
-                `docs/qa/evidence/touch-${screen.name}.json`,
+                qaPath(`evidence/touch-${screen.name}.json`),
                 JSON.stringify(smallTargets, null, 2),
               );
               expect.soft(smallTargets, screen.name + ' mobile touch targets').toEqual([]);
@@ -176,7 +200,7 @@ for (const group of ['core', 'additional'] as const) {
                 .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
                 .analyze();
               writeFileSync(
-                `docs/qa/evidence/a11y-${screen.name}-mobile.json`,
+                qaPath(`evidence/a11y-${screen.name}-mobile.json`),
                 JSON.stringify({ violations: mobileA11y.violations }, null, 2),
               );
               expect
@@ -221,30 +245,47 @@ for (const group of ['core', 'additional'] as const) {
               )
               .toBe(0);
             await screen.page.screenshot({
-              path: `docs/qa/screenshots/${screen.name}-${width === 390 ? 'mobile' : 'desktop'}.png`,
+              path: qaPath(
+                `screenshots/${screen.name}-${width === 390 ? 'mobile' : 'desktop'}.png`,
+              ),
               fullPage: true,
             });
           }
         }
         await screen.page.getByRole('button', { name: 'Переключить тему' }).click();
         await expect(screen.page.locator('html')).toHaveClass(/dark/);
-        const darkA11y = await new AxeBuilder({ page: screen.page })
-          .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-          .analyze();
-        writeFileSync(
-          `docs/qa/evidence/a11y-${screen.name}-dark.json`,
-          JSON.stringify({ violations: darkA11y.violations }, null, 2),
-        );
-        expect
-          .soft(
-            darkA11y.violations.map((v) => ({ id: v.id, targets: v.nodes.map((n) => n.target) })),
-            screen.name + ' dark accessibility',
-          )
-          .toEqual([]);
-        await screen.page.screenshot({
-          path: `docs/qa/screenshots/${screen.name}-dark.png`,
-          fullPage: true,
-        });
+        for (const [width, height] of [
+          [1440, 900],
+          [390, 844],
+          [1920, 1080],
+        ]) {
+          await screen.page.setViewportSize({ width, height });
+          await expect
+            .poll(() => screen.page.evaluate(() => document.documentElement.scrollWidth))
+            .toBeLessThanOrEqual(width + 1);
+          const darkA11y = await new AxeBuilder({ page: screen.page })
+            .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+            .analyze();
+          writeFileSync(
+            qaPath(
+              `evidence/a11y-${screen.name}-${width === 390 ? 'mobile-dark' : width === 1440 ? 'desktop-dark' : 'dark'}.json`,
+            ),
+            JSON.stringify({ violations: darkA11y.violations }, null, 2),
+          );
+          expect
+            .soft(
+              darkA11y.violations.map((v) => ({ id: v.id, targets: v.nodes.map((n) => n.target) })),
+              screen.name + ' dark accessibility at ' + width,
+            )
+            .toEqual([]);
+          await screen.page.screenshot({
+            path: qaPath(
+              `screenshots/${screen.name}-${width === 390 ? 'mobile-dark' : width === 1440 ? 'desktop-dark' : 'dark'}.png`,
+            ),
+            fullPage: true,
+          });
+          results.push({ screen: screen.name, width, height, theme: 'dark', overflow: false });
+        }
         await screen.page.getByRole('button', { name: 'Переключить тему' }).click();
       }
       expect(errors).toEqual([]);
@@ -253,7 +294,7 @@ for (const group of ['core', 'additional'] as const) {
       completed = true;
     } finally {
       writeFileSync(
-        `docs/qa/evidence/${group === 'core' ? 'responsive' : 'responsive-secondary'}.json`,
+        qaPath(`evidence/responsive-${screenName}.json`),
         JSON.stringify(
           {
             executedAt: new Date().toISOString(),

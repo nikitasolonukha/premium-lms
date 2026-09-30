@@ -1,0 +1,33 @@
+name: Full QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  # Exercise a newly introduced/changed QA workflow before it reaches main.
+  pull_request:
+    paths: ['.github/workflows/**']
+permissions:
+  contents: read
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+    with:
+      full: true
+    secrets: inherit
+  docker:
+    name: Docker runtime verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - name: Build pinned image with provenance labels
+        run: docker build --build-arg VERSION=qa --build-arg COMMIT_SHA="$GITHUB_SHA" -t premium-lms:qa .
+      - name: Validate non-root runtime and startup guards
+        env:
+          QA_IMAGE: premium-lms:qa
+        run: node scripts/test-docker.mjs

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "image": "premium-lms:qa",
+  "revision": "45cf002bfa4998de02402038138d6e5037fbf609",
+  "checks": [
+    "non-root user",
+    "read-only filesystem runtime",
+    "DB-aware health 503 with unavailable database",
+    "unavailable DB returns readiness 503",
+    "production HTTP configuration exits before listen",
+    "OCI source/version/revision",
+    "owned container and temporary environment removed"
+  ],
+  "scope": "Container runtime with intentionally invalid DB credentials; real DB paths verified separately by production E2E"
+}

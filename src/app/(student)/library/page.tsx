@@ -14,7 +14,6 @@ export default async function Library({
   return (
     <>
       <PageHeading
-        eyebrow="ВАША БИБЛИОТЕКА"
         title="Знания под рукой"
         description="Рабочие тетради, шаблоны и материалы из доступных уроков."
       />

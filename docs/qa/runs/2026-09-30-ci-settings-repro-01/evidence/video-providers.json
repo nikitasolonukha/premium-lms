@@ -1,0 +1,46 @@
+{
+  "executedAt": "2026-09-30T11:18:32.094Z",
+  "environment": {
+    "browserVersion": "154.0.8037.92",
+    "headless": false,
+    "widevineAvailable": true
+  },
+  "results": [
+    {
+      "provider": "youtube",
+      "status": "PASS",
+      "playbackSeconds": 2.690094,
+      "fullscreenWatermark": true
+    },
+    {
+      "provider": "vimeo",
+      "status": "PASS",
+      "playbackSeconds": 2.966529,
+      "fullscreenWatermark": true
+    },
+    {
+      "provider": "rutube",
+      "status": "PASS",
+      "playbackSeconds": 2.908808,
+      "fullscreenWatermark": true
+    },
+    {
+      "provider": "direct",
+      "status": "FAIL",
+      "detail": "locator.evaluate: NotSupportedError: Failed to load because no supported source was found. ",
+      "mediaState": null
+    },
+    {
+      "provider": "external",
+      "status": "PASS",
+      "playbackSeconds": 2.924421,
+      "fullscreenWatermark": true
+    }
+  ],
+  "sources": [
+    "https://developers.google.com/youtube/iframe_api_reference",
+    "https://github.com/vimeo/player.js",
+    "https://rutube.ru/info/embed/",
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video"
+  ]
+}

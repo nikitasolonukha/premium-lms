@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T18:24:36.620Z",
+  "modules": 21,
+  "lessons": 63,
+  "tags": 12,
+  "scenarioMilliseconds": 4559,
+  "checks": [
+    "long title and description",
+    "Unicode and HTML-like literal text",
+    "all lessons available",
+    "three widths without document overflow",
+    "search empty state",
+    "deep link and refresh",
+    "back and forward"
+  ]
+}

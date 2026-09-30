@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "checks": [
+    "preview per-row errors",
+    "staff account rejection",
+    "duplicate emails block confirmation",
+    "XLSX parsing",
+    "worker invitation in local Mailpit",
+    "new learner card"
+  ]
+}

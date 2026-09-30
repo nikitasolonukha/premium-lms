@@ -289,13 +289,13 @@ isOneToOne: false
                   ]
                 },"media": {
                   Row: {
-                    "created_at": string,"filename": string,"height": number | null,"id": string,"mime_type": string,"object_key": string,"owner_id": string,"purpose": string,"sha256": string | null,"size_bytes": number,"status": string,"width": number | null
+                    "created_at": string,"duration_seconds": number | null,"filename": string,"height": number | null,"id": string,"mime_type": string,"object_key": string,"owner_id": string,"purpose": string,"sha256": string | null,"size_bytes": number,"status": string,"variant_version": number,"video_download_allowed": boolean,"width": number | null
                   }
                   Insert: {
-                    "created_at"?: string,"filename": string,"height"?: number | null,"id"?: string,"mime_type": string,"object_key": string,"owner_id": string,"purpose"?: string,"sha256"?: string | null,"size_bytes": number,"status"?: string,"width"?: number | null
+                    "created_at"?: string,"duration_seconds"?: number | null,"filename": string,"height"?: number | null,"id"?: string,"mime_type": string,"object_key": string,"owner_id": string,"purpose"?: string,"sha256"?: string | null,"size_bytes": number,"status"?: string,"variant_version"?: number,"video_download_allowed"?: boolean,"width"?: number | null
                   }
                   Update: {
-                    "created_at"?: string,"filename"?: string,"height"?: number | null,"id"?: string,"mime_type"?: string,"object_key"?: string,"owner_id"?: string,"purpose"?: string,"sha256"?: string | null,"size_bytes"?: number,"status"?: string,"width"?: number | null
+                    "created_at"?: string,"duration_seconds"?: number | null,"filename"?: string,"height"?: number | null,"id"?: string,"mime_type"?: string,"object_key"?: string,"owner_id"?: string,"purpose"?: string,"sha256"?: string | null,"size_bytes"?: number,"status"?: string,"variant_version"?: number,"video_download_allowed"?: boolean,"width"?: number | null
                   }
                   Relationships: [
                     {
@@ -523,6 +523,12 @@ isOneToOne: true
             "analytics":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"analytics_page":
+{ Args: { "page"?: number }; Returns: Json
+                           },
+"audit_index":
+{ Args: { "date_from"?: string,"date_to"?: string,"page"?: number,"q_action"?: string,"q_actor"?: string,"q_entity"?: string }; Returns: Json
+                           },
 "branding":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
@@ -559,6 +565,9 @@ isOneToOne: true
 "finalize_media":
 { Args: { "accepted"?: boolean,"height"?: number,"mid": string,"owner": string,"sha": string,"width"?: number }; Returns: boolean
                            },
+"finalize_media_v2":
+{ Args: { "accepted"?: boolean,"height"?: number,"mid": string,"owner": string,"session_id": string,"sha": string,"variant_version"?: number,"width"?: number }; Returns: boolean
+                           },
 "lesson_index":
 { Args: { "page"?: number,"q"?: string,"saved"?: boolean }; Returns: Json
                            },
@@ -570,6 +579,15 @@ isOneToOne: true
                            },
 "mutate_category":
 { Args: { "cid": string,"color": string,"label": string,"remove"?: boolean }; Returns: Json
+                           },
+"observe_video_config":
+{ Args: { "cloudflare": boolean,"environment": string,"fingerprint": string,"mux": boolean }; Returns: boolean
+                           },
+"operations":
+{ Args: { "op": string,"payload"?: Json }; Returns: Json
+                           },
+"playback_context":
+{ Args: { "bid": string,"draft"?: boolean,"lid": string }; Returns: Json
                            },
 "publish_course":
 { Args: { "cid": string,"expected_version": number }; Returns: Json
@@ -595,6 +613,9 @@ isOneToOne: true
 "set_user_disabled":
 { Args: { "disabled": boolean,"target_user": string }; Returns: Json
                            },
+"staff_session_status":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "student_summary":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
@@ -606,6 +627,9 @@ isOneToOne: true
                            },
 "update_settings":
 { Args: { "doc": Json }; Returns: Json
+                           },
+"worker_api":
+{ Args: { "op": string,"payload"?: Json }; Returns: Json
                            }
           }
           Enums: {

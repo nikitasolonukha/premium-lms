@@ -1,0 +1,22 @@
+{
+  "status": "FAIL",
+  "commit": "fe8edc9ab998e7518f8742a285ede1328c6dd340",
+  "core": {
+    "status": "PASS",
+    "id": 36716423246,
+    "tests": 12
+  },
+  "full": {
+    "status": "FAIL",
+    "id": 36716423487,
+    "passed": 43,
+    "failed": 3,
+    "unverified": 2
+  },
+  "failures": [
+    "Auth history test navigates before logout completion",
+    "Staff deadline comparison can race with navigation/prefetch activity; readonly prefetch guard and exact-session fixture added for verification",
+    "YouTube PROVIDER_AUTH_REQUIRED"
+  ],
+  "scope": "Actual sanitized CI artifacts. Failure interpretation is based on inspected test/server source; new backend regression not yet verified."
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "scope": "Local server configuration and actual Telegram API",
+  "checks": [
+    "getMe accepted the configured token and returned study11727bot",
+    "No conflicting webhook; exactly one local polling worker",
+    "Russian and default private-chat command menus saved and read back",
+    "Real Admin/MFA UI enabled connection and generated a one-time owner link",
+    "Worker heartbeat confirms Telegram enabled and verified bot username",
+    "Local health and readiness endpoints HTTP 200",
+    "Provided token excluded from Git and absent from client/source/evidence scan"
+  ],
+  "ownerBinding": "UNVERIFIED: awaiting human Start through one-time link",
+  "actualMessageAndReportDelivery": "UNVERIFIED: no owner chat bound yet"
+}

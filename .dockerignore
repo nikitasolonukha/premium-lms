@@ -8,6 +8,7 @@ test-results
 playwright-report
 docs/qa/screenshots
 docs/qa/evidence
+docs/qa/runs
 supabase/.temp
 AGENTS.md
 CLAUDE.md

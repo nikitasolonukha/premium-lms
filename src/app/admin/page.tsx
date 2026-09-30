@@ -9,8 +9,8 @@ export default async function AdminHome() {
   const actor = await requireActor('staff'),
     catalog = await getCatalog({ staff: true });
   const analytics = actor.role === 'admin' ? await getAnalytics() : null;
-  const totalEnrollments = analytics?.courses.reduce((s, c) => s + c.enrollments, 0) ?? 0,
-    completions = analytics?.courses.reduce((s, c) => s + c.completions, 0) ?? 0,
+  const totalEnrollments = analytics?.totals.enrollments ?? 0,
+    completions = analytics?.totals.completions ?? 0,
     max = Math.max(1, ...(analytics?.activity.map((d) => d.active) ?? []));
   return (
     <>
@@ -163,7 +163,11 @@ export default async function AdminHome() {
                   <td>
                     <Link href={`/admin/courses/${c.id}`} className="table-title">
                       {c.cover_id && (
-                        <img className="table-thumb" src={`/api/media/${c.cover_id}`} alt="" />
+                        <img
+                          className="table-thumb"
+                          src={`/api/media/${c.cover_id}?size=small`}
+                          alt=""
+                        />
                       )}
                       <div>
                         <strong>{c.title}</strong>

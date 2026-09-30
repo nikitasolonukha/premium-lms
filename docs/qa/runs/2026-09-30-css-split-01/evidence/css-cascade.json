@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "scope": "Structural byte-order verification only. Browser visual/a11y regression is required separately.",
+  "sourceCommit": "410ec2a",
+  "sourceDeclarationBytes": 79015,
+  "originalSha256": "f63848901922e9675750734bbe058a8a56a0259d179eb9414df612e77e971bfa",
+  "reconstructedSha256": "f63848901922e9675750734bbe058a8a56a0259d179eb9414df612e77e971bfa",
+  "cascadeOrder": [
+    "tokens",
+    "base",
+    "student",
+    "admin",
+    "course",
+    "lesson",
+    "responsive-learning",
+    "editor",
+    "responsive",
+    "overrides"
+  ],
+  "declarationsChanged": false
+}

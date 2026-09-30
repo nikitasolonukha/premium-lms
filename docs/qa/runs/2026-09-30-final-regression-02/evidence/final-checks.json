@@ -1,0 +1,102 @@
+{
+  "status": "FAIL",
+  "executedAt": "2026-09-30T12:38:06.617Z",
+  "codeCommit": "6d4f6863ccc6ccb9a655f9f48ab389cad333390b",
+  "checks": [
+    {
+      "command": "npm ci",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS"
+    },
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "tests": 73
+    },
+    {
+      "command": "npm run test:coverage",
+      "status": "PASS",
+      "scope": "15 selected critical modules, not whole platform",
+      "lines": 93.48,
+      "statements": 91.63,
+      "branches": 89.81,
+      "functions": 92.68
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "standaloneZodPresent": true
+    },
+    {
+      "command": "supabase db reset --local --no-seed",
+      "status": "PASS",
+      "migrationCount": 17
+    },
+    {
+      "command": "npm run test:operations",
+      "status": "PASS",
+      "checks": 11
+    },
+    {
+      "command": "npm run seed twice",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run test:db",
+      "status": "PASS",
+      "groups": 5
+    },
+    {
+      "command": "npm run test:performance",
+      "status": "PASS",
+      "fixtures": 300,
+      "transactionRolledBack": true
+    },
+    {
+      "command": "npm run test:security",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run e2e",
+      "status": "FAIL",
+      "passed": 45,
+      "failed": 1,
+      "unverified": 2
+    },
+    {
+      "command": "npm run test:backup local after final reset",
+      "status": "UNVERIFIED",
+      "reason": "Not reached after failed E2E; current Engine unavailable. Actual current CI backup step PASS separately."
+    },
+    {
+      "command": "npm audit --omit=dev",
+      "status": "PASS",
+      "findings": 0
+    },
+    {
+      "command": "npm run security:secrets",
+      "status": "PASS",
+      "scope": "Full history through code commit; redacted rules scan",
+      "findings": 0
+    },
+    {
+      "command": "npm run security:client",
+      "status": "PASS",
+      "files": 1062,
+      "matches": 0
+    },
+    {
+      "command": "final local docker build/actual-DB smoke",
+      "status": "UNVERIFIED",
+      "reason": "Engine API 500; no global restart authorized/performed"
+    }
+  ],
+  "scope": "Actual executed checks; earlier ready PASS and later readiness 503 are separate observations. Raw logs/credentials/auth traces are private .local only."
+}

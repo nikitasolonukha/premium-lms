@@ -1,3 +1,4 @@
+import { qaPath } from './qa-paths.mjs';
 import { execFileSync } from 'node:child_process';
 import { writeFileSync, unlinkSync, mkdirSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
@@ -8,6 +9,7 @@ if (process.env.SUPABASE_URL !== 'http://127.0.0.1:56321')
 const envPath = '.local/docker-runtime.env',
   name = `premium-lms-runtime-qa-${randomUUID()}`;
 const env = {
+  DEPLOYMENT_ENV: 'local',
   APP_URL: 'http://localhost:3001',
   SUPABASE_URL: 'http://host.docker.internal:56321',
   SUPABASE_PUBLISHABLE_KEY: process.env.SUPABASE_PUBLISHABLE_KEY,
@@ -89,7 +91,7 @@ try {
 if (failures.length === 1) throw failures[0];
 if (failures.length > 1) throw new AggregateError(failures, 'Container smoke and cleanup failed');
 writeFileSync(
-  'docs/qa/evidence/container.json',
+  qaPath('evidence/container.json'),
   JSON.stringify(
     {
       status: 'PASS',

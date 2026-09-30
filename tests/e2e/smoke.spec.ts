@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { mkdirSync } from 'node:fs';
 import { login } from './helpers';
@@ -17,9 +18,9 @@ test('Student navigates real learning screens', async ({ page }) => {
       page.locator('.continue-cover img').evaluate((img: HTMLImageElement) => img.naturalWidth),
     )
     .toBeGreaterThan(0);
-  mkdirSync('docs/qa/screenshots', { recursive: true });
+  mkdirSync(qaPath('screenshots'), { recursive: true });
   await page.screenshot({
-    path: 'docs/qa/screenshots/student-dashboard-desktop.png',
+    path: qaPath('screenshots/student-dashboard-desktop.png'),
     fullPage: true,
   });
   await page.getByRole('link', { name: 'Продолжить обучение' }).click();
@@ -47,7 +48,7 @@ test('Admin completes MFA and opens CMS', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Содержание урока' })).toBeVisible();
   await expect(page.getByRole('textbox', { name: 'Текст урока' })).toBeVisible();
   await page.screenshot({
-    path: 'docs/qa/screenshots/admin-lesson-editor-desktop.png',
+    path: qaPath('screenshots/admin-lesson-editor-desktop.png'),
     fullPage: true,
   });
   expect(errors).toEqual([]);

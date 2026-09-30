@@ -7,6 +7,8 @@ import { requireActor } from '@/lib/server/auth';
 import { dateLabel, initials } from '@/lib/utils';
 import { PageHeading, Input, Button, Badge, Pagination, EmptyState } from '@/components/ui';
 import { InviteUser, UserManagement } from '@/components/user-management';
+import Link from 'next/link';
+import { BulkStudents, ImportStudents } from '@/components/admin-operations';
 export default async function Users({
   searchParams,
 }: {
@@ -66,6 +68,8 @@ export default async function Users({
         </select>
         <Button variant="secondary">Найти</Button>
       </form>
+      <ImportStudents />
+      <BulkStudents students={users.items.filter((u) => u.role === 'student' && !u.disabled_at)} />
       <p className="catalog-count">Всего: {users.total}</p>
       {users.items.length ? (
         <div className="table-wrap">
@@ -90,7 +94,9 @@ export default async function Users({
                       <span className="avatar">{initials(u.first_name, u.last_name)}</span>
                       <div>
                         <strong>
-                          {u.first_name} {u.last_name}
+                          <Link href={`/admin/users/${u.id}`}>
+                            {u.first_name} {u.last_name}
+                          </Link>
                         </strong>
                         <small>
                           {u.email}{' '}

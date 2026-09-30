@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    "repeated disabled Admin disable is idempotent",
+    "disabled Admin demotion allowed",
+    "active last Admin demotion denied",
+    "active last Admin disable denied"
+  ],
+  "scope": "Real authenticated RPCs and database predicates; fixtures rolled back."
+}

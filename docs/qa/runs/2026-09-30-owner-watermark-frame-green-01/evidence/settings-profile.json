@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T14:47:31.620Z",
+  "checks": [
+    "name and avatar survive reload and login",
+    "Admin branding text/color/logo/favicon",
+    "academy name and masked viewer identity remain together in fullscreen",
+    "masked watermark viewer identity; full email absent",
+    "watermark 18-second timer with browser clock",
+    "fullscreen wrapper retains watermark"
+  ]
+}

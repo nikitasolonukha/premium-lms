@@ -111,7 +111,11 @@ export default async function AdminCourses({
                   <td>
                     <Link className="table-title" href={`/admin/courses/${c.id}`}>
                       {c.cover_id && (
-                        <img className="table-thumb" src={`/api/media/${c.cover_id}`} alt="" />
+                        <img
+                          className="table-thumb"
+                          src={`/api/media/${c.cover_id}?size=small`}
+                          alt=""
+                        />
                       )}
                       <div>
                         <strong>{c.title}</strong>

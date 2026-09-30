@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect, type Page } from './test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -267,7 +268,7 @@ test('UAT: Admin builds, publishes and assigns; Student learns; Editor draft sta
   );
   await expect(student.getByText('UAT: выберите задачу', { exact: false })).toBeVisible();
   writeFileSync(
-    'docs/qa/evidence/uat.json',
+    qaPath('evidence/uat.json'),
     JSON.stringify(
       {
         executedAt: new Date().toISOString(),

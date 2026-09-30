@@ -1,0 +1,256 @@
+{
+  "status": "PASS",
+  "recordedAt": "2026-09-30T16:15:47.630Z",
+  "scope": "Actual computed typography on final production build, anonymous font assets and local seeded student UI; no tokens or credentials in evidence",
+  "staticChecks": {
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "unitTests": 78,
+    "build": "PASS",
+    "productionDependencyAudit": "PASS"
+  },
+  "sourceFiles": [
+    {
+      "path": "package.json",
+      "sha256": "15766011b9b5b5c095b1eef5846ab39cac8b00151f9b454dd68b550b87d8e55f"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "sha256": "23de787471b30ef67ec62338712e52b56e221a59cbc97a75a1d75a40015008ef"
+    },
+    {
+      "path": "src/app/(student)/courses/page.tsx",
+      "sha256": "d6c895277e7f324ef52213d01fa7f875c21fc08342ae0eacbab4e06a416076dc"
+    },
+    {
+      "path": "src/styles/tokens.css",
+      "sha256": "d89a87f0764f81028eb57dc1ae6fc64231b13ea3782e162aa732260514e929df"
+    },
+    {
+      "path": "src/styles/base.css",
+      "sha256": "9f4ce441e0d0522425683c3891b91d835aa9018e0b6a47f20429bb671492a5a6"
+    },
+    {
+      "path": "src/styles/student.css",
+      "sha256": "25de1f8dce025aeec50af35f933353ddcf075d3f2c86be06210f574a51aba2f8"
+    },
+    {
+      "path": "src/styles/overrides.css",
+      "sha256": "3ee2b99739b98d6cd9e7738ad94764990fce994291b1bfd1365b8d8f0a57b02e"
+    },
+    {
+      "path": "src/styles/responsive.css",
+      "sha256": "5ec3dbadbbdb9e13d39f78c2c142a68f91904a51139599ba9ba7177cb10c1fe9"
+    },
+    {
+      "path": "src/styles/responsive-learning.css",
+      "sha256": "f56a239b95293418895ae147b45396ba9f887effea9fe8a7ce809814bc34f86b"
+    },
+    {
+      "path": "src/styles/course.css",
+      "sha256": "f67f8cd8198b4966959e842171e5e1d866d75ebc356e91cd59c08bd03cc5855c"
+    },
+    {
+      "path": "src/styles/lesson.css",
+      "sha256": "853a3845afcf877c17ea299c514f4d73d547ebe5d03f414f577558cdd1a835fe"
+    },
+    {
+      "path": "src/styles/admin.css",
+      "sha256": "aa31934db321ec07fd2e7dc946068ac66e184635e45b723e47da82a136103fd8"
+    },
+    {
+      "path": "src/styles/editor.css",
+      "sha256": "255e940c231bae68c939d7facba963e229cb41dfbb43ab5d62ffc3c5752034ca"
+    },
+    {
+      "path": "src/components/auth-shell.tsx",
+      "sha256": "23ee10cd207332eb7fe328ff072c153afbc2f1b367deaf8b929f66bdaf5632cd"
+    },
+    {
+      "path": "src/components/navigation.tsx",
+      "sha256": "a3fb855eb734f6776a284167212f19f6ada0d9903be690a66092163c4d178b06"
+    }
+  ],
+  "metrics": [
+    {
+      "route": "/courses",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "horizontalOverflow": 0,
+      "fontLoaded": true,
+      "typography": [
+        {
+          "selector": "body",
+          "fontSize": "17px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "26.35px"
+        },
+        {
+          "selector": ".nav-link",
+          "fontSize": "14px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "550",
+          "lineHeight": "21.7px"
+        },
+        {
+          "selector": ".input",
+          "fontSize": "18px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "27.9px"
+        },
+        {
+          "selector": ".filter-tab",
+          "fontSize": "14px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "650",
+          "lineHeight": "21.7px"
+        },
+        {
+          "selector": ".course-card p",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "28px"
+        },
+        {
+          "selector": ".button",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "650",
+          "lineHeight": "24.8px"
+        }
+      ]
+    },
+    {
+      "route": "/courses/ai-product/lessons/lesson-1",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "horizontalOverflow": 0,
+      "fontLoaded": true,
+      "typography": [
+        {
+          "selector": "body",
+          "fontSize": "17px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "26.35px"
+        },
+        {
+          "selector": ".nav-link",
+          "fontSize": "14px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "550",
+          "lineHeight": "21.7px"
+        },
+        {
+          "selector": ".lesson-content p",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "30.4px"
+        },
+        {
+          "selector": ".button",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "650",
+          "lineHeight": "24.8px"
+        }
+      ]
+    },
+    {
+      "route": "/courses",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "horizontalOverflow": 0,
+      "fontLoaded": true,
+      "typography": [
+        {
+          "selector": "body",
+          "fontSize": "17px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "26.35px"
+        },
+        {
+          "selector": ".nav-link",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "550",
+          "lineHeight": "24.8px"
+        },
+        {
+          "selector": ".input",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "24.8px"
+        },
+        {
+          "selector": ".filter-tab",
+          "fontSize": "15px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "650",
+          "lineHeight": "23.25px"
+        },
+        {
+          "selector": ".course-card p",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "28px"
+        },
+        {
+          "selector": ".button",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "650",
+          "lineHeight": "24.8px"
+        }
+      ]
+    },
+    {
+      "route": "/courses/ai-product/lessons/lesson-1",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "horizontalOverflow": 0,
+      "fontLoaded": true,
+      "typography": [
+        {
+          "selector": "body",
+          "fontSize": "17px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "26.35px"
+        },
+        {
+          "selector": ".nav-link",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "550",
+          "lineHeight": "24.8px"
+        },
+        {
+          "selector": ".lesson-content p",
+          "fontSize": "18px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "400",
+          "lineHeight": "31.5px"
+        },
+        {
+          "selector": ".button",
+          "fontSize": "16px",
+          "fontFamily": "\"Golos Text Variable\", \"Golos Text\", Arial, sans-serif",
+          "fontWeight": "650",
+          "lineHeight": "24.8px"
+        }
+      ]
+    }
+  ]
+}

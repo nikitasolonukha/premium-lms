@@ -1,0 +1,61 @@
+.brand-root {
+  --accent: var(--brand-accent, #3155e7);
+  --accent-hover: color-mix(in srgb, var(--brand-accent, #3155e7) 85%, #000);
+}
+.dark .brand-root {
+  --accent: color-mix(in srgb, var(--brand-accent, #3155e7) 55%, #fff);
+  --accent-hover: color-mix(in srgb, var(--brand-accent, #3155e7) 35%, #fff);
+}
+.custom-brand .logo-symbol {
+  background: transparent url('/api/brand/logo') center/contain no-repeat;
+  transform: none;
+}
+.custom-brand .logo-symbol svg {
+  visibility: hidden;
+}
+
+:root {
+  --bg: #f5f6f8;
+  --surface: #fff;
+  --surface-alt: #edf0f5;
+  --text: #18202f;
+  --muted: #556176;
+  --border: #dce1e9;
+  --accent: #3155e7;
+  --accent-hover: #2344c9;
+  --accent-soft: #eaf0ff;
+  --success-text: #254bb1;
+  --success-soft: #e7edfc;
+  --lilac: #eae1f7;
+  --peach: #f4e3d4;
+  --danger: #b73232;
+  --danger-soft: #fff0ed;
+  --shadow: 0 8px 32px #172a490d;
+  --radius: 18px;
+  --font-sans: 'Golos Text Variable', 'Golos Text', Arial, sans-serif;
+  --text-xs: 14px;
+  --text-sm: 15px;
+  --text-md: 16px;
+  --text-base: 17px;
+  --text-lg: 18px;
+  color-scheme: light;
+}
+.dark {
+  --bg: #12151c;
+  --surface: #1b202a;
+  --surface-alt: #252c39;
+  --text: #f4f6fb;
+  --muted: #b3bdce;
+  --border: #353e4e;
+  --accent: #8ca7ff;
+  --accent-hover: #afc0ff;
+  --accent-soft: #293556;
+  --success-text: #b5c8ff;
+  --success-soft: #253451;
+  --lilac: #393144;
+  --peach: #43382f;
+  --danger: #ff9e96;
+  --danger-soft: #432c29;
+  --shadow: 0 8px 32px #0002;
+  color-scheme: dark;
+}

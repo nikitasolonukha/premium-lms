@@ -1,0 +1,133 @@
+{
+  "executedAt": "2026-09-30T12:23:01.942Z",
+  "results": [
+    {
+      "name": "anonymous cannot read learning tables",
+      "status": "PASS"
+    },
+    {
+      "name": "Student A sees three permitted courses; Student B only registered course",
+      "status": "PASS"
+    },
+    {
+      "name": "RLS denies foreign restricted course and lesson IDs",
+      "status": "PASS"
+    },
+    {
+      "name": "foreign course document RPC is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "students cannot mutate role, progress, enrollments or audit tables directly",
+      "status": "PASS"
+    },
+    {
+      "name": "unverified MFA staff cannot publish, edit, grant access or read drafts",
+      "status": "PASS"
+    },
+    {
+      "name": "Editor cannot publish, change roles, settings, access or categories",
+      "status": "PASS"
+    },
+    {
+      "name": "last Admin cannot be demoted or disabled",
+      "status": "PASS"
+    },
+    {
+      "name": "Storage direct read and signing are denied to Student",
+      "status": "PASS"
+    },
+    {
+      "name": "RLS media reference checks reject inaccessible files",
+      "status": "PASS"
+    },
+    {
+      "name": "sequential lock hides blocks, media and completion RPC",
+      "status": "PASS"
+    },
+    {
+      "name": "Admin saves new course transactionally and retries cannot duplicate",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished course remains invisible even with enrollment",
+      "status": "PASS"
+    },
+    {
+      "name": "publish makes exactly the published revision visible",
+      "status": "PASS"
+    },
+    {
+      "name": "Editor draft changes do not leak through rows, document or search",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent saves: one succeeds and the stale writer is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished lesson blocks are hidden after publication",
+      "status": "PASS"
+    },
+    {
+      "name": "idempotent completion and progress survive edits",
+      "status": "PASS"
+    },
+    {
+      "name": "renaming title preserves slug; explicit change creates alias",
+      "status": "PASS"
+    },
+    {
+      "name": "revoke hides course and saved content, preserves progress, regrant restores it",
+      "status": "PASS"
+    },
+    {
+      "name": "used media and categories cannot be deleted",
+      "status": "PASS"
+    },
+    {
+      "name": "atomic rate counter handles truly concurrent connections",
+      "status": "PASS"
+    },
+    {
+      "name": "service-only finalization RPC is denied to authenticated users",
+      "status": "PASS"
+    },
+    {
+      "name": "database metadata cannot be used to escalate role",
+      "status": "PASS"
+    },
+    {
+      "name": "download metadata service RPC is unavailable to all user roles",
+      "status": "PASS"
+    },
+    {
+      "name": "database validation rejects malformed video IDs and raw HTML through direct RPC",
+      "status": "PASS"
+    },
+    {
+      "name": "private-only course tags are filtered before student results",
+      "status": "PASS"
+    },
+    {
+      "name": "idle timeout cannot be reset by touching the existing session",
+      "status": "PASS"
+    },
+    {
+      "name": "absolute staff session limit survives JWT refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "revoked auth session immediately loses access with still-valid JWT",
+      "status": "PASS"
+    },
+    {
+      "name": "archived course disappears without deleting learning history",
+      "status": "PASS"
+    },
+    {
+      "name": "audit contains trusted actor and required operations",
+      "status": "PASS"
+    }
+  ]
+}

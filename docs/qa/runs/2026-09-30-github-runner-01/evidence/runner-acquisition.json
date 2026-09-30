@@ -1,0 +1,9 @@
+{
+  "runner": "",
+  "runId": 36713747664,
+  "job": "Code checks",
+  "scope": "Actual GitHub runner scheduling failure, not a code-check execution. Failed job re-run requested.",
+  "stepsExecuted": 0,
+  "status": "FAIL",
+  "reason": "The job was not started because it repeatedly failed to be acquired (5 attempts)."
+}

@@ -1,8 +1,8 @@
 import { Fragment, type ReactNode } from 'react';
 import { ArrowUpRight, Download, FileText, Info, Quote } from 'lucide-react';
 import type { LessonBlock, RichNode } from '@/lib/schemas';
-import { safeWebUrl, resolveVideo } from '@/lib/video';
-import { ProtectedImage, VideoPlayer } from './protected-media';
+import { safeWebUrl } from '@/lib/video';
+import { ProtectedImage, VideoPlayer, type WatermarkOptions } from './protected-media';
 function RichContent({ node }: { node: RichNode }): ReactNode {
   let children: ReactNode = node.content?.map((child, i) => <RichContent node={child} key={i} />);
   if (node.type === 'text') {
@@ -62,15 +62,15 @@ export function BlockRenderer({
   lessonId,
   viewer,
   watermark = false,
+  watermarkOptions,
   preview = false,
-  embedOrigins = [],
 }: {
   blocks: LessonBlock[];
   lessonId: string;
   viewer: string;
   watermark?: boolean;
+  watermarkOptions?: WatermarkOptions;
   preview?: boolean;
-  embedOrigins?: string[];
 }) {
   return (
     <div className="lesson-content">
@@ -96,14 +96,11 @@ export function BlockRenderer({
                 caption={block.data.caption}
                 viewer={viewer}
                 watermark={watermark}
+                watermarkOptions={watermarkOptions}
               />
             );
             break;
           case 'video': {
-            let grant;
-            try {
-              if (preview) grant = resolveVideo(block.data.provider, block.data.url, embedOrigins);
-            } catch {}
             content = (
               <VideoPlayer
                 lessonId={lessonId}
@@ -111,7 +108,8 @@ export function BlockRenderer({
                 title={block.data.title}
                 viewer={viewer}
                 watermark={watermark}
-                previewGrant={grant}
+                watermarkOptions={watermarkOptions}
+                preview={preview}
               />
             );
             break;
@@ -186,6 +184,7 @@ export function BlockRenderer({
                     alt={item.alt}
                     viewer={viewer}
                     watermark={watermark}
+                    watermarkOptions={watermarkOptions}
                   />
                 ))}
               </div>

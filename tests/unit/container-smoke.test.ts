@@ -53,7 +53,7 @@ describe('container smoke failure handling (simulated Docker)', () => {
     );
     expect(mocks.unlink).toHaveBeenCalledWith('.local/docker-runtime.env');
     expect(
-      mocks.write.mock.calls.some(([file]) => file === 'docs/qa/evidence/container.json'),
+      mocks.write.mock.calls.some(([file]) => String(file).endsWith('/evidence/container.json')),
     ).toBe(false);
   });
 
@@ -74,7 +74,7 @@ describe('container smoke failure handling (simulated Docker)', () => {
     await import('../../scripts/test-container.mjs');
     const stopIndex = mocks.docker.mock.calls.findIndex(([, args]) => args[0] === 'stop');
     const resultIndex = mocks.write.mock.calls.findIndex(
-      ([file]) => file === 'docs/qa/evidence/container.json',
+      ([file]) => String(file).endsWith('/evidence/container.json'),
     );
     expect(mocks.write.mock.invocationCallOrder[resultIndex]).toBeGreaterThan(
       mocks.docker.mock.invocationCallOrder[stopIndex],

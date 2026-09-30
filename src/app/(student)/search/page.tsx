@@ -23,7 +23,6 @@ export default async function SearchPage({
   return (
     <>
       <PageHeading
-        eyebrow="НАВИГАЦИЯ ПО ЗНАНИЯМ"
         title="Найдите свой ответ"
         description="Поиск по доступным программам, описаниям и названиям уроков."
       />

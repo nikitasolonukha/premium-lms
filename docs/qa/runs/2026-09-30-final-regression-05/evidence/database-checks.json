@@ -1,0 +1,33 @@
+{
+  "scope": "Repeated seed, DB/security/performance on reset real local Supabase. Bootstrap checks passed in separate final-regression-04 before this fresh reset; browser/runtime/backup gates recorded separately.",
+  "codeCommit": "45cf002bfa4998de02402038138d6e5037fbf609",
+  "checks": [
+    {
+      "exitCode": 0,
+      "command": "npm run seed (first)",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run seed (repeat)",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:db",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:security",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:performance",
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:40:51.5800460Z"
+}

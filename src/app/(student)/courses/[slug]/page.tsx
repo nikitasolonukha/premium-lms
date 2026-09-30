@@ -1,3 +1,4 @@
+import { privateImage } from '@/lib/media-images';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -101,9 +102,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           </div>
         </div>
         <div className={`course-intro-cover cover-${course.accent}`}>
-          {course.coverId && (
-            <img src={`/api/media/${course.coverId}`} alt="" fetchPriority="high" />
-          )}
+          {course.coverId && <img {...privateImage(course.coverId)} alt="" fetchPriority="high" />}
         </div>
       </section>
       <div className="course-body-layout">

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:44:41.198Z",
+  "checks": [
+    "private noindex metadata",
+    "direct route reload",
+    "invalid slug and filter safe errors",
+    "robots and public-only sitemap",
+    "CSP and nosniff"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T14:40:17.023Z",
+  "scope": "DOM overlay and player controls only; no burned-in output or download-byte protection implemented or claimed",
+  "checks": [
+    "academy name + short viewer ID",
+    "public CC0 sample actually starts playback; not a customer/protected source",
+    "no full email in overlay",
+    "four positions clear of expand control",
+    "390x844 and 1440x900 in both themes",
+    "LMS video fullscreen retains both labels",
+    "native PiP/remote/fullscreen hints configured when watermark enabled"
+  ]
+}

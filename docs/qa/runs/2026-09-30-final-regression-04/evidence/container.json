@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:34:46.393Z",
+  "imageId": "sha256:30d72db5d6ec11e12a693d0577ee30e4284d82aed7dc6fad8a402a9bb09b8c38",
+  "checks": [
+    "standalone starts as uid 1001",
+    "health checks actual local database",
+    "public page returns 200",
+    "env file absent from image",
+    "loopback-only smoke port; temporary container stopped",
+    "temporary credential file removed"
+  ]
+}

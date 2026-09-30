@@ -1,6 +1,6 @@
 import { Logo } from './navigation';
 import { ThemeToggle } from './providers';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { getBranding } from '@/lib/server/data';
 export async function AuthShell({
@@ -18,25 +18,14 @@ export async function AuthShell({
       <section className="auth-story">
         <Logo brand={brand.brand_name} href="/" />
         <div className="auth-story-copy">
-          <div className="eyebrow">
-            <Sparkles size={15} /> МЕСТО ДЛЯ ВАШЕГО СЛЕДУЮЩЕГО ШАГА
-          </div>
+          <div className="eyebrow">УЧЕБНАЯ ПЛАТФОРМА</div>
           <h1>{brand.login_title}</h1>
           <p>{brand.login_description}</p>
         </div>
-        <div className="orb-scene" aria-hidden="true">
-          <div className="orb-ring ring-one" />
-          <div className="orb-sphere" />
-          <div className="orb-ring ring-two" />
-          <span className="orb-note">
-            ОТКРОЙТЕ НОВУЮ
-            <br />
-            ПЕРСПЕКТИВУ <ArrowUpRight size={23} />
-          </span>
-        </div>
-        <div className="auth-story-footer">
-          {brand.footer_text}
-          <span>01 — ∞</span>
+        <div className="auth-story-end">
+          <div className="auth-story-footer">
+            <span>{brand.footer_text}</span>
+          </div>
         </div>
       </section>
       <section className="auth-panel">

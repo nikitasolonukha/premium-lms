@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T12:24:10.192Z",
+  "checks": [
+    "25 users in 20+5 pages without overlap",
+    "confirmed/unconfirmed email filters",
+    "role and course filters",
+    "UI role change and disable/re-enable",
+    "category create, reload, delete",
+    "used category deletion rejected"
+  ]
+}

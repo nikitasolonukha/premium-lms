@@ -44,12 +44,14 @@ export default function CourseEditor({
   categories,
   media,
   initialLesson,
+  protectedProviders = [],
 }: {
   initial: CourseDraft;
   role: string;
   categories: { id: string; name: string }[];
   media: { id: string; filename: string; mime_type: string }[];
   initialLesson?: string;
+  protectedProviders?: ('cloudflare' | 'mux')[];
 }) {
   const [doc, setDoc] = useState(initial),
     [tab, setTab] = useState<Tab>(initialLesson ? 'lessons' : 'general'),
@@ -804,7 +806,12 @@ export default function CourseEditor({
                             />
                           </div>
                         </div>
-                        <BlockEditor block={b} onChange={changeBlock} media={media} />
+                        <BlockEditor
+                          block={b}
+                          onChange={changeBlock}
+                          media={media}
+                          protectedProviders={protectedProviders}
+                        />
                       </section>
                     )}
                   />

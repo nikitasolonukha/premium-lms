@@ -1,0 +1,79 @@
+{
+  "executedAt": "2026-09-30T11:29:20.529Z",
+  "status": "PASS",
+  "results": [
+    {
+      "screen": "academy-entry",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 768,
+      "height": 1024,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1920,
+      "height": 1080,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1920,
+      "height": 1080,
+      "theme": "dark",
+      "overflow": false
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedResponses": []
+}

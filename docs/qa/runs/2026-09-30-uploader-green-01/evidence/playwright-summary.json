@@ -1,0 +1,49 @@
+{
+  "status": "FAIL",
+  "note": "Six upload/profile scenarios passed; cold hydration scenario failed on ambiguous native file-input/button test locator, corrected subsequently.",
+  "tests": [
+    {
+      "title": "responsive private images use stored sizes and reject arbitrary transforms",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 5881
+    },
+    {
+      "title": "private grant survives only its TTL; new grants stop immediately on revoke",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 68451
+    },
+    {
+      "title": "media UI validates every supported format, Unicode and malformed uploads",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 14298
+    },
+    {
+      "title": "repeated upload selection while the request is pending creates one asset",
+      "file": "repeat-upload.spec.ts",
+      "status": "PASS",
+      "durationMs": 4336
+    },
+    {
+      "title": "profile changes persist, branding is editable, watermark moves and survives fullscreen",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 11336
+    },
+    {
+      "title": "private SEO, metadata, direct URLs, invalid filters and error pages",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 5544
+    },
+    {
+      "title": "cold SSR upload controls remain disabled until their change handler is hydrated",
+      "file": "uploader-hydration.spec.ts",
+      "status": "FAIL",
+      "durationMs": 2901,
+      "failureLocation": "uploader-hydration.spec.ts:31:73"
+    }
+  ]
+}

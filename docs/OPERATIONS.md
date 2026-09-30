@@ -2,7 +2,7 @@
 
 ## До первого выпуска
 
-Публикация в интернете не входит в локальную поставку. Не переключайте итоговый статус в READY до закрытия всех обязательных строк QA_REPORT. Production использует отдельный Supabase project, отдельные Storage и SMTP; локальные seed-аккаунты туда не переносятся.
+Публикация в интернете не входит в локальную поставку. Локальные проверки могут подтвердить только **CODE READY FOR STAGING**. После реального staging UAT возможен **READY FOR PRODUCTION DEPLOYMENT**, после deployment и production UAT — **PRODUCTION VERIFIED**. Непройденные обязательные проверки означают **NOT READY**. Production использует отдельный Supabase project, отдельные Storage и SMTP; локальные seed-аккаунты туда не переносятся.
 
 1. Подготовьте Supabase PostgreSQL 17 / Auth / Storage, включите `pg_jsonschema`. API schemas: только public; private не экспонировать. Примените **все миграции по порядку** через управляемый migration job с PostgreSQL operator credentials. Не запускайте destructive reset на production.
 2. Настройте Auth Site URL на канонический HTTPS origin приложения; redirect allowlist — точный `/auth/callback` (и согласованные recovery redirect варианты). Включите email confirmation и TOTP. JWT lifetime выберите в соответствии с нагрузкой и моделью риска; staff timeout дополнительно проверяет сама БД.
@@ -13,6 +13,28 @@
 7. Пройдите staging UAT с SMTP и вашим доменом, проверьте `/api/health`, cookies, callback, MFA, signed grants, backup/restore. Только затем направляйте пользовательский трафик.
 
 ## Сборка и контейнер
+
+## Профиль A: Vercel + Supabase
+
+Создайте отдельные Supabase projects для staging и production. На Vercel используйте Node 22, `npm ci`, `npm run build`; миграции выполняет отдельный operator job до promotion. Preview deployments не получают production credentials и не запускают production seed. Зафиксируйте один HTTPS origin для staging: каждый случайный preview URL не добавляется в Auth allowlist.
+
+В Environment Variables задайте серверные `DEPLOYMENT_ENV=staging`/`production`, `APP_URL`, `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, случайный `RATE_LIMIT_SECRET` и выбранные интеграции. Применяйте отдельные значения к Preview/Production; серверу не нужен `DATABASE_URL`. Значения signing PEM сохраняются как multiline secret или base64 PEM. При изменении env создайте новый deployment; проверьте `/api/ready` и provider configuration audit. Для Sentry задайте DSN и окружение, затем подтвердите доставку безопасного тестового события в реальный backend.
+
+По документации Vercel перезаписывает `x-forwarded-for`. Здесь предпочтителен `TRUSTED_IP_HEADER=x-vercel-forwarded-for`, который также устанавливает платформа. **До** `TRUSTED_PROXY_ACKNOWLEDGED=true` отправьте извне запросы с поддельными значениями обоих headers и подтвердите, что выбранный header определяется платформой. При дополнительном CDN/proxy требуется собственная проверенная цепочка доверия; в неподтверждённой конфигурации header оставьте пустым. Подтвердите HTTPS callbacks, Secure cookies, SMTP, закрытые Storage buckets, CSP и реальное видео по [staging checklist](STAGING_CHECKLIST.md). Этот профиль документирован, deployment здесь не выполнен.
+
+## Профиль B: Docker + reverse proxy + Supabase
+
+Собирайте Dockerfile из проверенного commit с OCI `VERSION` и `REVISION`; фиксируйте полученный digest и promote тот же image между окружениями. Runtime работает от UID 1001. Передавайте env через secret store/закрытый env-файл, read-only root filesystem и writable `/tmp`; порт 3000 доступен только reverse proxy. Контейнер приложения не требует operator DATABASE_URL. Сборка не получает runtime secrets.
+
+Proxy завершает TLS и принудительно заменяет выбранный IP header. Для одного Nginx edge, принимающего соединения непосредственно от клиента, конфигурация включает `proxy_set_header X-LMS-Client-IP $remote_addr;`, `proxy_set_header Host $host;` и `proxy_set_header X-Forwarded-Proto https;`. Задайте `TRUSTED_IP_HEADER=x-lms-client-ip` и включайте ACK только после проверки подделанного header и закрытия прямого доступа к Node. `$remote_addr` за CDN обозначает CDN: сначала настройте точные доверенные адреса `real_ip`, затем повторите spoof test. Не используйте входящий `X-Forwarded-For` без проверки.
+
+Настройте upload body limit 50 MiB (в приложении форматы имеют собственные меньшие пределы), ограниченные proxy/read timeouts для streaming и запрет кэширования `/api/media`, `/api/playback`, `/download`, Auth и учебных маршрутов. Не логируйте query strings, download token path или Authorization. Readiness проверяет БД за ограниченное время и возвращает 503 при отказе; это не отдельная проверка живости процесса. Автоматическая перезагрузка должна учитывать отказ внешней БД и избегать restart storm. Read-only runtime и отказ небезопасной env проверяются в CI; SMTP/домен/внешний proxy требуют отдельного UAT.
+
+Для обоих профилей используйте [manifest и read-only backup verifier](BACKUP_RESTORE.md), [staging checklist](STAGING_CHECKLIST.md) и [production UAT](PRODUCTION_UAT.md). Резервная копия БД не содержит байты Storage. Опубликованный курс и приватные объекты проверяются вместе после восстановления.
+
+Источники: [Vercel request headers](https://vercel.com/docs/headers/request-headers), [Vercel environment scopes](https://vercel.com/docs/environment-variables/manage-across-environments), [Supabase production checklist](https://supabase.com/docs/guides/deployment/going-into-prod).
+
+## Локальная сборка
 
 ```powershell
 npm ci
@@ -25,7 +47,7 @@ npm run start
 
 Dockerfile собирает standalone output и запускает Node от непривилегированного пользователя. `.dockerignore` исключает env, локальные аккаунты, тестовые результаты и node_modules. Build secrets не копируются в образ. Runtime secrets передаются оркестратором через environment/secret store. Локальный production QA использует `npm start`: скрипт копирует public/static в standalone и запускает его server.js. По умолчанию bind — 127.0.0.1; `LMS_HOST=0.0.0.0` используйте только за настроенным reverse proxy. Сам Docker deployment требует отдельной проверки на целевом хосте.
 
-Актуальный локальный Linux-образ после исправлений Uploader и доступности интерфейса собран при остановленном Supabase LMS и проверен командой `node scripts/test-container.mjs`: UID 1001, health с настоящей восстановленной локальной БД, публичная страница 200 и отсутствие `.env.local` в образе. Дата и digest — в [container.json](qa/evidence/container.json). QA-контейнер использует только loopback-порт 3001; его остановка и удаление временного env-файла подтверждены до записи PASS. Предыдущая попытка сборки вызвала OOM; диагностика сохранена в [инциденте](qa/evidence/runtime-incident.json).
+Исторический локальный Linux-образ исходной поставки после исправлений Uploader и доступности интерфейса собран при остановленном Supabase LMS и проверен командой `node scripts/test-container.mjs`: UID 1001, health с настоящей восстановленной локальной БД, публичная страница 200 и отсутствие `.env.local` в образе. Дата и digest — в [container.json](qa/evidence/container.json). QA-контейнер использует только loopback-порт 3001; его остановка и удаление временного env-файла подтверждены до записи PASS. Предыдущая попытка сборки вызвала OOM; диагностика сохранена в [инциденте](qa/evidence/runtime-incident.json).
 
 Smoke-скрипт ограничивает каждый Docker-запрос 30 секундами, HTTP — 3–5 секундами и записывает PASS только после успешной очистки контейнера и временного env-файла. При таймауте `run` он пытается остановить контейнер с уникальным именем своего запуска: команда могла успеть создать его на сервере. При недоступном Engine stop также может не выполниться; скрипт завершится ошибкой, сохранив предыдущий результат с его датой. После восстановления проверьте оставшийся контейнер по имени из ошибки; не удаляйте чужие контейнеры или volumes. Файл `.local/docker-runtime.env` удаляется и при ошибке stop. Имитационные unit-тесты этих отказов не заменяют реальный smoke.
 
@@ -65,3 +87,7 @@ Admin audit хранится в БД. Экспортируйте его в за�
 Supabase CLI и Docker требуют доступа к Docker Desktop named pipe на Windows. Если start зависает при здоровой БД, не удаляйте volumes и не используйте `docker system prune`: сначала соберите диагностику только контейнеров `premium-lms-local`, остановите этот проект с сохранением backup и проверьте поддерживаемую версию CLI. Не запускайте несколько start одновременно. Локальный Mailpit не отправляет письма внешним адресатам.
 
 При повторном OOM сначала восстановите доступность Engine, учитывая другие проекты общего Docker Desktop. Затем запустите существующий стек LMS с прежними volumes, без `db reset` и без seed. Проверьте `/api/health`, вход Admin с MFA, наличие курса из последнего [UAT](qa/evidence/uat.json), его опубликованных уроков, прогресса Student A и фактическое скачивание изображения/PDF. Для сохранённого UAT-набора используйте `npx tsx --env-file=.env.local scripts/test-recovery.ts`: он требует прежний `uat.json`, `.local/seed-accounts.json` и оригинальный `.local/uploads/План практики UAT.pdf`. Этот сценарий прошёл после инцидента: [runtime-recovery.json](qa/evidence/runtime-recovery.json). Это выборочная проверка сохранности, а не полная сверка всех объектов Storage. Затем выполните новый Linux build при достаточных ресурсах и `node scripts/test-container.mjs`.
+
+## Текущее QA-ограничение хоста
+
+30 сентября 2026 в предыдущем browser-прогоне local ready вернул 503, Auth health connection failed и Engine API 500; причина не установлена. Агент не перезапускал общий Docker/WSL. После восстановления Engine понадобился перезапуск только контейнеров Kong/PostgreSQL/Mailpit LMS из-за stale host port forwarding. Последние runtime probes HTTP 200, чистый local E2E 47 PASS/0 FAIL/2 UNVERIFIED, актуальные Docker build/actual-DB smoke и backup после 17 migrations PASS: [QA_REPORT](QA_REPORT.md), [RELEASE_READINESS](RELEASE_READINESS.md). Для shared restart согласуйте операторское окно; не останавливайте чужие контейнеры и не удаляйте volumes.

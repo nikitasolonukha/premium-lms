@@ -1,0 +1,33 @@
+{
+  "executedAt": "2026-09-30T13:36:42.2801059Z",
+  "status": "FAIL",
+  "codeCommit": "45cf002bfa4998de02402038138d6e5037fbf609",
+  "scope": "Actual sequential checks on reset local-only Supabase. Not staging/production.",
+  "checks": [
+    {
+      "exitCode": 0,
+      "command": "npm run test:operations",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run seed (first)",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run seed (repeat)",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:db",
+      "status": "PASS"
+    },
+    {
+      "exitCode": 1,
+      "command": "npm run test:security",
+      "status": "FAIL"
+    }
+  ]
+}

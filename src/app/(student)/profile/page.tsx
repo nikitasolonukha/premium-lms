@@ -25,7 +25,7 @@ export default async function Profile() {
               {actor.profile.avatar_id ? (
                 <img
                   className="avatar large"
-                  src={`/api/media/${actor.profile.avatar_id}`}
+                  src={`/api/media/${actor.profile.avatar_id}?size=small`}
                   alt="Фото профиля"
                 />
               ) : (

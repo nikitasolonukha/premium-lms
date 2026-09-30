@@ -162,11 +162,54 @@ export function SettingsForm({ initial }: { initial: AcademySettings }) {
             <span>
               Персональный водяной знак
               <small>
-                Показывать идентификатор зрителя на изображениях и поверх плеера. Водяной знак не
-                защищает скачанные файлы и не является DRM.
+                Показывать название академии и метку ученика поверх видео и изображений, включая
+                полноэкранный просмотр через кнопку платформы. Для надписи в скачанном видео
+                используйте файл с заранее вшитым водяным знаком.
               </small>
             </span>
           </label>
+          <div className="form-row">
+            <Field label="Идентификатор на водяном знаке">
+              <select
+                className="input"
+                value={doc.watermark_mode}
+                onChange={(e) =>
+                  setDoc({
+                    ...doc,
+                    watermark_mode: e.target.value as AcademySettings['watermark_mode'],
+                  })
+                }
+              >
+                <option value="email">Скрытый email</option>
+                <option value="user_id">Короткий ID</option>
+                <option value="email_and_id">Скрытый email и ID</option>
+              </select>
+            </Field>
+            <Field
+              label="Интервал перемещения, сек."
+              hint="От 5 до 120 секунд; reduced motion отключает перемещение."
+            >
+              <Input
+                type="number"
+                min={5}
+                max={120}
+                value={doc.watermark_interval_seconds}
+                onChange={(e) =>
+                  setDoc({ ...doc, watermark_interval_seconds: Number(e.target.value) })
+                }
+              />
+            </Field>
+            <Field label="Непрозрачность" hint="От 0,15 до 0,65">
+              <Input
+                type="number"
+                min={0.15}
+                max={0.65}
+                step="any"
+                value={doc.watermark_opacity}
+                onChange={(e) => setDoc({ ...doc, watermark_opacity: Number(e.target.value) })}
+              />
+            </Field>
+          </div>
           <Field
             label="Разрешённые домены внешних плееров"
             hint="Один HTTPS-origin на строку, без пути. Например: https://video.example.com"

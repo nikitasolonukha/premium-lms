@@ -21,6 +21,8 @@ import {
   Folder,
   ChartNoAxesCombined,
   Image as ImageIcon,
+  Video,
+  Clock,
 } from 'lucide-react';
 import { signOut } from '@/lib/actions/auth';
 import { ThemeToggle } from './providers';
@@ -37,6 +39,8 @@ const adminLinks = [
   { href: '/admin/users', label: 'Пользователи', icon: Users, admin: true },
   { href: '/admin/categories', label: 'Категории', icon: Folder, admin: true },
   { href: '/admin/media', label: 'Медиатека', icon: ImageIcon },
+  { href: '/admin/videos', label: 'Обработка видео', icon: Video },
+  { href: '/admin/automations', label: 'Автоматизации', icon: Clock, admin: true },
   { href: '/admin/analytics', label: 'Аналитика', icon: ChartNoAxesCombined, admin: true },
   { href: '/admin/settings', label: 'Настройки', icon: Settings, admin: true },
   { href: '/admin/audit', label: 'Журнал действий', icon: Shield, admin: true },
@@ -53,10 +57,7 @@ export function Logo({
       <span className="logo-symbol">
         <GraduationCap size={22} />
       </span>
-      <span>
-        {brand}
-        <small>СРЕДА РАЗВИТИЯ</small>
-      </span>
+      <span>{brand}</span>
     </Link>
   );
 }

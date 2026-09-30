@@ -1,0 +1,24 @@
+{
+  "status": "FAIL",
+  "executedAt": "2026-09-30T14:35:08.790Z",
+  "counts": {
+    "PASS": 1,
+    "FAIL": 1,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "owner name and viewer watermark: mobile, desktop, themes and video fullscreen",
+      "file": "owner-watermark.spec.ts",
+      "status": "FAIL",
+      "durationMs": 4285,
+      "failureLocation": "owner-watermark.spec.ts:97:13"
+    },
+    {
+      "title": "profile changes persist, branding is editable, watermark moves and survives fullscreen",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 12631
+    }
+  ]
+}

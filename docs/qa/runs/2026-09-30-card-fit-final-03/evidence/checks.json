@@ -1,0 +1,44 @@
+{
+  "executedAt": "2026-09-30T16:52:11.794Z",
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  "unit": {
+    "command": "npm test",
+    "exitCode": 0,
+    "passed": 78,
+    "files": 19
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0
+  },
+  "clientSecrets": {
+    "executedAt": "2026-09-30T16:51:29.831Z",
+    "status": "PASS",
+    "scanned": 1684,
+    "secretClasses": [
+      "Supabase server key",
+      "rate-limit secret",
+      "provider/scanner/monitoring secrets when configured",
+      "local account passwords and TOTP"
+    ],
+    "matchedFiles": []
+  },
+  "geometry": {
+    "command": "QA_RUN_ID=2026-09-30-card-fit-final-03 npx tsx --env-file=.env.local .local/check-card-fit.ts",
+    "status": "PASS",
+    "checks": 96
+  },
+  "browser": {
+    "command": "QA_RUN_ID=2026-09-30-card-fit-final-03 npx playwright test tests/e2e/catalog-navigation.spec.ts tests/e2e/discovery.spec.ts tests/e2e/visual.spec.ts --grep 'catalog|discovery' --reporter=line,json",
+    "summary": "playwright-summary.json"
+  },
+  "viewportScreenshots": 36,
+  "scope": "Local production UI change only. DB/security/full UAT/live providers not rerun. Long forms and full lesson contents scroll normally. Browser emulation is not physical-device verification."
+}

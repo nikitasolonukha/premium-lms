@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T18:20:56.094Z",
+  "counts": {
+    "PASS": 5,
+    "FAIL": 0,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "Student card, import preview, XLSX and queued email invitation",
+      "file": "academy-operations.spec.ts",
+      "status": "PASS",
+      "durationMs": 10472
+    },
+    {
+      "title": "Bulk assignment and revoke require confirmation and appear on the learner card",
+      "file": "academy-operations.spec.ts",
+      "status": "PASS",
+      "durationMs": 4246
+    },
+    {
+      "title": "Video upload, processing, lesson picker, publication and Student isolation",
+      "file": "academy-operations.spec.ts",
+      "status": "PASS",
+      "durationMs": 11557
+    },
+    {
+      "title": "Automations rules, disabled live Telegram and retryable failure",
+      "file": "academy-operations.spec.ts",
+      "status": "PASS",
+      "durationMs": 9919
+    },
+    {
+      "title": "New admin screens: seven viewports, both themes and accessible controls",
+      "file": "academy-operations.spec.ts",
+      "status": "PASS",
+      "durationMs": 7473
+    }
+  ]
+}

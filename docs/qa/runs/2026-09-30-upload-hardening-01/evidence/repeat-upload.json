@@ -1,0 +1,12 @@
+{
+  "executedAt": "2026-09-30T10:16:31.242Z",
+  "status": "PASS",
+  "readyRows": 1,
+  "storagePuts": 1,
+  "checks": [
+    "double-click upload chooser",
+    "input disabled in flight",
+    "duplicate change event while first request pending",
+    "exactly one ready media row and storage upload"
+  ]
+}

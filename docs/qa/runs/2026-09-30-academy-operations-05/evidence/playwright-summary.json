@@ -1,0 +1,24 @@
+{
+  "status": "FAIL",
+  "executedAt": "2026-09-30T18:37:17.964Z",
+  "counts": {
+    "PASS": 1,
+    "FAIL": 1,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "Bulk assignment and revoke require confirmation and appear on the learner card",
+      "file": "academy-operations.spec.ts",
+      "status": "PASS",
+      "durationMs": 11813
+    },
+    {
+      "title": "New admin screens: seven viewports, both themes and accessible controls",
+      "file": "academy-operations.spec.ts",
+      "status": "FAIL",
+      "durationMs": 18689,
+      "failureLocation": "academy-operations.spec.ts:401:83"
+    }
+  ]
+}

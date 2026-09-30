@@ -1,8 +1,10 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { writeFileSync } from 'node:fs';
 import { login, accounts } from './helpers';
 import { staffClient } from './db-fixtures';
 import { demoAssets } from '../../scripts/fixtures';
+import { watermarkLabel } from '../../src/lib/watermark';
 test('profile changes persist, branding is editable, watermark moves and survives fullscreen', async ({
   browser,
 }) => {
@@ -39,6 +41,12 @@ test('profile changes persist, branding is editable, watermark moves and survive
     await admin.getByLabel('Email поддержки', { exact: true }).fill('help@academy.local');
     await admin.getByLabel('HEX-код цвета', { exact: true }).fill('#294cce');
     await admin.getByLabel('Персональный водяной знак', { exact: false }).check();
+    // Default opacity must not block unrelated settings through native step validation.
+    expect(
+      await admin
+        .locator('form.settings-layout')
+        .evaluate((form) => (form as HTMLFormElement).checkValidity()),
+    ).toBe(true);
     for (const [index, name] of ['Логотип', 'Иконка сайта'].entries()) {
       await admin
         .locator('input[type=file]')
@@ -71,7 +79,12 @@ test('profile changes persist, branding is editable, watermark moves and survive
     }
     const stage = student.locator('.image-stage').first();
     await expect(stage).toBeVisible();
-    await expect(stage.locator('.watermark')).toContainText(accounts[4].email);
+    // The owner's name must survive alongside the viewer identity, not replace it.
+    await expect(stage.locator('.watermark-brand')).toHaveText('Академия практики');
+    await expect(stage.locator('.watermark')).toContainText(
+      watermarkLabel(accounts[4], original.watermark_mode ?? 'email_and_id'),
+    );
+    await expect(stage.locator('.watermark')).not.toContainText(accounts[4].email);
     await student.clock.fastForward(19000);
     await expect(stage.locator('.watermark')).toHaveClass(/watermark-1/);
     await stage.getByRole('button', { name: 'Развернуть изображение' }).click();
@@ -79,9 +92,10 @@ test('profile changes persist, branding is editable, watermark moves and survive
       .poll(() => student.evaluate(() => document.fullscreenElement?.className))
       .toContain('image-stage');
     await expect(stage.locator('.watermark')).toBeVisible();
+    await expect(stage.locator('.watermark-brand')).toHaveText('Академия практики');
     await student.evaluate(() => document.exitFullscreen());
     writeFileSync(
-      'docs/qa/evidence/settings-profile.json',
+      qaPath('evidence/settings-profile.json'),
       JSON.stringify(
         {
           status: 'PASS',
@@ -89,7 +103,8 @@ test('profile changes persist, branding is editable, watermark moves and survive
           checks: [
             'name and avatar survive reload and login',
             'Admin branding text/color/logo/favicon',
-            'watermark viewer identity',
+            'academy name and masked viewer identity remain together in fullscreen',
+            'masked watermark viewer identity; full email absent',
             'watermark 18-second timer with browser clock',
             'fullscreen wrapper retains watermark',
           ],
@@ -140,7 +155,7 @@ test('private SEO, metadata, direct URLs, invalid filters and error pages', asyn
   expect(root.headers()['content-security-policy']).toContain("frame-ancestors 'none'");
   expect(root.headers()['x-content-type-options']).toBe('nosniff');
   writeFileSync(
-    'docs/qa/evidence/seo-errors.json',
+    qaPath('evidence/seo-errors.json'),
     JSON.stringify(
       {
         status: 'PASS',

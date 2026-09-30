@@ -1,0 +1,12 @@
+{
+  "status": "FAIL",
+  "stage": "RED",
+  "executedAt": "2026-09-30T13:19:42.113Z",
+  "checks": {
+    "browser": "Four actual production tests: 2 PASS / 2 FAIL. First Next transport changed the real browser session idle timestamp.",
+    "unit": "Five tests executed: 3 PASS / 2 FAIL. Trusted proxy marker is not preserved; missing marker derivation.",
+    "mail": "Auth email test failed on Mailpit host ECONNRESET; separate infrastructure failure."
+  },
+  "cause": "Installed Next.js request-store hides FLIGHT_HEADERS from userland headers(). Detection in requireActor alone cannot see next-router-prefetch or next-router-segment-prefetch.",
+  "nextFix": "Derive and overwrite an internal marker in proxy, before headers are hidden; both selected RPCs independently enforce authorization and real session deadlines."
+}

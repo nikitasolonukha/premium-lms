@@ -1,0 +1,157 @@
+.course-filter {
+  position: relative;
+  min-width: 180px;
+}
+.course-filter > .button {
+  max-width: 300px;
+  white-space: normal;
+  text-align: left;
+}
+.course-filter-panel {
+  position: absolute;
+  z-index: 35;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(360px, calc(100vw - 40px));
+  max-height: 440px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.course-filter-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+  padding: 10px;
+  background: transparent;
+  color: var(--text);
+  font-size: var(--text-md);
+  border-radius: 8px;
+}
+.course-filter-option:hover {
+  background: var(--surface-alt);
+}
+.course-filter-panel .form-row {
+  grid-template-columns: 1fr 44px;
+}
+.featured-section {
+  padding: 0;
+  margin: 8px 0 24px;
+}
+.featured-section .course-card:only-child {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
+}
+.featured-section .course-card:only-child .course-cover {
+  height: 100%;
+  min-height: 180px;
+}
+.student-footer {
+  flex-wrap: wrap;
+}
+.brand-root.custom-brand .logo-symbol {
+  background: transparent url('/api/brand/logo') center/contain no-repeat;
+}
+@media (pointer: coarse), (max-width: 767px) {
+  .header-actions > .avatar,
+  .admin-topbar .avatar {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .icon-button,
+  .header-actions .icon-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .filter-tab,
+  .editor-tabs button,
+  .rich-toolbar button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .button,
+  .landing-header .button {
+    min-height: 44px;
+  }
+  .input {
+    font-size: 18px;
+  }
+  .featured-section {
+    padding: 0;
+  }
+  .featured-section .course-card:only-child {
+    display: block;
+  }
+  .featured-section .course-card:only-child .course-cover {
+    height: var(--course-cover-height);
+    min-height: 0;
+  }
+  .header-actions {
+    gap: 2px;
+  }
+}
+/* Preserve usable touch areas even where the visible label is compact. */
+@media (max-width: 768px) {
+  a.logo,
+  .material-row p a,
+  a.text-link,
+  .editor-back,
+  .forgot-link,
+  .auth-panel-footer a,
+  .auth-switch a,
+  .student-footer a,
+  .breadcrumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .material-row p a {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .course-card h3 a {
+    min-height: 44px;
+  }
+  .editor-tip .button,
+  .editor-nav-module > button,
+  .block-palette button,
+  .lesson-heading .button,
+  .lesson-controls .button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+.staff-session-warning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.staff-session-warning p {
+  margin: 6px 0 0;
+}
+.audit-filters {
+  flex-wrap: wrap;
+  align-items: end;
+}
+.audit-filters > .input {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.audit-filters > .field {
+  flex: 1 1 150px;
+  min-width: 0;
+}

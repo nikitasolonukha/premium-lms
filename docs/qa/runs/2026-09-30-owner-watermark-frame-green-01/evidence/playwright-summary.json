@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T14:49:37.701Z",
+  "counts": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "owner name and viewer watermark: mobile, desktop, themes and video fullscreen",
+      "file": "owner-watermark.spec.ts",
+      "status": "PASS",
+      "durationMs": 10267
+    },
+    {
+      "title": "profile changes persist, branding is editable, watermark moves and survives fullscreen",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 12075
+    }
+  ]
+}

@@ -7,6 +7,8 @@ import { actionResult, AppError, databaseError, rpcResult } from '../server/erro
 import { courseSchema, settingsSchema, uuid, type CourseDraft } from '../schemas';
 import type { Json } from '../database.types';
 import { resolveVideo } from '../video';
+import { protectedProviders } from '../protected-video';
+import { runtimeEnvironment } from '../server/env';
 import { getSettings } from '../server/data';
 
 export async function saveCourse(input: unknown) {
@@ -20,7 +22,11 @@ export async function saveCourse(input: unknown) {
         for (const b of l.blocks)
           if (b.type === 'video') {
             try {
-              resolveVideo(b.data.provider, b.data.url, settings.embed_origins);
+              if ('sourceId' in b.data) {
+                if (!protectedProviders(runtimeEnvironment()).includes(b.data.provider))
+                  throw new AppError('Защищённый видеопровайдер не настроен на сервере.');
+              } else if ('url' in b.data)
+                resolveVideo(b.data.provider, b.data.url, settings.embed_origins);
             } catch (error) {
               throw new AppError(error instanceof Error ? error.message : 'Проверьте видео');
             }

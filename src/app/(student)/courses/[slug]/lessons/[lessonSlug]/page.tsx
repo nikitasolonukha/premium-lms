@@ -1,3 +1,4 @@
+import { watermarkLabel } from '@/lib/watermark';
 import Link from 'next/link';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { ChevronRight, Clock3, LockKeyhole } from 'lucide-react';
@@ -117,8 +118,13 @@ export default async function LessonPage({
               <BlockRenderer
                 blocks={lesson.blocks}
                 lessonId={lesson.id}
-                viewer={`${actor.email} · ${actor.id.slice(0, 8)}`}
+                viewer={watermarkLabel(actor, settings.watermark_mode)}
                 watermark={settings.content_watermark_enabled}
+                watermarkOptions={{
+                  brandName: settings.brand_name,
+                  intervalSeconds: settings.watermark_interval_seconds,
+                  opacity: settings.watermark_opacity,
+                }}
               />
               <LessonControls
                 key={lesson.id}

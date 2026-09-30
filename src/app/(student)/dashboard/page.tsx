@@ -1,3 +1,4 @@
+import { privateImage } from '@/lib/media-images';
 export const metadata = { title: 'Моё обучение' };
 import Link from 'next/link';
 import {
@@ -62,7 +63,7 @@ export default async function Dashboard() {
             Привет, {actor.profile.first_name || 'студент'}
             <span className="greeting-dot">.</span>
           </h1>
-          <p>Хороший день, чтобы узнать что-то новое.</p>
+          <p>Ваши курсы, последние уроки и учебные материалы.</p>
         </div>
         <span className="date-mark">
           {dateLabel(new Date().toISOString()).toUpperCase()} / ВАШ ЛИЧНЫЙ КАБИНЕТ
@@ -77,8 +78,8 @@ export default async function Dashboard() {
                 {active.progress === 100
                   ? 'ПРОГРАММА ЗАВЕРШЕНА'
                   : active.progress > 0
-                    ? 'ПРОДОЛЖИМ С ТОГО МЕСТА'
-                    : 'ВАШ СЛЕДУЮЩИЙ ШАГ'}
+                    ? 'ПРОДОЛЖИТЬ ОБУЧЕНИЕ'
+                    : 'НАЧАТЬ ОБУЧЕНИЕ'}
               </div>
               <h2>{course.title}</h2>
               <p>
@@ -99,7 +100,7 @@ export default async function Dashboard() {
             </div>
             <div className="continue-cover">
               {course.coverId && (
-                <img src={`/api/media/${course.coverId}`} alt="" fetchPriority="high" />
+                <img {...privateImage(course.coverId)} alt="" fetchPriority="high" />
               )}
               <div className="continue-cover-caption">
                 <span className="play-circle">
@@ -109,7 +110,7 @@ export default async function Dashboard() {
                   <small>
                     {active.last_activity
                       ? `ПОСЛЕДНЯЯ АКТИВНОСТЬ · ${dateLabel(active.last_activity).toUpperCase()}`
-                      : 'В УДОБНОМ ДЛЯ ВАС ТЕМПЕ'}
+                      : 'ПЕРВЫЙ УРОК'}
                   </small>
                   <strong>{lesson?.title ?? 'Все уроки пройдены'}</strong>
                 </div>

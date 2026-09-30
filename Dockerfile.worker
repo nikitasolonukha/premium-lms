@@ -1,0 +1,10 @@
+FROM node:22.19.0-bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg fonts-dejavu-core && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+COPY workers ./workers
+COPY src/lib/config.ts ./src/lib/config.ts
+ENV NODE_ENV=production FFMPEG_PATH=ffmpeg FFPROBE_PATH=ffprobe
+USER node
+CMD ["node", "--experimental-strip-types", "workers/main.mjs"]

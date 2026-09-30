@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T16:51:32.210Z",
+  "checks": [
+    "RU/EN stemming and case-insensitive partial title search",
+    "category and tag search",
+    "combined filters persist in URL after reload",
+    "reset filters and empty query",
+    "status filtering before counts and pagination",
+    "saved course disappears on revoke",
+    "B search and counts exclude restricted course"
+  ]
+}

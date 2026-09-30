@@ -1,0 +1,56 @@
+{
+  "executedAt": "2026-09-30T12:30:30.839Z",
+  "environment": {
+    "browserVersion": "154.0.8037.92",
+    "headless": false,
+    "widevineAvailable": true
+  },
+  "results": [
+    {
+      "provider": "youtube",
+      "status": "PASS",
+      "playbackSeconds": 2.763841,
+      "fullscreenWatermark": true,
+      "sourceResponses": []
+    },
+    {
+      "provider": "vimeo",
+      "status": "PASS",
+      "playbackSeconds": 2.773818,
+      "fullscreenWatermark": true,
+      "sourceResponses": [
+        {
+          "status": 200,
+          "kind": "document"
+        }
+      ]
+    },
+    {
+      "provider": "rutube",
+      "status": "PASS",
+      "playbackSeconds": 2.963329,
+      "fullscreenWatermark": true,
+      "sourceResponses": []
+    },
+    {
+      "provider": "direct",
+      "status": "PASS",
+      "playbackSeconds": 2.935983,
+      "fullscreenWatermark": true,
+      "sourceResponses": [
+        {
+          "status": 206,
+          "kind": "media"
+        }
+      ]
+    },
+    {
+      "provider": "external",
+      "status": "FAIL",
+      "failureReason": "PLAYBACK_TIMEOUT",
+      "mediaState": null,
+      "sourceResponses": []
+    }
+  ],
+  "status": "FAIL"
+}

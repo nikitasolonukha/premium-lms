@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "widths": [
+    480,
+    960,
+    1800
+  ],
+  "arbitrarySize": "denied",
+  "arbitraryWidth": "denied",
+  "foreignUser": "denied",
+  "scope": "real upload, Storage and private delivery"
+}

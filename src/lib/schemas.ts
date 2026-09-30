@@ -110,6 +110,26 @@ const boundedRichNode = z
   })
   .pipe(richNode);
 const base = { id: uuid, version: z.literal(1) };
+export const videoSourceSchema = z.discriminatedUnion('provider', [
+  z.object({ provider: z.literal('upload'), assetId: uuid, title }).strict(),
+  z
+    .object({ provider: z.enum(['youtube', 'vimeo', 'rutube', 'direct', 'external']), url, title })
+    .strict(),
+  z
+    .object({
+      provider: z.literal('cloudflare'),
+      sourceId: z.string().regex(/^[a-f0-9]{32}$/),
+      title,
+    })
+    .strict(),
+  z
+    .object({
+      provider: z.literal('mux'),
+      sourceId: z.string().regex(/^[A-Za-z0-9]{8,128}$/),
+      title,
+    })
+    .strict(),
+]);
 export const blockSchema = z.discriminatedUnion('type', [
   z.object({
     ...base,
@@ -131,13 +151,7 @@ export const blockSchema = z.discriminatedUnion('type', [
   z.object({
     ...base,
     type: z.literal('video'),
-    data: z
-      .object({
-        provider: z.enum(['youtube', 'vimeo', 'rutube', 'direct', 'external']),
-        url,
-        title,
-      })
-      .strict(),
+    data: videoSourceSchema,
   }),
   z.object({
     ...base,
@@ -233,6 +247,9 @@ export const settingsSchema = z
     logo_asset_id: uuid.nullable(),
     favicon_asset_id: uuid.nullable(),
     content_watermark_enabled: z.boolean(),
+    watermark_mode: z.enum(['email', 'user_id', 'email_and_id']).default('email_and_id'),
+    watermark_interval_seconds: z.number().int().min(5).max(120).default(18),
+    watermark_opacity: z.number().min(0.15).max(0.65).default(0.28),
     social_links: z.array(z.object({ label: title, url }).strict()).max(6),
     embed_origins: z
       .array(
@@ -249,16 +266,19 @@ export const settingsSchema = z
 export type AcademySettings = z.infer<typeof settingsSchema>;
 export const defaultSettings: AcademySettings = {
   brand_name: 'Академия',
-  login_title: 'Знания, которые становятся действием.',
+  login_title: 'Курсы и материалы вашей академии.',
   login_description:
-    'Программы для тех, кто создаёт продукты, развивает команды и меняет привычный ход вещей.',
+    'Открывайте уроки, сохраняйте материалы и продолжайте обучение с того места, где остановились.',
   support_email: 'support@example.com',
-  footer_text: 'Учиться. Пробовать. Менять.',
-  seo_description: 'Ваша среда для осмысленного обучения',
+  footer_text: 'Курсы, уроки и учебные материалы.',
+  seo_description: 'Учебные курсы, материалы и прогресс в одном личном кабинете.',
   accent_color: '#3155e7',
   logo_asset_id: null,
   favicon_asset_id: null,
   content_watermark_enabled: false,
+  watermark_mode: 'email_and_id',
+  watermark_interval_seconds: 18,
+  watermark_opacity: 0.28,
   social_links: [],
   embed_origins: [],
 };

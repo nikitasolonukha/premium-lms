@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "runId": 36713744998,
+  "commit": "6d4f6863ccc6ccb9a655f9f48ab389cad333390b",
+  "url": "https://github.com/nikitasolonukha/premium-lms/actions/runs/36713744998",
+  "reason": "YouTube PROVIDER_AUTH_REQUIRED; remaining executable non-video tests PASS; four public providers PASS; protected live tests UNVERIFIED."
+}

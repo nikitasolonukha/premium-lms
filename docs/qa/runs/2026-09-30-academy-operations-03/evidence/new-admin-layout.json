@@ -1,0 +1,299 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "screen": "student-card",
+      "theme": "light",
+      "width": 375,
+      "height": 812,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "light",
+      "width": 430,
+      "height": 932,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "light",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "dark",
+      "width": 375,
+      "height": 812,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "dark",
+      "width": 430,
+      "height": 932,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "status": "PASS"
+    },
+    {
+      "screen": "student-card",
+      "theme": "dark",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "light",
+      "width": 375,
+      "height": 812,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "light",
+      "width": 430,
+      "height": 932,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "light",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "dark",
+      "width": 375,
+      "height": 812,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "dark",
+      "width": 430,
+      "height": 932,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "status": "PASS"
+    },
+    {
+      "screen": "automations",
+      "theme": "dark",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "light",
+      "width": 375,
+      "height": 812,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "light",
+      "width": 430,
+      "height": 932,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "light",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "dark",
+      "width": 375,
+      "height": 812,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "dark",
+      "width": 430,
+      "height": 932,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "status": "PASS"
+    },
+    {
+      "screen": "video-processing",
+      "theme": "dark",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS"
+    }
+  ]
+}

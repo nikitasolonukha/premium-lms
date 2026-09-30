@@ -1,3 +1,4 @@
+import { qaPath } from './qa-paths.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -8,7 +9,7 @@ import { courseSchema } from '../src/lib/schemas';
 
 // db-fixtures enforces the isolated local Supabase URL. This check uses the
 // pre-incident UAT course; it never resets, seeds or replaces existing content.
-const prior = JSON.parse(readFileSync('docs/qa/evidence/uat.json', 'utf8'));
+const prior = JSON.parse(readFileSync(process.argv[2] ?? qaPath('evidence/uat.json'), 'utf8'));
 assert.equal(prior.status, 'PASS');
 const health = await fetch('http://localhost:3000/api/health', {
   signal: AbortSignal.timeout(10_000),
@@ -70,7 +71,7 @@ try {
   await expect(other.getByRole('heading', { name: 'Страница недоступна' })).toBeVisible();
   assert.equal((await other.request.get(href, { maxRedirects: 0 })).status(), 404);
   writeFileSync(
-    'docs/qa/evidence/runtime-recovery.json',
+    qaPath('evidence/runtime-recovery.json'),
     JSON.stringify(
       {
         status: 'PASS',

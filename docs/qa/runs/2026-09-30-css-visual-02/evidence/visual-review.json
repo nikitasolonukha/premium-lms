@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "executedDate": "2026-09-30",
+  "scope": "Production-build browser regression after structural CSS split; local Supabase seed content.",
+  "automatedTests": {"passed": 22, "failed": 0, "retried": 0},
+  "screens": 21,
+  "screenshots": 105,
+  "lightViewports": ["375x812", "390x844", "430x932", "768x1024", "1024x768", "1440x900", "1920x1080"],
+  "darkViewports": ["390x844", "1440x900", "1920x1080"],
+  "manualReview": "Viewed three contact sheets from 84 original desktop/mobile light/dark screenshots, including all 15 requested screens. No obvious layout/theme regression observed in the reviewed regions; full originals and automated per-screen evidence are retained.",
+  "checks": ["seven light viewport sizes", "desktop/mobile dark accessibility", "WCAG AA axe", "mobile touch targets", "document overflow", "no browser page/console errors or failed local HTTP responses", "drawer keyboard/focus return", "reduced motion"],
+  "limitations": "Contact sheets cover upper screenshot regions; automated checks and full screenshots cover the full page. This evidence does not replace staging/production UAT or real protected-video provider QA."
+}

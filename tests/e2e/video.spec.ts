@@ -1,3 +1,4 @@
+import { qaPath } from '../../scripts/qa-paths.mjs';
 import { test, expect } from './test';
 import { randomUUID } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
@@ -52,6 +53,13 @@ test('five public video adapters: grants, real player loading, playback, mobile 
     playbackSeconds?: number;
     fullscreenWatermark?: boolean;
     mediaState?: { time: number; ready: number; network: number; error: number | null } | null;
+    sourceResponses?: { status?: number; error?: string; kind: string }[];
+    failureReason?:
+      | 'PROVIDER_AUTH_REQUIRED'
+      | 'PROVIDER_ASSET_UNAVAILABLE'
+      | 'MEDIA_NOT_SUPPORTED'
+      | 'PLAYBACK_TIMEOUT'
+      | 'PLAYER_FAILURE';
   }[] = [];
   let widevineAvailable = false;
   try {
@@ -113,6 +121,25 @@ test('five public video adapters: grants, real player loading, playback, mobile 
     ).toBeNull();
     await login(page, 2);
     for (const [i, provider] of providers.entries()) {
+      const sourceResponses: { status?: number; error?: string; kind: string }[] = [];
+      const onResponse = (response: import('@playwright/test').Response) => {
+        if (response.url() === provider.url)
+          sourceResponses.push({
+            status: response.status(),
+            kind: response.request().resourceType(),
+          });
+      };
+      const onFailure = (request: import('@playwright/test').Request) => {
+        if (request.url() === provider.url) {
+          const code = request.failure()?.errorText ?? '';
+          sourceResponses.push({
+            kind: request.resourceType(),
+            error: /^net::ERR_[A-Z_]+$/.test(code) ? code : 'SOURCE_REQUEST_FAILED',
+          });
+        }
+      };
+      page.on('response', onResponse);
+      page.on('requestfailed', onFailure);
       try {
         console.log(`Checking ${provider.provider}`);
         const granted = page.waitForResponse(
@@ -174,7 +201,7 @@ test('five public video adapters: grants, real player loading, playback, mobile 
           .toContain('video-frame');
         await expect(page.locator('.video-frame .watermark')).toBeVisible();
         await page.locator('.video-frame').screenshot({
-          path: `docs/qa/screenshots/provider-${provider.provider}-fullscreen.png`,
+          path: qaPath(`screenshots/provider-${provider.provider}-fullscreen.png`),
         });
         await page.evaluate(() => document.exitFullscreen());
         results.push({
@@ -182,6 +209,7 @@ test('five public video adapters: grants, real player loading, playback, mobile 
           status: 'PASS',
           playbackSeconds,
           fullscreenWatermark: true,
+          sourceResponses,
         });
       } catch (error) {
         const frame = page
@@ -203,9 +231,10 @@ test('five public video adapters: grants, real player loading, playback, mobile 
             : 'Player failed') +
           ' ' +
           providerMessage.slice(0, 800);
-        const mediaState = frame
-          ? await frame
-              .locator('video')
+        const mediaLocator =
+          provider.provider === 'direct' ? page.locator('video') : frame?.locator('video');
+        const mediaState = mediaLocator
+          ? await mediaLocator
               .first()
               .evaluate(
                 (node) => {
@@ -222,17 +251,38 @@ test('five public video adapters: grants, real player loading, playback, mobile 
               )
               .catch(() => null)
           : null;
-        results.push({ provider: provider.provider, status: 'FAIL', detail, mediaState });
+        const failureReason = /not a bot|sign in|подтверд.*робот|войдите/i.test(providerMessage)
+          ? 'PROVIDER_AUTH_REQUIRED'
+          : /video unavailable|video is not available|video has been removed|видео недоступно/i.test(
+                providerMessage,
+              )
+            ? 'PROVIDER_ASSET_UNAVAILABLE'
+            : /NotSupportedError/.test(detail)
+              ? 'MEDIA_NOT_SUPPORTED'
+              : /timeout|timed out|within \d+ seconds/i.test(detail)
+                ? 'PLAYBACK_TIMEOUT'
+                : 'PLAYER_FAILURE';
+        results.push({
+          provider: provider.provider,
+          status: 'FAIL',
+          failureReason,
+          detail,
+          mediaState,
+          sourceResponses,
+        });
         await page.locator('.video-frame').screenshot({
-          path: `docs/qa/screenshots/provider-${provider.provider}-failure.png`,
+          path: qaPath(`screenshots/provider-${provider.provider}-failure.png`),
         });
         console.log(`${provider.provider}: ${detail}`);
+      } finally {
+        page.off('response', onResponse);
+        page.off('requestfailed', onFailure);
       }
     }
     expect(results.filter((r) => r.status !== 'PASS')).toEqual([]);
   } finally {
     writeFileSync(
-      'docs/qa/evidence/video-providers.json',
+      qaPath('evidence/video-providers.json'),
       JSON.stringify(
         {
           executedAt: new Date().toISOString(),

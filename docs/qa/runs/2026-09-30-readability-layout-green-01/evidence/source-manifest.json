@@ -1,0 +1,61 @@
+{
+  "scope": "24 production UI scenarios including 21 screens, recorded before isolated featured-course layout adjustment",
+  "files": [
+    {
+      "path": "src/styles/overrides.css",
+      "sha256": "81f0fe2a4ff9939e1c0dceb6737bdbf1a952c7b8a7fe217b7e2e4c8a5aaaf06f"
+    },
+    {
+      "path": "src/styles/tokens.css",
+      "sha256": "d89a87f0764f81028eb57dc1ae6fc64231b13ea3782e162aa732260514e929df"
+    },
+    {
+      "path": "src/styles/base.css",
+      "sha256": "9f4ce441e0d0522425683c3891b91d835aa9018e0b6a47f20429bb671492a5a6"
+    },
+    {
+      "path": "src/styles/student.css",
+      "sha256": "25de1f8dce025aeec50af35f933353ddcf075d3f2c86be06210f574a51aba2f8"
+    },
+    {
+      "path": "src/styles/responsive.css",
+      "sha256": "5ec3dbadbbdb9e13d39f78c2c142a68f91904a51139599ba9ba7177cb10c1fe9"
+    },
+    {
+      "path": "src/styles/responsive-learning.css",
+      "sha256": "f56a239b95293418895ae147b45396ba9f887effea9fe8a7ce809814bc34f86b"
+    },
+    {
+      "path": "src/styles/course.css",
+      "sha256": "f67f8cd8198b4966959e842171e5e1d866d75ebc356e91cd59c08bd03cc5855c"
+    },
+    {
+      "path": "src/styles/lesson.css",
+      "sha256": "853a3845afcf877c17ea299c514f4d73d547ebe5d03f414f577558cdd1a835fe"
+    },
+    {
+      "path": "src/styles/admin.css",
+      "sha256": "aa31934db321ec07fd2e7dc946068ac66e184635e45b723e47da82a136103fd8"
+    },
+    {
+      "path": "src/styles/editor.css",
+      "sha256": "255e940c231bae68c939d7facba963e229cb41dfbb43ab5d62ffc3c5752034ca"
+    },
+    {
+      "path": "src/components/auth-shell.tsx",
+      "sha256": "23ee10cd207332eb7fe328ff072c153afbc2f1b367deaf8b929f66bdaf5632cd"
+    },
+    {
+      "path": "src/components/navigation.tsx",
+      "sha256": "a3fb855eb734f6776a284167212f19f6ada0d9903be690a66092163c4d178b06"
+    },
+    {
+      "path": "src/app/(student)/courses/page.tsx",
+      "sha256": "d6c895277e7f324ef52213d01fa7f875c21fc08342ae0eacbab4e06a416076dc"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "sha256": "23de787471b30ef67ec62338712e52b56e221a59cbc97a75a1d75a40015008ef"
+    }
+  ]
+}

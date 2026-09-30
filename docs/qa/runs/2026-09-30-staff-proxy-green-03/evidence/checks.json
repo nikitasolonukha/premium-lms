@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "stage": "GREEN",
+  "executedAt": "2026-09-30T13:27:27.481Z",
+  "checks": [
+    "typecheck",
+    "lint",
+    "78 unit tests",
+    "16 critical modules coverage: lines 93.58, statements 91.73, branches 90.01, functions 92.94",
+    "production build",
+    "4 actual Auth/staff browser tests on real local Supabase"
+  ],
+  "fix": "Preserve original Flight headers in Proxy with skipProxyUrlNormalize; overwrite derived activity marker; readonly status RPC for background prefetch. Both paths retain database authorization and actual-session deadlines.",
+  "scope": "Working tree subsequently committed as GREEN. Failed earlier attempts retained. Auth history waits for logout completion before Back. Six transports, forged marker, expired payload without course IDs and actual browser redirect verified."
+}

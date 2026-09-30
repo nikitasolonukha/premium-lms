@@ -1,3 +1,4 @@
+import { qaPath } from './qa-paths.mjs';
 import { createClient } from '@supabase/supabase-js';
 import pg from 'pg';
 import assert from 'node:assert/strict';
@@ -121,7 +122,7 @@ try {
     2,
   );
   writeFileSync(
-    'docs/qa/evidence/operations.json',
+    qaPath('evidence/operations.json'),
     JSON.stringify(
       {
         executedAt: new Date().toISOString(),

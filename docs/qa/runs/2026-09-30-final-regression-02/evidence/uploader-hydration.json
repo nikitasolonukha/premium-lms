@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    "fresh browser cache",
+    "client JS intentionally delayed",
+    "SSR file input and button disabled",
+    "file change controls enabled after actual hydration"
+  ],
+  "scope": "Real production SSR and client hydration, with unchanged server upload validation."
+}

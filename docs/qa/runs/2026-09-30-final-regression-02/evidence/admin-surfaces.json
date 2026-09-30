@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": [
+    "session status is read-only",
+    "expired session denied",
+    "analytics pagination and global totals",
+    "bounded legacy analytics RPC",
+    "audit action/actor/entity/date filters",
+    "provider configuration audit idempotency",
+    "provider audit service-only permission"
+  ],
+  "fixtures": "transaction rolled back"
+}

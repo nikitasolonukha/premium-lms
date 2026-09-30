@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "scope": "Local final coordinator left the bootstrap Admin in the database before seeding. Security suite expects exactly one active seeded Admin. The attempted seeded-Admin demotion legitimately succeeded because the operator Admin still existed, then dependent scenarios lost staff rights. 19/32 security scenarios passed; no PASS is claimed for this suite.",
+  "cause": "Fixture precondition, not a demonstrated last-Admin bypass. Installed CI already resets between bootstrap tests and demo seed.",
+  "nextRun": "2026-09-30-final-regression-05 resets the local-only database again before repeat seed/security. Original failed checks and operations evidence retained."
+}

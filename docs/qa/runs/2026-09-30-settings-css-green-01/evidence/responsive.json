@@ -1,0 +1,175 @@
+{
+  "executedAt": "2026-09-30T11:25:50.881Z",
+  "status": "FAIL",
+  "results": [
+    {
+      "screen": "student-home",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 768,
+      "height": 1024,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1920,
+      "height": 1080,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1920,
+      "height": 1080,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 768,
+      "height": 1024,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1440,
+      "height": 900,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1920,
+      "height": 1080,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1440,
+      "height": 900,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1920,
+      "height": 1080,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 375,
+      "height": 812,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "overflow": false
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+  ],
+  "failedResponses": [
+    {
+      "status": 429,
+      "path": "/api/media/d8152874-60bb-4dd4-a0ee-0b124e3167c6"
+    },
+    {
+      "status": 429,
+      "path": "/api/media/d8152874-60bb-4dd4-a0ee-0b124e3167c6"
+    }
+  ]
+}

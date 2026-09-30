@@ -1,11 +1,12 @@
 export type VideoProvider =
-  'youtube' | 'vimeo' | 'rutube' | 'direct' | 'external' | 'mux' | 'cloudflare';
+  'youtube' | 'vimeo' | 'rutube' | 'direct' | 'external' | 'mux' | 'cloudflare' | 'upload';
 export type PlaybackGrant = {
   kind: 'iframe' | 'video';
   url: string;
   protected: boolean;
   expiresAt?: string;
   provider: VideoProvider;
+  downloadUrl?: string;
 };
 export interface VideoProviderAdapter {
   provider: VideoProvider;
@@ -47,8 +48,8 @@ export function resolveVideo(
   source: string,
   allowedOrigins: string[] = [],
 ): PlaybackGrant {
-  if (provider === 'mux' || provider === 'cloudflare')
-    throw new Error('Защищённый видеопровайдер ещё не подключён');
+  if (provider === 'mux' || provider === 'cloudflare' || provider === 'upload')
+    throw new Error('Защищённое видео требует серверного разрешения на воспроизведение');
   const safe = safeWebUrl(source);
   if (!safe) throw new Error('Укажите безопасный HTTPS-адрес видео');
   const u = new URL(safe),

@@ -1,0 +1,65 @@
+{
+  "executedAt": "2026-09-30T16:47:33.376Z",
+  "files": [
+    {
+      "path": "src/app/(student)/courses/page.tsx",
+      "sha256": "4e9ab61e64b57fdcf52e072345e8aa9c9d958eabdc13f6bd22d8ae093350dcf8"
+    },
+    {
+      "path": "src/app/(student)/library/page.tsx",
+      "sha256": "dd0e6da730334a7ecbe18ac180daf038702833e685e4cfaa93feaaf05c5bd545"
+    },
+    {
+      "path": "src/app/(student)/saved/page.tsx",
+      "sha256": "a3f1afe7a5ffde776b1c0e55f9d88c38f8e06e9a98c5218953ca98f071e1e8a8"
+    },
+    {
+      "path": "src/app/(student)/search/page.tsx",
+      "sha256": "68033679e9a87226ac9cfce3a81a90d17920847ba4abad3377576acdb5b74dc8"
+    },
+    {
+      "path": "src/components/course-card.tsx",
+      "sha256": "e127dbd559fac746bbc6026976187bfbb550723f4f4a35ff0ea167478b0aed5c"
+    },
+    {
+      "path": "src/styles/admin.css",
+      "sha256": "23f45bbfdbbd021721c7dd1232105feff7189c7743bcb19995de3b92f3ceda84"
+    },
+    {
+      "path": "src/styles/course.css",
+      "sha256": "0d7e2100b22001b8680a2201dc3395f5f0b65e60b3bffbe1b44a674071f3ae87"
+    },
+    {
+      "path": "src/styles/overrides.css",
+      "sha256": "afa80a19b6fb9c63476ba4b5962d89a143fcd824eb4663c18c8a5c301abad478"
+    },
+    {
+      "path": "src/styles/responsive-learning.css",
+      "sha256": "216b081f1647b22255539a6435e834c267fcb39d6d8e20db6c315df9259b5135"
+    },
+    {
+      "path": "src/styles/responsive.css",
+      "sha256": "34cf518cbbe1d72be986aaf21e327dc55921e2affd1991e2311e0dfc86fc3f0c"
+    },
+    {
+      "path": "src/styles/student.css",
+      "sha256": "aa567daf08520eb7fa3dc35fbf23e33d1efe96bee249de1e0124ef2a193f3442"
+    },
+    {
+      "path": "tests/e2e/discovery.spec.ts",
+      "sha256": "62914bf72a6626e8d723fb8561e1d033e061cbc727aedee57f34b08aed201a89"
+    },
+    {
+      "path": "tests/e2e/catalog-navigation.spec.ts",
+      "sha256": "a5b399c1133650d6b64bc1c835d3335ee723949f6c3b25a13b277a6629fcb0f1"
+    },
+    {
+      "path": "tests/e2e/visual.spec.ts",
+      "sha256": "cc7fbc7528634dbb74bff754356e8ac9d255dc975b339edfa18ce55d1f11048c"
+    }
+  ],
+  "geometryHarness": {
+    "path": ".local/check-card-fit.ts",
+    "sha256": "cb017bc788b4a3367491f59ef2c99fe469f698c49bcc381f1845273f67cd20e8"
+  }
+}

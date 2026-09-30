@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, BookOpen, Compass, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Logo } from '@/components/navigation';
 import { ThemeToggle } from '@/components/providers';
 import { getBranding } from '@/lib/server/data';
@@ -23,9 +23,7 @@ export default async function Landing() {
       </header>
       <main id="main-content" className="landing-main">
         <div className="landing-copy">
-          <div className="eyebrow">
-            <span className="status-dot" /> ВАША СРЕДА РАЗВИТИЯ
-          </div>
+          <div className="eyebrow">УЧЕБНАЯ ПЛАТФОРМА</div>
           <h1>{brand.login_title}</h1>
           <p>{brand.login_description}</p>
           <div className="landing-cta">
@@ -36,32 +34,6 @@ export default async function Landing() {
               Создать аккаунт
             </Link>
           </div>
-          <div className="landing-benefits">
-            <span>
-              <BookOpen size={19} /> Знания с практикой
-            </span>
-            <span>
-              <Compass size={19} /> В своём темпе
-            </span>
-            <span>
-              <Sparkles size={19} /> С фокусом на результат
-            </span>
-          </div>
-        </div>
-        <div className="landing-art" aria-hidden="true">
-          <span className="art-label">
-            НОВЫЙ ВЗГЛЯД
-            <br />
-            НОВЫЕ ВОЗМОЖНОСТИ
-          </span>
-          <div className="orb-scene">
-            <div className="orb-ring ring-one" />
-            <div className="orb-sphere" />
-            <div className="orb-ring ring-two" />
-          </div>
-          <span className="art-caption">
-            LEARN. MAKE. CHANGE. <ArrowUpRight size={25} />
-          </span>
         </div>
       </main>
       <footer className="student-footer">
