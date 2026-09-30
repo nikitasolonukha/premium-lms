@@ -79,6 +79,8 @@ test('profile changes persist, branding is editable, watermark moves and survive
     }
     const stage = student.locator('.image-stage').first();
     await expect(stage).toBeVisible();
+    // The owner's name must survive alongside the viewer identity, not replace it.
+    await expect(stage.locator('.watermark-brand')).toHaveText('Академия практики');
     await expect(stage.locator('.watermark')).toContainText(
       watermarkLabel(accounts[4], original.watermark_mode ?? 'email_and_id'),
     );
@@ -90,6 +92,7 @@ test('profile changes persist, branding is editable, watermark moves and survive
       .poll(() => student.evaluate(() => document.fullscreenElement?.className))
       .toContain('image-stage');
     await expect(stage.locator('.watermark')).toBeVisible();
+    await expect(stage.locator('.watermark-brand')).toHaveText('Академия практики');
     await student.evaluate(() => document.exitFullscreen());
     writeFileSync(
       qaPath('evidence/settings-profile.json'),
@@ -100,6 +103,7 @@ test('profile changes persist, branding is editable, watermark moves and survive
           checks: [
             'name and avatar survive reload and login',
             'Admin branding text/color/logo/favicon',
+            'academy name and masked viewer identity remain together in fullscreen',
             'masked watermark viewer identity; full email absent',
             'watermark 18-second timer with browser clock',
             'fullscreen wrapper retains watermark',

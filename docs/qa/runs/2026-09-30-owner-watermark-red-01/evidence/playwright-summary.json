@@ -1,0 +1,18 @@
+{
+  "status": "FAIL",
+  "executedAt": "2026-09-30T14:26:44.840Z",
+  "counts": {
+    "PASS": 0,
+    "FAIL": 1,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "profile changes persist, branding is editable, watermark moves and survives fullscreen",
+      "file": "settings-profile.spec.ts",
+      "status": "FAIL",
+      "durationMs": 28645,
+      "failureLocation": "settings-profile.spec.ts:83:53"
+    }
+  ]
+}
