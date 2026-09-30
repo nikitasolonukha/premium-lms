@@ -22,7 +22,12 @@
     "db:types": "supabase gen types typescript --local > src/lib/database.types.ts",
     "seed": "tsx --env-file=.env.local scripts/seed.ts",
     "setup:local": "node scripts/setup-local.mjs",
-    "admin:create": "tsx --env-file=.env.local scripts/admin.ts"
+    "admin:create": "tsx --env-file=.env.local scripts/admin.ts",
+    "test:security": "tsx --env-file=.env.local scripts/test-security.ts && tsx --env-file=.env.local scripts/test-playback-access.ts && tsx --env-file=.env.local scripts/test-media-finalize.ts && tsx --env-file=.env.local scripts/test-admin-surfaces.ts",
+    "test:operations": "tsx --env-file=.env.local scripts/test-operations.ts",
+    "security:install": "node scripts/install-gitleaks.mjs",
+    "security:secrets": "node scripts/scan-secrets.mjs",
+    "security:client": "node --env-file=.env.local scripts/scan-client-secrets.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "6.3.1",

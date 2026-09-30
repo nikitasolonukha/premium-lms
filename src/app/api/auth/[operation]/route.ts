@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { signIn, register, requestPasswordReset, changePassword } from '@/lib/actions/auth';
+import { readJsonBody, BodyError } from '@/lib/bounded-body';
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ operation: string }> },
@@ -17,15 +18,10 @@ export async function POST(
     );
   let input: Record<string, unknown>;
   try {
-    const text = await request.text();
-    if (text.length > 4096) throw new Error();
-    input = JSON.parse(text);
-    if (!input || Array.isArray(input) || typeof input !== 'object') throw new Error();
-  } catch {
-    return NextResponse.json(
-      { ok: false, error: 'Некорректный запрос', status: 400 },
-      { status: 400 },
-    );
+    input = await readJsonBody(request.body, 4096);
+  } catch (error) {
+    const status = error instanceof BodyError ? error.status : 400;
+    return NextResponse.json({ ok: false, error: 'Некорректный запрос', status }, { status });
   }
   const result =
     operation === 'login'
