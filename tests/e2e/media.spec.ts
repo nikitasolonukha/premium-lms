@@ -21,6 +21,7 @@ test('responsive private images use stored sizes and reject arbitrary transforms
   try {
     await login(page, 0);
     await page.goto('/admin/media');
+    await expect(page.locator('input[type=file]')).toBeEnabled();
     await page
       .locator('input[type=file]')
       .setInputFiles({ name, mimeType: 'image/png', buffer: original });
@@ -156,6 +157,7 @@ test('media UI validates every supported format, Unicode and malformed uploads',
     },
   ];
   for (const file of files) {
+    await expect(page.locator('input[type=file]')).toBeEnabled();
     await page.locator('input[type=file]').setInputFiles(file);
     await expect(page.getByText('Файл загружен', { exact: true })).toBeVisible();
     const link = page.getByRole('link', { name: `Скачать ${file.name}`, exact: true });

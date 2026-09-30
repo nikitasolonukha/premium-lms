@@ -25,13 +25,16 @@ test('cold SSR upload controls remain disabled until their change handler is hyd
   try {
     await page.goto('/admin/media', { waitUntil: 'commit' });
     const field = page.locator('.upload-field');
+    const button = field
+      .getByRole('button', { name: 'Загрузить файл' })
+      .and(field.locator('button'));
     await expect(field).toBeVisible();
     await expect.poll(() => blockedScripts).toBeGreaterThan(0);
     await expect(field.locator('input[type=file]')).toBeDisabled();
-    await expect(field.getByRole('button', { name: 'Загрузить файл' })).toBeDisabled();
+    await expect(button).toBeDisabled();
     release();
     await expect(field.locator('input[type=file]')).toBeEnabled();
-    await expect(field.getByRole('button', { name: 'Загрузить файл' })).toBeEnabled();
+    await expect(button).toBeEnabled();
   } finally {
     release();
     await cold.close();
