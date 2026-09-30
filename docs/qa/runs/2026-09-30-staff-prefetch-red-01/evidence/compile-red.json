@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "stage": "TDD compile-time RED",
+  "command": "npm run typecheck",
+  "error": "TS2305",
+  "file": "tests/unit/staff-prefetch.test.ts",
+  "missingImplementation": "staffSessionRpcForRequest",
+  "scope": "Only expected missing export remains; unrelated fixture typing was corrected before this RED checkpoint. Production logic not yet changed."
+}

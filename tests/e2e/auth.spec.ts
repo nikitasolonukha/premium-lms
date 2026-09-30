@@ -63,6 +63,7 @@ test('registration, test email confirmation, password recovery, MFA enrollment a
   }
   await page.goto('/profile');
   await page.getByRole('button', { name: 'Выйти из аккаунта' }).click();
+  await expect(page).toHaveURL(/\/login/);
   await page.goBack();
   await expect(page).toHaveURL(/\/login/);
   await page.goto('/forgot-password');

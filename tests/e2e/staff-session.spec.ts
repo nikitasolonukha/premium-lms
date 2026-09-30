@@ -1,6 +1,6 @@
 import { test, expect } from './test';
 import pg from 'pg';
-import { login, accounts } from './helpers';
+import { login, browserSessionId } from './helpers';
 import { writeFileSync } from 'node:fs';
 import { qaPath } from '../../scripts/qa-paths.mjs';
 
@@ -12,12 +12,8 @@ test('staff warning reads deadlines without extending session; explicit continua
   let sid: string | undefined;
   try {
     await login(page, 0);
-    sid = (
-      await db.query(
-        'select session_id from private.admin_sessions where user_id=$1 order by started_at desc limit 1',
-        [accounts[0].id],
-      )
-    ).rows[0].session_id;
+    await page.waitForLoadState('networkidle');
+    sid = await browserSessionId(page);
     await db.query(
       "update private.admin_sessions set last_active_at=now()-interval '29 minutes' where session_id=$1",
       [sid],
@@ -71,6 +67,76 @@ test('staff warning reads deadlines without extending session; explicit continua
             'explicit continuation extends idle',
             'expired session denied and warning visible',
           ],
+        },
+        null,
+        2,
+      ),
+    );
+  } finally {
+    if (sid)
+      await db.query('update private.admin_sessions set last_active_at=now() where session_id=$1', [
+        sid,
+      ]);
+    await db.end();
+  }
+});
+
+test('Admin prefetch checks actual session without extending idle; expired prefetch is denied', async ({
+  page,
+}) => {
+  const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
+  await db.connect();
+  let sid: string | undefined;
+  try {
+    await login(page, 0);
+    await page.waitForLoadState('networkidle');
+    sid = await browserSessionId(page);
+    await db.query(
+      "update private.admin_sessions set last_active_at=now()-interval '29 minutes' where session_id=$1",
+      [sid],
+    );
+    const before = (
+      await db.query('select last_active_at from private.admin_sessions where session_id=$1', [sid])
+    ).rows[0].last_active_at.toISOString();
+    const transports: Record<string, string>[] = [
+      { 'next-router-prefetch': '1' },
+      { 'next-router-segment-prefetch': '/_tree' },
+      { purpose: 'prefetch' },
+      { 'sec-purpose': 'prefetch;prerender' },
+    ];
+    for (const headers of transports) {
+      const response = await page.request.get('/admin/courses', { headers });
+      expect(response.status()).toBe(200);
+      expect(
+        (
+          await db.query('select last_active_at from private.admin_sessions where session_id=$1', [
+            sid,
+          ])
+        ).rows[0].last_active_at.toISOString(),
+      ).toBe(before);
+    }
+    await db.query(
+      "update private.admin_sessions set last_active_at=now()-interval '31 minutes' where session_id=$1",
+      [sid],
+    );
+    const denied = await page.request.get('/admin/courses', {
+      headers: { purpose: 'prefetch' },
+      maxRedirects: 0,
+    });
+    expect(denied.status()).toBe(307);
+    expect(denied.headers().location).toContain('/login?reason=session');
+    writeFileSync(
+      qaPath('evidence/staff-prefetch.json'),
+      JSON.stringify(
+        {
+          status: 'PASS',
+          checks: [
+            'actual browser session ID',
+            'four background prefetch transports preserve idle',
+            'expired prefetch denied',
+          ],
+          scope:
+            'Real production routes and database; header selects readonly checks, not authorization bypass.',
         },
         null,
         2,
