@@ -25,6 +25,7 @@ export function createProtectedAdapter(
   env: RuntimeEnvironment,
   fetcher: typeof fetch = fetch,
   now: () => number = Date.now,
+  beforeSign: () => Promise<void> = async () => {},
 ): ProtectedVideoProviderAdapter & { checkConnection(): Promise<void> } {
   if (!protectedProviders(env).includes(provider)) throw new Error('NOT_CONFIGURED');
   const cloudflare = provider === 'cloudflare';
@@ -96,6 +97,8 @@ export function createProtectedAdapter(
         if (!Array.isArray(asset.playback_ids) || !asset.playback_ids.length
           || asset.playback_ids.some(item => record(item).policy !== 'signed')) throw new Error('SOURCE_PUBLIC');
       }
+      // Provider metadata requests can outlive a concurrent enrollment/session revocation.
+      await beforeSign();
       const expires = Math.floor(now() / 1000) + viewer.ttlSeconds;
       const url = cloudflare
         ? new URL(`https://${env.CLOUDFLARE_STREAM_PLAYBACK_HOST}/${token(source, expires)}/iframe`)
