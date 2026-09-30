@@ -523,6 +523,12 @@ isOneToOne: true
             "analytics":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"analytics_page":
+{ Args: { "page"?: number }; Returns: Json
+                           },
+"audit_index":
+{ Args: { "date_from"?: string,"date_to"?: string,"page"?: number,"q_action"?: string,"q_actor"?: string,"q_entity"?: string }; Returns: Json
+                           },
 "branding":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
@@ -574,6 +580,9 @@ isOneToOne: true
 "mutate_category":
 { Args: { "cid": string,"color": string,"label": string,"remove"?: boolean }; Returns: Json
                            },
+"observe_video_config":
+{ Args: { "cloudflare": boolean,"environment": string,"fingerprint": string,"mux": boolean }; Returns: boolean
+                           },
 "playback_context":
 { Args: { "bid": string,"draft"?: boolean,"lid": string }; Returns: Json
                            },
@@ -600,6 +609,9 @@ isOneToOne: true
                            },
 "set_user_disabled":
 { Args: { "disabled": boolean,"target_user": string }; Returns: Json
+                           },
+"staff_session_status":
+{ Args: Record<PropertyKey, never>; Returns: Json
                            },
 "student_summary":
 { Args: Record<PropertyKey, never>; Returns: Json
