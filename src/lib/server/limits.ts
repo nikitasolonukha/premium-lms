@@ -1,7 +1,8 @@
 import 'server-only';
 import { createHmac } from 'node:crypto';
 import { headers } from 'next/headers';
-import { serverSecret } from './env';
+import { runtimeEnvironment, serverSecret } from './env';
+import { trustedClientIp } from '../request-security';
 import { privilegedClient } from './privileged';
 import { userClient } from './supabase';
 import { AppError, databaseError } from './errors';
@@ -23,10 +24,10 @@ export async function authLimit(kind: 'login' | 'reset' | 'register', account: s
   });
   databaseError(error);
   if (data && data > 0) throw new AppError('Лимит попыток исчерпан. Попробуйте позже.', 429, data);
-  const header = process.env.TRUSTED_IP_HEADER;
-  if (header) {
-    const ip = (await headers()).get(header)?.trim();
-    if (!ip) throw new AppError('Не удалось определить источник запроса.', 503);
+  let ip: string | null;
+  try { ip = trustedClientIp(await headers(), runtimeEnvironment()); }
+  catch { throw new AppError('Не удалось определить источник запроса.', 503); }
+  if (ip) {
     const result = await db.rpc('consume_service_limit', {
       k: `auth:${kind}:ip:${digest(ip)}`,
       maximum: kind === 'reset' ? 20 : 50,

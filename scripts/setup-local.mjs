@@ -17,6 +17,7 @@ const secret = existing.match(/^RATE_LIMIT_SECRET=(.+)$/m)?.[1] ?? randomBytes(3
 writeFileSync(
   '.env.local',
   [
+    'DEPLOYMENT_ENV=local',
     'APP_URL=http://localhost:3000',
     `SUPABASE_URL=${status.API_URL}`,
     `SUPABASE_PUBLISHABLE_KEY=${status.PUBLISHABLE_KEY || status.ANON_KEY}`,
@@ -24,6 +25,7 @@ writeFileSync(
     `DATABASE_URL=${status.DB_URL}`,
     `RATE_LIMIT_SECRET=${secret}`,
     'TRUSTED_IP_HEADER=',
+    'TRUSTED_PROXY_ACKNOWLEDGED=false',
     '',
   ].join('\n'),
   { mode: 0o600 },
