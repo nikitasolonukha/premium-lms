@@ -6,6 +6,8 @@
 
 ## Дополнение: операционная админка и собственные видео
 
+Новый GitHub CI на `a9438db` завершился: Code checks PASS (clean npm ci/typecheck/lint/unit/coverage/audit/secrets/build), Database security and E2E FAIL на `test:academy` до браузерных сценариев. [Core run](https://github.com/nikitasolonukha/premium-lms/actions/runs/36762046874), [Full QA run](https://github.com/nikitasolonukha/premium-lms/actions/runs/36762047411). Вывод команды был закрыт приватным логом; добавлена очищенная диагностика этапа/кодов/строк исходника без Auth payload. Этот CI не считается PASS и не меняет статус production.
+
 Объём: карточка ученика, CSV/XLSX импорт с приглашением, массовые доступы, Telegram отчёты, расписания/очередь/повтор, FFmpeg burn-in и обложки. Оплата не добавлялась. Настройка: [ACADEMY_OPERATIONS](ACADEMY_OPERATIONS.md).
 
 | Проверка | Результат | Доказательство |
@@ -19,7 +21,7 @@
 | Пустая shadow DB и отсутствие drift | PASS: 21 миграция | `supabase db pull --local --yes` применил все миграции, затем ожидаемый `DbPullInSyncError / No schema changes found`. Exit 1 относится к отсутствию diff. Рабочая БД не сбрасывалась |
 | БД lint, grants и регрессия защиты | PASS: db lint `[]`, 5 DB invariant groups, 32 security scenarios и дополнительные playback/media/admin suites | `supabase db lint --local --level error`, `npm run test:db`, `npm run test:security`, [RLS matrix](RLS_MATRIX.md) |
 | Browser/source secrets | PASS: 1760 files, 0 matches | [Scan](qa/runs/2026-09-30-academy-operations-10/evidence/client-secrets.json) |
-| Telegram реальная доставка | UNVERIFIED | Токен владельца не предоставлен. Identity/receipt/ошибки транспорта проверены unit/local; интерфейс показывает NOT CONFIGURED |
+| Telegram реальная доставка | UNVERIFIED | Токен предоставлен и локально подключён: реальные getMe/command menu PASS, интерфейс активен. Подтверждение Start владельцем и доставка в его чат ещё ожидаются. [Configuration](qa/runs/2026-09-30-telegram-live-01/evidence/configuration.json) |
 | Повторная авторизация Telegram получателя и receipt replay | PASS | [Финальная локальная проверка](qa/runs/2026-09-30-academy-operations-04/evidence/academy-operations.json) |
 | Регрессия каталога/CMS/пользователей и полного UAT | PASS: 7 E2E | [Регрессия](qa/runs/2026-09-30-academy-regression-01/evidence/playwright-summary.json) |
 | Dedicated worker image, non-root Linux FFmpeg и кириллица | PASS локально, включая 120 символов и края кадра | [Docker worker](qa/runs/2026-09-30-academy-operations-09/evidence/docker-worker.json); production-host deployment не выполнялся |

@@ -10,6 +10,8 @@ import { safePlaywrightReport, safeServerLog, safeVideoReport } from './lib/safe
 import { qaRoot } from './qa-paths.mjs';
 const target = '.local/ci-artifacts';
 mkdirSync(target, { recursive: true });
+if (existsSync('.local/academy-command-summary.json'))
+  copyFileSync('.local/academy-command-summary.json', `${target}/academy-command-summary.json`);
 const report = existsSync('.local/e2e-results.json')
   ? safePlaywrightReport(JSON.parse(readFileSync('.local/e2e-results.json', 'utf8')))
   : { tests: [], note: 'UNVERIFIED: E2E report not produced' };
