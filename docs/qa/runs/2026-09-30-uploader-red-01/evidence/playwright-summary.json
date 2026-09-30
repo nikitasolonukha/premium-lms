@@ -1,0 +1,12 @@
+{
+  "status": "FAIL",
+  "tests": [
+    {
+      "title": "cold SSR upload controls remain disabled until their change handler is hydrated",
+      "file": "uploader-hydration.spec.ts",
+      "status": "FAIL",
+      "durationMs": 18282,
+      "failureLocation": "uploader-hydration.spec.ts:30:53"
+    }
+  ]
+}
