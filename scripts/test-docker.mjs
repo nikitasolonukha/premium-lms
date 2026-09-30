@@ -59,17 +59,46 @@ try {
     '3000/tcp'
   ][0].HostPort;
   let healthy = false;
+  const observations = [];
   for (let attempt = 0; attempt < 10; attempt++) {
     try {
       const response = await fetch('http://127.0.0.1:' + port + '/api/health', {
         signal: AbortSignal.timeout(6500),
       });
-      if (response.status === 503 && (await response.json()).status === 'unavailable') {
+      const body = await response.json().catch(() => null);
+      observations.push({
+        httpStatus: response.status,
+        readinessStatus: ['ok', 'unavailable'].includes(body?.status) ? body.status : 'unknown',
+      });
+      if (response.status === 503 && body?.status === 'unavailable') {
         healthy = true;
         break;
       }
-    } catch {}
+    } catch {
+      observations.push({ connection: 'failed' });
+    }
     await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  if (!healthy) {
+    const state = JSON.parse(docker('inspect', name, '--format', '{{json .State}}'));
+    const logResult = spawnSync('docker', ['logs', name], { encoding: 'utf8', timeout: 30000 });
+    const logs = (logResult.stdout ?? '') + '\n' + (logResult.stderr ?? '');
+    const startupFailure = logs.split(/\r?\n/).some((line) => {
+      try {
+        return JSON.parse(line).event === 'startup.failed';
+      } catch {
+        return false;
+      }
+    });
+    console.error(
+      JSON.stringify({
+        event: 'docker.smoke.failed',
+        running: state.Running === true,
+        exitCode: Number(state.ExitCode),
+        startupFailure,
+        observations,
+      }),
+    );
   }
   assert.ok(
     healthy,

@@ -6,7 +6,7 @@ import {
   copyFileSync,
   existsSync,
 } from 'node:fs';
-import { safePlaywrightReport, safeServerLog } from './lib/safe-artifacts';
+import { safePlaywrightReport, safeServerLog, safeVideoReport } from './lib/safe-artifacts';
 import { qaRoot } from './qa-paths.mjs';
 const target = '.local/ci-artifacts';
 mkdirSync(target, { recursive: true });
@@ -28,6 +28,15 @@ if (existsSync('.local/server.log'))
   writeFileSync(
     `${target}/server-errors.json`,
     JSON.stringify(safeServerLog(readFileSync('.local/server.log', 'utf8')), null, 2),
+  );
+if (existsSync(`${qaRoot}/evidence/video-providers.json`))
+  writeFileSync(
+    `${target}/video-providers.json`,
+    JSON.stringify(
+      safeVideoReport(JSON.parse(readFileSync(`${qaRoot}/evidence/video-providers.json`, 'utf8'))),
+      null,
+      2,
+    ),
   );
 // Only reviewed visual scenarios have screenshots suitable for a public CI artifact.
 // Auth/MFA failures can expose QR secrets; never copy test-results or the raw HTML report.

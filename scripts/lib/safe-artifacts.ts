@@ -1,6 +1,57 @@
 import { z } from 'zod';
 const status = (value?: string) =>
   value === 'passed' ? 'PASS' : value === 'skipped' ? 'UNVERIFIED' : 'FAIL';
+
+const publicVideoReportSchema = z.object({
+  executedAt: z.iso.datetime(),
+  environment: z.object({
+    browserVersion: z.string().regex(/^[\d.]{1,32}$/),
+    headless: z.boolean(),
+    widevineAvailable: z.boolean(),
+  }),
+  results: z
+    .array(
+      z.object({
+        provider: z.enum(['youtube', 'vimeo', 'rutube', 'direct', 'external']),
+        status: z.enum(['PASS', 'FAIL']),
+        playbackSeconds: z.number().min(0).max(86400).optional(),
+        fullscreenWatermark: z.boolean().optional(),
+        mediaState: z
+          .object({
+            time: z.number().min(0).max(86400),
+            ready: z.number().int().min(0).max(4),
+            network: z.number().int().min(0).max(3),
+            error: z.number().int().min(1).max(4).nullable(),
+          })
+          .nullable()
+          .optional(),
+        sourceResponses: z
+          .array(
+            z.object({
+              status: z.number().int().min(100).max(599).optional(),
+              error: z
+                .string()
+                .regex(/^(net::ERR_[A-Z_]+|SOURCE_REQUEST_FAILED)$/)
+                .optional(),
+              kind: z.enum(['document', 'media', 'other', 'fetch', 'xhr']),
+            }),
+          )
+          .max(50)
+          .optional(),
+      }),
+    )
+    .max(5),
+});
+export function safeVideoReport(input: unknown) {
+  const report = publicVideoReportSchema.parse(input);
+  return {
+    ...report,
+    status:
+      report.results.length === 5 && report.results.every((result) => result.status === 'PASS')
+        ? 'PASS'
+        : 'FAIL',
+  };
+}
 type Suite = {
   specs?: {
     title: string;
