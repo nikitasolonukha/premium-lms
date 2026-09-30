@@ -5,6 +5,7 @@ import { mkdirSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { TOTP, Secret } from 'otpauth';
 import { fixtureId, demoAssets, demoCourses } from './fixtures';
 import { defaultSettings } from '../src/lib/schemas';
+import { prepareImageVariants, imageVariantKey } from '../src/lib/image-variants';
 const url = process.env.SUPABASE_URL!;
 if (!/^http:\/\/(127\.0\.0\.1|localhost):56321$/.test(url))
   throw new Error('Seed is restricted to isolated local Supabase');
@@ -125,16 +126,21 @@ try {
           .upload(key, asset.bytes, { contentType: asset.mime, upsert: true })
       ).error,
     );
-    if (asset.mime.startsWith('image/'))
-      check(
-        (
-          await admin.storage
-            .from('academy-private')
-            .upload(`${key}.webp`, asset.bytes, { contentType: 'image/webp', upsert: true })
-        ).error,
-      );
+    if (asset.mime.startsWith('image/')) {
+      for (const variant of await prepareImageVariants(asset.bytes))
+        check(
+          (
+            await admin.storage
+              .from('academy-private')
+              .upload(imageVariantKey(key, variant.size, 1), variant.bytes, {
+                contentType: 'image/webp',
+                upsert: true,
+              })
+          ).error,
+        );
+    }
     await db.query(
-      "insert into public.media(id,owner_id,object_key,filename,mime_type,size_bytes,status,purpose,sha256) values($1,$2,$3,$4,$5,$6,'ready','course',$7) on conflict(id) do update set status='ready',size_bytes=excluded.size_bytes,sha256=excluded.sha256",
+      "insert into public.media(id,owner_id,object_key,filename,mime_type,size_bytes,status,purpose,sha256,variant_version) values($1,$2,$3,$4,$5,$6,'ready','course',$7,$8) on conflict(id) do update set status='ready',size_bytes=excluded.size_bytes,sha256=excluded.sha256,variant_version=excluded.variant_version",
       [
         id,
         owner.id,
@@ -143,6 +149,7 @@ try {
         asset.mime,
         asset.bytes.length,
         createHash('sha256').update(asset.bytes).digest('hex'),
+        asset.mime.startsWith('image/') ? 1 : 0,
       ],
     );
   }

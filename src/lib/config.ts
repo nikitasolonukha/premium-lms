@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { createPrivateKey } from 'node:crypto';
 import { isIP } from 'node:net';
-import { safeWebUrl } from './video';
 
 /** Accept provider-exported PEM or base64 PEM; never include input in an error. */
 export function signingKey(value: string) {
@@ -77,7 +76,24 @@ const schema = z
       .transform((v) => v === 'true'),
     VIDEO_PROVIDER: z.enum(['disabled', 'cloudflare', 'mux']).default('disabled'),
     MALWARE_SCANNER: z.enum(['disabled', 'external']).default('disabled'),
-    MALWARE_SCANNER_URL: z.string().max(2048).refine(value => !!safeWebUrl(value) && !new URL(value).search && !new URL(value).hash).optional(),
+    MALWARE_SCANNER_URL: z
+      .string()
+      .max(2048)
+      .refine((value) => {
+        try {
+          const url = new URL(value);
+          return (
+            safeOrigin(url.origin, false, false) &&
+            !url.username &&
+            !url.password &&
+            !url.search &&
+            !url.hash
+          );
+        } catch {
+          return false;
+        }
+      })
+      .optional(),
     MALWARE_SCANNER_TOKEN: z.string().min(20).max(512).optional(),
     CLOUDFLARE_ACCOUNT_ID: z
       .string()
@@ -179,9 +195,7 @@ export type RuntimeEnvironment = z.infer<typeof schema>;
 
 export function parseEnvironment(raw: Record<string, string | undefined>): RuntimeEnvironment {
   const exposed = Object.keys(raw).filter(
-    (key) =>
-      raw[key] &&
-      /^NEXT_PUBLIC_.*(SECRET|PRIVATE|SIGNING|TOKEN|RATE_LIMIT)/.test(key),
+    (key) => raw[key] && /^NEXT_PUBLIC_.*(SECRET|PRIVATE|SIGNING|TOKEN|RATE_LIMIT)/.test(key),
   );
   if (exposed.length) throw new Error(`Unsafe public environment variables: ${exposed.join(', ')}`);
   // Environment includes OS/framework variables. Only our explicit schema is selected.

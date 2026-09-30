@@ -3,6 +3,7 @@ import { ArrowUpRight, Clock3, Layers } from 'lucide-react';
 import type { CourseCard as Card } from '@/lib/server/data';
 import { durationLabel } from '@/lib/utils';
 import { Badge, ProgressBar } from './ui';
+import { privateImage } from '@/lib/media-images';
 export function CourseCard({ course }: { course: Card }) {
   return (
     <article className="course-card">
@@ -13,7 +14,7 @@ export function CourseCard({ course }: { course: Card }) {
       >
         {course.cover_id && (
           /* Private assets are deliberately excluded from the shared image optimizer. */ <img
-            src={`/api/media/${course.cover_id}`}
+            {...privateImage(course.cover_id, '(max-width: 768px) calc(100vw - 32px), 400px')}
             alt=""
             loading="lazy"
           />

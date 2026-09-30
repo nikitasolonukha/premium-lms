@@ -70,7 +70,7 @@ export function Uploader({
   return (
     <div className="upload-field">
       {value && imagesOnly ? (
-        <img src={`/api/media/${value}`} alt="Загруженное изображение" />
+        <img src={`/api/media/${value}?size=small`} alt="Загруженное изображение" />
       ) : value ? (
         <FileText size={27} />
       ) : (

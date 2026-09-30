@@ -1,0 +1,30 @@
+{
+  "executedAt": "2026-09-30T10:18:12.989Z",
+  "status": "PASS",
+  "checks": {
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "unit": {
+      "passed": 68,
+      "files": 15
+    },
+    "productionBuild": "PASS",
+    "mediaFinalizeDatabase": "PASS",
+    "imageBackfill": {
+      "mode": "apply",
+      "images": 38,
+      "originals": "preserved"
+    },
+    "browser": {
+      "passed": 4,
+      "scope": [
+        "responsive derivatives",
+        "file revoke and real TTL",
+        "seven formats",
+        "repeat upload"
+      ]
+    }
+  },
+  "scannerBackend": "NOT CONFIGURED",
+  "externalScan": "UNVERIFIED"
+}

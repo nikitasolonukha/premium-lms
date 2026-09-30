@@ -1,3 +1,4 @@
+import { privateImage } from '@/lib/media-images';
 export const metadata = { title: 'Моё обучение' };
 import Link from 'next/link';
 import {
@@ -99,7 +100,7 @@ export default async function Dashboard() {
             </div>
             <div className="continue-cover">
               {course.coverId && (
-                <img src={`/api/media/${course.coverId}`} alt="" fetchPriority="high" />
+                <img {...privateImage(course.coverId)} alt="" fetchPriority="high" />
               )}
               <div className="continue-cover-caption">
                 <span className="play-circle">

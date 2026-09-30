@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import pg from 'pg';
+import { imageObjectKeys } from '../src/lib/media-images';
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SECRET_KEY)
   throw new Error('Set operator Supabase environment');
 const db = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SECRET_KEY, {
@@ -20,7 +21,7 @@ try {
   for (const item of rows) {
     const removed = await db.storage
       .from('academy-private')
-      .remove([item.object_key, `${item.object_key}.webp`]);
+      .remove(imageObjectKeys(item.object_key));
     if (removed.error) throw new Error('Storage cleanup failed; rerun to retry rejected objects');
     await sql.query("update public.media set status='deleted' where id=$1 and status='rejected'", [
       item.id,

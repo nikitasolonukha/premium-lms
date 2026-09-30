@@ -1,0 +1,13 @@
+{
+  "executedAt": "2026-09-30T10:16:12.985Z",
+  "status": "PASS",
+  "ttlSeconds": 60,
+  "checks": [
+    "A grant issued",
+    "B denied",
+    "revoked A cannot obtain new grant",
+    "already issued grant remains usable within TTL",
+    "actual expiry returns 410",
+    "access restored"
+  ]
+}

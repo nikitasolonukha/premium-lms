@@ -4,6 +4,64 @@ import { login, accounts } from './helpers';
 import { fixtureId, demoAssets } from '../../scripts/fixtures';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import sharp from 'sharp';
+import { staffClient } from './db-fixtures';
+test('responsive private images use stored sizes and reject arbitrary transforms', async ({
+  page,
+  browser,
+}) => {
+  const db = await staffClient(),
+    name = `Responsive-${Date.now()}.png`;
+  const original = await sharp({
+    create: { width: 2400, height: 1200, channels: 3, background: '#345678' },
+  })
+    .png()
+    .toBuffer();
+  let id: string | undefined;
+  const foreign = await browser.newContext();
+  try {
+    await login(page, 0);
+    await page.goto('/admin/media');
+    await page
+      .locator('input[type=file]')
+      .setInputFiles({ name, mimeType: 'image/png', buffer: original });
+    await expect(page.getByText('Файл загружен', { exact: true })).toBeVisible();
+    const row = await db.from('media').select('id,variant_version').eq('filename', name).single();
+    expect(row.data?.variant_version).toBe(1);
+    id = row.data!.id;
+    for (const [size, width] of [
+      ['small', 480],
+      ['medium', 960],
+      ['large', 1800],
+    ] as const) {
+      const response = await page.request.get(`/api/media/${id}?size=${size}`);
+      expect(response.status()).toBe(200);
+      expect((await sharp(await response.body()).metadata()).width).toBe(width);
+    }
+    expect((await page.request.get(`/api/media/${id}?size=99999`)).status()).toBe(400);
+    expect((await page.request.get(`/api/media/${id}?width=99999`)).status()).toBe(400);
+    const other = await foreign.newPage();
+    await login(other, 3);
+    expect((await other.request.get(`/api/media/${id}?size=small`)).status()).toBe(404);
+    writeFileSync(
+      qaPath('evidence/image-variants.json'),
+      JSON.stringify(
+        {
+          status: 'PASS',
+          widths: [480, 960, 1800],
+          arbitrarySize: 'denied',
+          arbitraryWidth: 'denied',
+          foreignUser: 'denied',
+          scope: 'real upload, Storage and private delivery',
+        },
+        null,
+        2,
+      ),
+    );
+  } finally {
+    if (id) await db.rpc('delete_media', { mid: id });
+    await foreign.close();
+  }
+});
 test('private grant survives only its TTL; new grants stop immediately on revoke', async ({
   browser,
 }) => {

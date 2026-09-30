@@ -6,6 +6,7 @@ import type { PlaybackGrant } from '@/lib/video';
 import { Button } from './ui';
 import { toast } from 'sonner';
 import { playbackRenewalDelay } from '@/lib/player-bridge';
+import { privateImage } from '@/lib/media-images';
 import type { PlaybackPosition } from './protected-video-embed';
 const ProtectedVideoEmbed = dynamic(() => import('./protected-video-embed'), {
   ssr: false,
@@ -50,10 +51,16 @@ export function ProtectedImage({
   watermarkOptions?: WatermarkOptions;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [fullscreen, setFullscreen] = useState(false);
+  useEffect(() => {
+    const changed = () => setFullscreen(document.fullscreenElement === ref.current);
+    document.addEventListener('fullscreenchange', changed);
+    return () => document.removeEventListener('fullscreenchange', changed);
+  }, []);
   return (
     <figure className="lesson-figure">
       <div ref={ref} className="image-stage">
-        <img src={`/api/media/${id}`} alt={alt} loading="lazy" />
+        <img {...privateImage(id, fullscreen ? '100vw' : undefined)} alt={alt} loading="lazy" />
         <Watermark viewer={viewer} enabled={watermark} {...watermarkOptions} />
         <button
           className="media-expand icon-button"

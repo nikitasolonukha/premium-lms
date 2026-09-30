@@ -163,7 +163,11 @@ export default async function AdminHome() {
                   <td>
                     <Link href={`/admin/courses/${c.id}`} className="table-title">
                       {c.cover_id && (
-                        <img className="table-thumb" src={`/api/media/${c.cover_id}`} alt="" />
+                        <img
+                          className="table-thumb"
+                          src={`/api/media/${c.cover_id}?size=small`}
+                          alt=""
+                        />
                       )}
                       <div>
                         <strong>{c.title}</strong>

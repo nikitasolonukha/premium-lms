@@ -1,13 +1,17 @@
 'use server';
 import { z } from 'zod';
-import sharp from 'sharp';
 import { createHash } from 'node:crypto';
-import { assertUserAction } from '../server/auth';
+import { assertUserAction, requireActor } from '../server/auth';
 import { userClient } from '../server/supabase';
 import { privilegedClient } from '../server/privileged';
 import { actionResult, AppError, databaseError, rpcResult } from '../server/errors';
-import { allowedFiles, validateFile, validateFilename } from '../files';
+import { allowedFiles, validateFilename } from '../files';
 import { uuid } from '../schemas';
+import { inspectUpload } from '../upload-inspection';
+import { prepareImageVariants, imageVariantKey, imageObjectKeys } from '../image-variants';
+import { createMalwareScanner, ScannerUnavailable } from '../malware-scanner';
+import { runtimeEnvironment } from '../server/env';
+import { userLimit } from '../server/limits';
 
 export async function createUpload(input: unknown) {
   return actionResult(async () => {
@@ -59,8 +63,12 @@ export async function finalizeUpload(id: string) {
     databaseError(row.error);
     const media = row.data;
     if (!media) throw new AppError('Загрузка не найдена.', 404);
+    if (media.purpose !== 'avatar')
+      await requireActor(media.purpose === 'branding' ? 'admin' : 'staff');
     if (media.status === 'ready') return { id, filename: media.filename };
     if (media.status !== 'pending') throw new AppError('Загрузка недоступна.');
+    await userLimit(media.purpose === 'avatar' ? 'learning' : 'admin');
+    const sessionId = uuid.parse((await db.auth.getClaims()).data?.claims.session_id);
     const admin = privilegedClient(),
       download = await admin.storage.from('academy-private').download(media.object_key);
     if (download.error) throw new AppError('Файл ещё не загружен. Повторите попытку.');
@@ -70,41 +78,65 @@ export async function finalizeUpload(id: string) {
     try {
       if (bytes.length !== media.size_bytes)
         throw new Error('Размер файла отличается от заявленного');
-      validateFile(bytes, media.mime_type);
+      await inspectUpload(bytes, media.mime_type, media.filename);
+      const config = runtimeEnvironment();
+      const scanner = createMalwareScanner(
+        config.MALWARE_SCANNER === 'external'
+          ? {
+              mode: 'external',
+              endpoint: config.MALWARE_SCANNER_URL!,
+              token: config.MALWARE_SCANNER_TOKEN!,
+            }
+          : { mode: 'disabled' },
+      );
+      const scan = await scanner.scan(bytes);
+      if (scan.status === 'infected')
+        throw new Error('Сканер обнаружил небезопасное содержимое файла');
       if (media.mime_type.startsWith('image/')) {
-        const input = sharp(bytes, { limitInputPixels: 40000000, failOn: 'warning' }),
-          metadata = await input.metadata();
-        if ((metadata.pages ?? 1) > 1) throw new Error('Используйте статичное изображение');
-        const prepared = await input
-          .rotate()
-          .resize({ width: 1800, height: 1800, fit: 'inside', withoutEnlargement: true })
-          .webp({ quality: 86 })
-          .toBuffer({ resolveWithObject: true });
-        width = prepared.info.width;
-        height = prepared.info.height;
-        const stored = await admin.storage
-          .from('academy-private')
-          .upload(`${media.object_key}.webp`, prepared.data, {
-            contentType: 'image/webp',
-            upsert: false,
-          });
-        if (stored.error && !stored.error.message.toLowerCase().includes('already exists'))
-          throw new Error('Не удалось подготовить изображение');
+        const variants = await prepareImageVariants(bytes);
+        for (const variant of variants) {
+          if (variant.size === 'large') {
+            width = variant.width;
+            height = variant.height;
+          }
+          const stored = await admin.storage
+            .from('academy-private')
+            .upload(imageVariantKey(media.object_key, variant.size, 1), variant.bytes, {
+              contentType: 'image/webp',
+              upsert: false,
+            });
+          if (stored.error && !stored.error.message.toLowerCase().includes('already exists'))
+            throw new Error('Не удалось подготовить изображение');
+        }
       }
     } catch (error) {
-      await admin.rpc('finalize_media', { mid: id, owner: actor.id, sha, accepted: false });
-      await admin.storage
-        .from('academy-private')
-        .remove([media.object_key, `${media.object_key}.webp`]);
+      // Scanner outages remain pending and can be retried. Do not pretend clean.
+      if (error instanceof ScannerUnavailable)
+        throw new AppError(
+          'Проверка безопасности временно недоступна. Повторите загрузку позже.',
+          503,
+        );
+      const rejected = await admin.rpc('finalize_media_v2', {
+        mid: id,
+        owner: actor.id,
+        sha,
+        session_id: sessionId,
+        accepted: false,
+      });
+      // A concurrent successful finalize may already expose this file in a course.
+      if (!rejected.error && rejected.data === true)
+        await admin.storage.from('academy-private').remove(imageObjectKeys(media.object_key));
       throw new AppError(error instanceof Error ? error.message : 'Проверка файла не пройдена.');
     }
-    const finalized = await admin.rpc('finalize_media', {
+    const finalized = await admin.rpc('finalize_media_v2', {
       mid: id,
       owner: actor.id,
       sha,
+      session_id: sessionId,
       width,
       height,
       accepted: true,
+      variant_version: media.mime_type.startsWith('image/') ? 1 : 0,
     });
     databaseError(finalized.error);
     if (!finalized.data) {
