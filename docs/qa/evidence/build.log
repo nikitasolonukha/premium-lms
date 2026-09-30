@@ -1,0 +1,65 @@
+
+> academy-lms@1.0.0 build
+> next build
+
+▲ Next.js 16.3.7 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 129ms
+- Experiments (use with caution):
+  ✓ authInterrupts
+  · cpus: 2
+  · serverActions
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1725ms
+  Running TypeScript ...
+  Finished TypeScript in 4.0s ...
+  Collecting page data using 2 workers ...
+  Generating static pages using 2 workers (0/24) ...
+  Generating static pages using 2 workers (6/24) 
+  Generating static pages using 2 workers (12/24) 
+  Generating static pages using 2 workers (18/24) 
+✓ Generating static pages using 2 workers (24/24) in 493ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /admin
+├ ƒ /admin/analytics
+├ ƒ /admin/audit
+├ ƒ /admin/categories
+├ ƒ /admin/courses
+├ ƒ /admin/courses/[id]
+├ ƒ /admin/courses/[id]/preview
+├ ƒ /admin/media
+├ ƒ /admin/settings
+├ ƒ /admin/users
+├ ƒ /api/auth/[operation]
+├ ƒ /api/brand/[kind]
+├ ƒ /api/download/[token]
+├ ƒ /api/health
+├ ƒ /api/media/[id]
+├ ƒ /api/playback/[lessonId]/[blockId]
+├ ƒ /auth/callback
+├ ƒ /courses
+├ ƒ /courses/[slug]
+├ ƒ /courses/[slug]/lessons/[lessonSlug]
+├ ƒ /dashboard
+├ ƒ /forgot-password
+├ ƒ /library
+├ ƒ /login
+├ ƒ /mfa
+├ ƒ /profile
+├ ƒ /register
+├ ƒ /reset-password
+├ ƒ /robots.txt
+├ ƒ /saved
+├ ƒ /search
+└ ƒ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+ƒ  (Dynamic)  server-rendered on demand
+

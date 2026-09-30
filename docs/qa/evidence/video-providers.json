@@ -1,0 +1,46 @@
+{
+  "executedAt": "2026-09-30T08:08:50.940Z",
+  "environment": {
+    "browserVersion": "154.0.8037.92",
+    "headless": false,
+    "widevineAvailable": true
+  },
+  "results": [
+    {
+      "provider": "youtube",
+      "status": "PASS",
+      "playbackSeconds": 2.22167,
+      "fullscreenWatermark": true
+    },
+    {
+      "provider": "vimeo",
+      "status": "PASS",
+      "playbackSeconds": 2.170725,
+      "fullscreenWatermark": true
+    },
+    {
+      "provider": "rutube",
+      "status": "PASS",
+      "playbackSeconds": 2.96441,
+      "fullscreenWatermark": true
+    },
+    {
+      "provider": "direct",
+      "status": "PASS",
+      "playbackSeconds": 2.940749,
+      "fullscreenWatermark": true
+    },
+    {
+      "provider": "external",
+      "status": "PASS",
+      "playbackSeconds": 2.937376,
+      "fullscreenWatermark": true
+    }
+  ],
+  "sources": [
+    "https://developers.google.com/youtube/iframe_api_reference",
+    "https://github.com/vimeo/player.js",
+    "https://rutube.ru/info/embed/",
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video"
+  ]
+}

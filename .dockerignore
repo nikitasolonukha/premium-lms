@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.env*
+.local
+coverage
+test-results
+playwright-report
+docs/qa/screenshots
+docs/qa/evidence
+supabase/.temp
+AGENTS.md
+CLAUDE.md

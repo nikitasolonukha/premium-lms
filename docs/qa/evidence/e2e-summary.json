@@ -1,0 +1,232 @@
+{
+  "updatedAt": "2026-09-30T08:09:33.307Z",
+  "note": "Latest observed result per named scenario; run history preserves prior failures. External video details are in video-providers.json and remain a release gate. Local rate counters are isolated between browser scenarios; enforcement is tested within dedicated rate scenarios.",
+  "runs": [
+    {
+      "startTime": "2026-09-30T01:51:38.369Z",
+      "expected": 15,
+      "unexpected": 1,
+      "skipped": 0,
+      "durationMs": 208226.575
+    },
+    {
+      "startTime": "2026-09-30T01:59:58.106Z",
+      "expected": 3,
+      "unexpected": 0,
+      "skipped": 0,
+      "durationMs": 47719.857
+    },
+    {
+      "startTime": "2026-09-30T02:13:20.244Z",
+      "expected": 16,
+      "unexpected": 1,
+      "skipped": 0,
+      "durationMs": 322433.087
+    },
+    {
+      "startTime": "2026-09-30T02:18:53.047Z",
+      "expected": 0,
+      "unexpected": 1,
+      "skipped": 0,
+      "durationMs": 77170.987
+    },
+    {
+      "startTime": "2026-09-30T02:21:44.200Z",
+      "expected": 0,
+      "unexpected": 1,
+      "skipped": 0,
+      "durationMs": 76014.68699999999
+    },
+    {
+      "startTime": "2026-09-30T02:32:46.311Z",
+      "expected": 0,
+      "unexpected": 1,
+      "skipped": 0,
+      "durationMs": 7215.537
+    },
+    {
+      "startTime": "2026-09-30T02:35:12.595Z",
+      "expected": 3,
+      "unexpected": 0,
+      "skipped": 0,
+      "durationMs": 54186.752
+    },
+    {
+      "startTime": "2026-09-30T04:54:36.378Z",
+      "expected": 16,
+      "unexpected": 2,
+      "skipped": 0,
+      "durationMs": 339788.30000000005
+    },
+    {
+      "startTime": "2026-09-30T05:00:57.300Z",
+      "expected": 2,
+      "unexpected": 0,
+      "skipped": 0,
+      "durationMs": 11770.472
+    },
+    {
+      "startTime": "2026-09-30T07:41:44.478Z",
+      "expected": 1,
+      "unexpected": 0,
+      "skipped": 0,
+      "durationMs": 36366.273
+    },
+    {
+      "startTime": "2026-09-30T07:43:31.561Z",
+      "expected": 18,
+      "unexpected": 0,
+      "skipped": 0,
+      "durationMs": 266835.38999999996
+    },
+    {
+      "startTime": "2026-09-30T08:00:01.365Z",
+      "expected": 3,
+      "unexpected": 1,
+      "skipped": 0,
+      "durationMs": 105677.959
+    },
+    {
+      "startTime": "2026-09-30T08:03:53.843Z",
+      "expected": 19,
+      "unexpected": 0,
+      "skipped": 0,
+      "durationMs": 297637.355
+    }
+  ],
+  "checks": [
+    {
+      "title": "registration, test email confirmation, password recovery, MFA enrollment and logout",
+      "file": "auth.spec.ts",
+      "status": "PASS",
+      "durationMs": 9988,
+      "executedAt": "2026-09-30T08:03:55.415Z"
+    },
+    {
+      "title": "same-origin auth endpoints reject CSRF, unsafe redirects and return real rate headers",
+      "file": "auth.spec.ts",
+      "status": "PASS",
+      "durationMs": 1175,
+      "executedAt": "2026-09-30T08:04:05.710Z"
+    },
+    {
+      "title": "lesson blocks: independent duplicate, keyboard reorder, confirmed delete and reload",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 4838,
+      "executedAt": "2026-09-30T08:04:07.275Z"
+    },
+    {
+      "title": "CMS: keyboard sorting, duplication, deletion, preview, two tabs and network recovery",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 9416,
+      "executedAt": "2026-09-30T08:04:12.131Z"
+    },
+    {
+      "title": "large course: 21 modules, 63 lessons, long text, twelve tags, search and mobile",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 4563,
+      "executedAt": "2026-09-30T08:04:21.557Z"
+    },
+    {
+      "title": "discovery: RU/EN search, taxonomy, partial words, URL filters, saved and revocation",
+      "file": "discovery.spec.ts",
+      "status": "PASS",
+      "durationMs": 11730,
+      "executedAt": "2026-09-30T08:04:26.147Z"
+    },
+    {
+      "title": "user directory: pagination, role/email/course filters, role and disable UI; category integrity",
+      "file": "management.spec.ts",
+      "status": "PASS",
+      "durationMs": 14285,
+      "executedAt": "2026-09-30T08:04:37.919Z"
+    },
+    {
+      "title": "private grant survives only its TTL; new grants stop immediately on revoke",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 67368,
+      "executedAt": "2026-09-30T08:04:52.240Z"
+    },
+    {
+      "title": "media UI validates every supported format, Unicode and malformed uploads",
+      "file": "media.spec.ts",
+      "status": "PASS",
+      "durationMs": 11462,
+      "executedAt": "2026-09-30T08:05:59.626Z"
+    },
+    {
+      "title": "repeated upload selection while the request is pending creates one asset",
+      "file": "repeat-upload.spec.ts",
+      "status": "PASS",
+      "durationMs": 4589,
+      "executedAt": "2026-09-30T08:06:11.131Z"
+    },
+    {
+      "title": "profile changes persist, branding is editable, watermark moves and survives fullscreen",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 10587,
+      "executedAt": "2026-09-30T08:06:15.761Z"
+    },
+    {
+      "title": "private SEO, metadata, direct URLs, invalid filters and error pages",
+      "file": "settings-profile.spec.ts",
+      "status": "PASS",
+      "durationMs": 5550,
+      "executedAt": "2026-09-30T08:06:26.359Z"
+    },
+    {
+      "title": "Student navigates real learning screens",
+      "file": "smoke.spec.ts",
+      "status": "PASS",
+      "durationMs": 3672,
+      "executedAt": "2026-09-30T08:06:31.935Z"
+    },
+    {
+      "title": "Admin completes MFA and opens CMS",
+      "file": "smoke.spec.ts",
+      "status": "PASS",
+      "durationMs": 3614,
+      "executedAt": "2026-09-30T08:06:35.617Z"
+    },
+    {
+      "title": "UAT: Admin builds, publishes and assigns; Student learns; Editor draft stays private",
+      "file": "uat.spec.ts",
+      "status": "PASS",
+      "durationMs": 31129,
+      "executedAt": "2026-09-30T08:06:39.265Z"
+    },
+    {
+      "title": "five public video adapters: grants, real player loading, playback, mobile and fullscreen",
+      "file": "video.spec.ts",
+      "status": "PASS",
+      "durationMs": 35910,
+      "executedAt": "2026-09-30T08:08:14.584Z"
+    },
+    {
+      "title": "core screens: all seven viewports, desktop/mobile evidence, themes and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 31693,
+      "executedAt": "2026-09-30T08:07:10.472Z"
+    },
+    {
+      "title": "additional screens: all seven viewports, desktop/mobile evidence, themes and console",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 29702,
+      "executedAt": "2026-09-30T08:07:42.174Z"
+    },
+    {
+      "title": "mobile lesson drawer, focus return, keyboard and reduced motion",
+      "file": "visual.spec.ts",
+      "status": "PASS",
+      "durationMs": 1306,
+      "executedAt": "2026-09-30T08:08:11.886Z"
+    }
+  ]
+}

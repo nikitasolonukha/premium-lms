@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T01:43:14.874Z",
+  "lessons": 300,
+  "completed": 299,
+  "progress": 99,
+  "readMilliseconds": 189,
+  "checks": [
+    "REST row limit does not truncate progress",
+    "100% reserved for fully completed courses",
+    "catalog current published denominator",
+    "300-lesson document roundtrip"
+  ]
+}

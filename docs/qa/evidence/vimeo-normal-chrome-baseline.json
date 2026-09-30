@@ -1,0 +1,16 @@
+{
+  "recordedAt": "2026-09-30T07:40:17.132Z",
+  "provider": "vimeo",
+  "videoId": "81400335",
+  "browser": "normal installed Chrome via browser extension",
+  "firstObservedPlaybackSeconds": 9.232807,
+  "state": {
+    "currentTime": 143.113007,
+    "duration": 169.086,
+    "error": null,
+    "paused": false,
+    "readyState": 4
+  },
+  "scope": "Direct provider page; not yet an LMS integration proof",
+  "screenshot": "../screenshots/vimeo-normal-chrome-baseline.png"
+}

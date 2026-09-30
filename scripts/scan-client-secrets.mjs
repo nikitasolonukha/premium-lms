@@ -1,0 +1,59 @@
+import { readdirSync, readFileSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
+import { join, relative } from 'node:path';
+if (!process.env.SUPABASE_SECRET_KEY || !process.env.RATE_LIMIT_SECRET)
+  throw new Error('Run with --env-file=.env.local so both server secrets are included');
+const secrets = [process.env.SUPABASE_SECRET_KEY, process.env.RATE_LIMIT_SECRET].filter(Boolean);
+if (existsSync('.local/seed-accounts.json'))
+  for (const a of JSON.parse(readFileSync('.local/seed-accounts.json', 'utf8'))) {
+    secrets.push(a.password);
+    if (a.totpSecret) secrets.push(a.totpSecret);
+  }
+if (!secrets.length) throw new Error('Load the local test environment before scanning');
+const roots = ['.next/static', 'src', 'public', 'docs', 'scripts', 'tests', 'supabase'],
+  matches = [];
+let scanned = 0;
+function scanFile(file) {
+  if (!existsSync(file)) return;
+  const bytes = readFileSync(file);
+  scanned++;
+  if (secrets.some((secret) => bytes.includes(Buffer.from(secret))))
+    matches.push(relative('.', file));
+}
+function visit(path) {
+  if (!existsSync(path)) return;
+  for (const item of readdirSync(path, { withFileTypes: true })) {
+    const file = join(path, item.name);
+    if (item.isDirectory()) {
+      if (!['screenshots', '.temp', '.branches'].includes(item.name)) visit(file);
+    } else if (
+      /\.(js|mjs|json|jsonl|ts|tsx|html|md|css|map|sql|log|toml|ya?ml|txt)$/.test(item.name)
+    )
+      scanFile(file);
+  }
+}
+roots.forEach(visit);
+[
+  'README.md',
+  '.env.example',
+  'Dockerfile',
+  '.dockerignore',
+  '.gitignore',
+  'next.config.ts',
+  'playwright.config.ts',
+  'vitest.config.ts',
+  'package.json',
+  'package-lock.json',
+].forEach(scanFile);
+const result = {
+  executedAt: new Date().toISOString(),
+  status: matches.length ? 'FAIL' : 'PASS',
+  scanned,
+  secretClasses: ['Supabase server key', 'rate-limit secret', 'local account passwords and TOTP'],
+  matchedFiles: matches,
+};
+mkdirSync('docs/qa/evidence', { recursive: true });
+writeFileSync('docs/qa/evidence/client-secrets.json', JSON.stringify(result, null, 2));
+console.log(
+  `${result.status}: ${scanned} source, config, evidence and browser bundle files checked; ${matches.length} matches. Secret values never printed.`,
+);
+if (matches.length) process.exitCode = 1;

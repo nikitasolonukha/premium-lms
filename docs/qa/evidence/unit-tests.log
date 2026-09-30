@@ -1,0 +1,31 @@
+
+> academy-lms@1.0.0 test:coverage
+> vitest run --coverage
+
+
+ RUN  v5.0.2 C:/Users/Никита/Documents/Codex/2026-09-30/new-chat/outputs/lms
+      Coverage enabled with v8
+
+
+ Test Files  6 passed (6)
+      Tests  28 passed (28)
+   Start at  11:00:55
+   Duration  733ms (import 30%, tests 29%, transform 29%, worker 12%)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   95.29 |    95.63 |   96.87 |   95.89 |                   
+ domain.ts         |   96.66 |      100 |     100 |   95.65 | 29                
+ download-token.ts |   88.23 |    94.44 |     100 |   92.85 | 35                
+ schemas.ts        |   93.18 |    94.73 |    92.3 |    92.5 | 22,103-104        
+ video.ts          |   95.12 |       90 |     100 |   96.96 | 42                
+-------------------|---------|----------|---------|---------|-------------------
+
+=============================== Coverage summary ===============================
+Statements   : 95.29% ( 162/170 )
+Branches     : 95.63% ( 197/206 )
+Functions    : 96.87% ( 31/32 )
+Lines        : 95.89% ( 140/146 )
+================================================================================

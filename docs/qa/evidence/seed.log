@@ -1,0 +1,12 @@
+
+> academy-lms@1.0.0 seed
+> tsx --env-file=.env.local scripts/seed.ts
+
+Seed complete: 5 accounts, 3 courses, 6 modules, 12 lessons, 11 block types, 15 private assets.
+Local-only account credentials: .local/seed-accounts.json (gitignored).
+
+> academy-lms@1.0.0 seed
+> tsx --env-file=.env.local scripts/seed.ts
+
+Seed complete: 5 accounts, 3 courses, 6 modules, 12 lessons, 11 block types, 15 private assets.
+Local-only account credentials: .local/seed-accounts.json (gitignored).

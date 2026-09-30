@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+coverage/
+playwright-report/
+test-results/
+.auth/
+*.tsbuildinfo
+supabase/.temp/
+supabase/.branches/
+docs/qa/private/
+.local/

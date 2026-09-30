@@ -1,0 +1,21 @@
+{
+  "executedAt": "2026-09-30T07:58:04.025Z",
+  "failedResponses": [
+    {
+      "status": 429,
+      "path": "/api/media/0e1f1959-b065-42a1-9cea-716240fc6310"
+    },
+    {
+      "status": 429,
+      "path": "/api/media/456841c4-0cdc-4a0f-87a5-cd287896b71b"
+    },
+    {
+      "status": 429,
+      "path": "/api/media/a4bfcb4f-8db3-4c69-b499-c12ef22b6475"
+    },
+    {
+      "status": 429,
+      "path": "/api/media/c372310c-11e4-4658-85e1-8e0a288c034d"
+    }
+  ]
+}

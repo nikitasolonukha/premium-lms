@@ -1,0 +1,429 @@
+{
+  "executedAt": "2026-09-30T08:07:41.967Z",
+  "status": "PASS",
+  "results": [
+    {
+      "screen": "student-home",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "student-home",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "catalog",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "course",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "lesson",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "lesson",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "lesson",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "lesson",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "lesson",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "lesson",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "lesson",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "login",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "login",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "login",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "login",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "login",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "login",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "login",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "admin-home",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "admin-home",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "admin-home",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "admin-home",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "admin-home",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "admin-home",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "admin-home",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "admin-courses",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "admin-courses",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "admin-courses",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "admin-courses",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "admin-courses",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "admin-courses",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "admin-courses",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "course-editor",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "course-editor",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "course-editor",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "course-editor",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "course-editor",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "course-editor",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "course-editor",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "lesson-editor",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "lesson-editor",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "lesson-editor",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "lesson-editor",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "lesson-editor",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "lesson-editor",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "lesson-editor",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "users",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "users",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "users",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "users",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "users",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "users",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "users",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedResponses": []
+}

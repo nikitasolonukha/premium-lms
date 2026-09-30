@@ -1,0 +1,10 @@
+node_modules
+.next
+.local
+coverage
+test-results
+playwright-report
+package-lock.json
+src/lib/database.types.ts
+supabase/migrations
+docs/qa/evidence

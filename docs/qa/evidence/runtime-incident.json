@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-09-30T02:45:19Z",
+  "lastVerifiedAt": "2026-09-30T08:14:11.326Z",
+  "status": "RESOLVED",
+  "component": "local Docker Desktop Linux engine",
+  "observations": [
+    "Kernel log at 2026-09-30T02:37:27Z reports global OOM and a killed process",
+    "Application /api/health returned 503 after the Docker image build started",
+    "Docker container-list API returned 500; a later version call returned 29.8.1 but did not establish Engine health",
+    "One delayed scoped list reported Storage exited with code 137; PostgreSQL/Auth/Kong/REST/Mailpit were running and pg_meta was starting",
+    "Scoped start of supabase_storage_premium-lms-local failed with Docker API 500",
+    "A final read-only docker info request was terminated after a 15-second timeout with no response",
+    "Application /api/health still returned 503 at 2026-09-30T02:52:02Z",
+    "Kernel logs also reported global OOM and a killed Node process at 2026-09-30T02:48:11Z",
+    "Host filesystem had 11.48 GiB free, so the observed failure was not lack of disk space",
+    "Windows production build and targeted 3/3 upload/UAT checks completed successfully before this incident",
+    "Final continuation check at 2026-09-30T02:55:40.289Z: scoped Docker list timed out after 15 seconds; application health returned 503/unavailable",
+    "Resumed goal check at 2026-09-30T04:42:05.063Z: Docker Desktop process and Linux Engine named pipe absent; application health still 503/unavailable",
+    "Host backend log records Desktop shutdown completed at 2026-09-30T04:41:42.166Z; this assistant did not perform that shutdown"
+  ],
+  "actions": [
+    "Cancelled only the active LMS docker build command",
+    "Attempted scoped stop of the seven confirmed premium-lms-local containers; completion was not confirmed",
+    "Cancelled pending scoped stop and diagnostic CLI commands to prevent delayed actions",
+    "No volumes, images, containers or database records were deleted as part of recovery",
+    "Requested permission before restarting shared Docker Desktop because other projects use it; no reply received and no shared restart performed",
+    "Cancelled the remaining unresponsive docker stats command; no recovery CLI command remains pending",
+    "Hardened smoke runner cleanup and bounded Docker/HTTP requests; three regression tests using simulated Docker failed before the fix and passed after it; real runtime remains unverified",
+    "Observed Docker externally restored with health 200; this assistant performed no shared Desktop restart",
+    "Ran test-recovery.ts successfully, then stopped only the seven confirmed LMS containers to free VM memory",
+    "Built latest Linux image successfully, restarted the same seven LMS containers preserving volumes, and passed real container smoke including cleanup",
+    "Other projects were not stopped, restarted, removed or pruned"
+  ],
+  "dataIntegrityAfterIncident": "PASS within sampled scope: pre-incident UAT course, 11 published blocks, completed progress, private image and byte-identical PDF retained; Admin MFA and Student A/B isolation verified without reset/seed. This is not a complete checksum audit of all database/storage records.",
+  "requires": "Resolved: restored local Docker, preserved sampled pre-incident data, passed current Linux runtime smoke and complete 19/19 E2E including all five real video providers. Public deployment remains a separate stage.",
+  "recoveryEvidence": "runtime-recovery.json",
+  "containerEvidence": "container.json"
+}

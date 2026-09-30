@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T04:51:23.583Z",
+  "courseId": "c8cfac25-187c-4681-97f0-78d8a4374ec7",
+  "publishedBlocks": 11,
+  "completedProgressRows": 1,
+  "imageBytes": 52468,
+  "pdfBytes": 728,
+  "pdfSha256": "f70243cdc1ee817996c923f007f7932d2af092f1a7ee83f0d21d5394791f7ce1",
+  "checks": [
+    "existing pre-incident UAT course, publication and completed progress retained",
+    "Admin UI login with MFA and existing course editor",
+    "Student A renders published blocks and decoded private image",
+    "existing private PDF download equals original bytes",
+    "Editor draft remains hidden",
+    "Student B cannot read the lesson or reuse the download grant",
+    "no database reset or seed used for recovery"
+  ]
+}

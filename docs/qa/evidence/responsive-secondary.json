@@ -1,0 +1,471 @@
+{
+  "executedAt": "2026-09-30T08:08:11.749Z",
+  "status": "PASS",
+  "results": [
+    {
+      "screen": "academy-entry",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "academy-entry",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "register",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "register",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "register",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "register",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "register",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "register",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "register",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "profile",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "profile",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "profile",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "profile",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "profile",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "profile",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "profile",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "library",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "library",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "library",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "library",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "library",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "library",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "library",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "saved",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "saved",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "saved",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "saved",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "saved",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "saved",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "saved",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "search",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "search",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "search",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "search",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "search",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "search",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "search",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "categories",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "categories",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "categories",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "categories",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "categories",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "categories",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "categories",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "media",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "media",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "media",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "media",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "media",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "media",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "media",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "analytics",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "analytics",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "analytics",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "analytics",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "analytics",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "analytics",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "analytics",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "settings",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "settings",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "settings",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "settings",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "settings",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "settings",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "settings",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1024,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "screen": "audit",
+      "width": 1920,
+      "height": 1080,
+      "overflow": false
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedResponses": []
+}

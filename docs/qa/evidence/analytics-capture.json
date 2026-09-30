@@ -1,0 +1,11 @@
+{
+  "executedAt": "2026-09-30T08:14:11.026Z",
+  "status": "PASS",
+  "note": "Unmodified production page recaptured from scrollY 0 after the keyboard test. Avoids off-viewport fixed elements appearing in full-page screenshots of a scrolled page.",
+  "modes": [
+    "desktop",
+    "mobile",
+    "dark"
+  ],
+  "pageErrors": []
+}
