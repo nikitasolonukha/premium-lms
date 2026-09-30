@@ -8,6 +8,8 @@ Next.js 16.3.7, React 19.3.0, TypeScript, Node 22+, Tailwind, Manrope с кир�
 
 Браузер не получает Supabase client, refresh token в JavaScript или service key. Сервер создаёт клиент от имени пользователя, читает HttpOnly-cookie и выполняет обычные запросы с RLS. Исключения с service key: счётчики входа, подготовка/проверка загрузок, короткие разрешения на материалы, публичный логотип/иконка из узкого RPC, приглашение Student. Они собраны в явно серверных файлах.
 
+Runtime configuration и startup validator используют одну Zod schema (`config.ts`); standalone trace включает Zod как внешнюю зависимость, чтобы Docker не зависел от соседнего node_modules. Protected-video signing, provider audit и monitoring остаются в server-области. `backup.ts` и operator verifier проверяют полный manifest/байты без изменения источника или target. [CSS_ORGANIZATION](CSS_ORGANIZATION.md) фиксирует порядок областей styles и браузерный regression scope.
+
 ## Модель контента
 
 `courses`, `modules`, `lessons` — постоянные идентификаторы. `course_revisions`, `module_revisions`, `lesson_revisions`, `lesson_blocks` — состав редакции. Курс указывает на `published_revision_id` и опциональный `draft_revision_id`. При первом сохранении после публикации создаётся новая редакция. Сохранение черновика заменяет только её состав в одной транзакции.

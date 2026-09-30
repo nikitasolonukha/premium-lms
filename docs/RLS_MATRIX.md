@@ -1,6 +1,6 @@
 # RLS / grants / RPC matrix
 
-Generated from the migrated local PostgreSQL catalog at 2026-09-30T11:06:34.764Z. These are effective privileges, not inferred permissions.
+Generated from the migrated local PostgreSQL catalog at 2026-09-30T11:45:05.848Z. These are effective privileges, not inferred permissions.
 
 ## Tables
 

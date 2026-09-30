@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "passedTests": 2,
+  "failedTests": 1,
+  "failure": "MFA promotion flow completed, but physical Auth-user cleanup returned a database deletion error. The earlier mfa-promotion.json only covers the flow before cleanup and must not be used as whole-test PASS.",
+  "resolution": "QA fixture cleanup now uses guarded logical disable/demotion and retains audit references; PASS evidence is written only after cleanup. See separate session-security-02 run.",
+  "historyPreserved": true
+}

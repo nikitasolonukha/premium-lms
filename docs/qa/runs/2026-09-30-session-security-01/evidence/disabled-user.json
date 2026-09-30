@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "checks": [
+    "access allowed before revocation",
+    "new media grant 401",
+    "new playback grant 401",
+    "existing rendered form mutation denied and DB unchanged",
+    "dashboard/course/lesson redirect to login"
+  ],
+  "scope": "Existing valid browser session tested over same-origin HTTP. Previously issued bearer download/signed playback permits remain valid only until their short TTL."
+}

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "checks": [
+    "fresh Student login",
+    "role changed through guarded Admin RPC",
+    "next login requires new MFA setup",
+    "AAL1 settings and publication denied",
+    "new verified TOTP permits Admin UI"
+  ],
+  "scope": "Real local Auth/browser/RLS; MFA recovery and last-admin protection are separate existing security tests."
+}
