@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:44:41.511Z",
+  "probes": {
+    "ready": 200,
+    "health": 200,
+    "auth": 200,
+    "mail": 200
+  },
+  "postgresHostConnected": true,
+  "migrations": {
+    "status": "PASS",
+    "count": 17,
+    "versions": [
+      "20260929222459",
+      "20260929222844",
+      "20260929223043",
+      "20260929224253",
+      "20260929230817",
+      "20260929232118",
+      "20260930005818",
+      "20260930011002",
+      "20260930011647",
+      "20260930011925",
+      "20260930014400",
+      "20260930092736",
+      "20260930100453",
+      "20260930102026",
+      "20260930114107",
+      "20260930114258",
+      "20260930121353"
+    ]
+  },
+  "engine": {
+    "version": "29.8.1",
+    "memoryBytes": 2055741440
+  },
+  "scope": "Actual healthy runtime after Engine recovery and restarts limited to owned LMS containers. Agent did not restart shared Docker/WSL. No earlier failed evidence overwritten."
+}

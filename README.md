@@ -2,13 +2,13 @@
 
 Русскоязычная LMS на Next.js 16.3.7, React 19.3.0, TypeScript и Supabase. Admin создаёт курсы/модули/уроки и 11 типов блоков, загружает материалы, публикует редакцию и назначает доступ через интерфейс. Editor меняет draft; Student видит только опубликованное доступное обучение.
 
-**Статус: NOT READY.** Production hardening реализован и отправлен в отдельную ветку/черновой PR. Code/DB/security/UAT/visual проверки прошли; последний local E2E — 45 PASS, 1 FAIL (external playback grant timeout), 2 protected live UNVERIFIED. После timeout обнаружена недоступность Docker Engine/Supabase. Core GitHub CI SUCCESS после runner rerun; Full QA FAIL на YouTube authorization requirement GitHub-hosted runner. Полные доказательства: [QA_REPORT](docs/QA_REPORT.md), [RELEASE_READINESS](docs/RELEASE_READINESS.md). Staging/production deployment не выполнялся.
+**Статус: NOT READY.** Последний полный локальный E2E: 47 PASS, 0 FAIL, 2 live protected-video UNVERIFIED. Чистая установка, 78 unit-тестов, DB/security/UAT/visual, production build, Linux Docker с реальной БД и свежий backup прошли. Исправлено продление staff idle фоновым Next prefetch. Core GitHub CI PASS (13/13 E2E); обязательный Full QA FAIL: YouTube требует авторизацию на GitHub-hosted runner (46 PASS, 1 FAIL, 2 UNVERIFIED). Полные доказательства: [QA_REPORT](docs/QA_REPORT.md), [RELEASE_READINESS](docs/RELEASE_READINESS.md). Staging/production deployment не выполнялся.
 
 Репозиторий: [nikitasolonukha/premium-lms](https://github.com/nikitasolonukha/premium-lms), [draft PR](https://github.com/nikitasolonukha/premium-lms/pull/1). Код, 17 migrations, tests, docs и безопасные QA evidence публичны; env/credentials/private backup/data/bundles не публикуются.
 
 ## Локальный запуск
 
-Нужны Node.js 22+, npm и Docker Desktop Linux containers. Версии закреплены lockfile. Порты: app 3000, API 56321, PostgreSQL 56322, Mailpit 56324. Сейчас локальный Docker требует восстановления оператором; команды ниже выполняются после healthy Engine.
+Нужны Node.js 22+, npm и Docker Desktop Linux containers. Версии закреплены lockfile. Порты: app 3000, API 56321, PostgreSQL 56322, Mailpit 56324. Последний локальный Engine и все probes healthy; исторический outage сохранён в QA evidence.
 
 ```powershell
 git clone https://github.com/nikitasolonukha/premium-lms.git
@@ -46,7 +46,7 @@ npm run security:secrets
 npm run security:client
 ```
 
-Operator empty-DB scenarios: npm run test:operations **до seed**. Security/performance/seed/reset fixtures restricted to local 56321/56322. Browser tests sequential; rate fixture очищает только counters между независимыми сценариями, сами limits и 429/Retry-After проверяются. Coverage относится к выбранным 15 критическим модулям, не ко всей платформе.
+Operator empty-DB scenarios: npm run test:operations **до seed**, затем отдельный reset перед demo/security fixtures: bootstrap оставляет собственного Admin. Security/performance/seed/reset fixtures restricted to local 56321/56322. Browser tests sequential; rate fixture очищает только counters между независимыми сценариями, сами limits и 429/Retry-After проверяются. Coverage относится к выбранным 16 критическим модулям, не ко всей платформе.
 
 Public video тест использует настоящий установленный Google Chrome с GUI/Widevine и сеть, без пользовательского профиля; Linux CI использует Xvfb. Разрешённые альтернативные examples задаются QA_YOUTUBE_URL/QA_VIMEO_URL/QA_RUTUBE_URL. Provider refusal не подменяется mock/PASS. Cloudflare/Mux live tests требуют real QA credentials/source IDs; иначе явный SKIP_EXTERNAL_CONFIGURATION/UNVERIFIED.
 

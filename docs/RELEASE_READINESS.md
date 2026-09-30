@@ -1,33 +1,33 @@
 # Release readiness — 30 сентября 2026
 
-**NOT READY.** Code SHA: `6d4f6863ccc6ccb9a655f9f48ab389cad333390b`. Локальный E2E: 45 PASS, 1 FAIL, 2 UNVERIFIED. Основные code/DB/security/visual/UAT проверки прошли до недоступности Docker/Supabase. Actual Full QA FAIL — обязательный gate остаётся открытым; нет staging/production verification.
+**NOT READY.** Code SHA: `45cf002bfa4998de02402038138d6e5037fbf609`. Local E2E 47 PASS / 0 FAIL / 2 UNVERIFIED; static/DB/security/actual-DB Docker smoke and fresh backup PASS. Core CI PASS, Full QA FAIL on YouTube authorization requirement. No staging/production verification.
 
 | Area | Status | Evidence |
 |---|---|---|
-| Code build | PASS | [final-checks](qa/runs/2026-09-30-final-regression-02/evidence/final-checks.json) |
-| Unit | PASS | 73 tests; scoped coverage [final-checks](qa/runs/2026-09-30-final-regression-02/evidence/final-checks.json) |
-| DB tests | PASS | 17 clean migrations, 5 groups; [final-checks](qa/runs/2026-09-30-final-regression-02/evidence/final-checks.json) |
-| Security | PASS | [security-api](qa/runs/2026-09-30-final-regression-02/evidence/security-api.json); [playback-access](qa/runs/2026-09-30-final-regression-02/evidence/playback-access.json); mutation audit |
-| E2E | FAIL | 45 local PASS, 1 FAIL, 2 protected live UNVERIFIED; [playwright-summary](qa/runs/2026-09-30-final-regression-02/evidence/playwright-summary.json) |
-| Auth | PASS | [auth](qa/runs/2026-09-30-final-regression-02/evidence/auth.json); local Mailpit, не production SMTP |
-| MFA | PASS | [mfa-promotion](qa/runs/2026-09-30-final-regression-02/evidence/mfa-promotion.json); empty bootstrap/recovery |
-| RLS | PASS | [RLS_MATRIX](RLS_MATRIX.md); direct negative API/RPC tests |
-| Storage | PASS | [media-formats](qa/runs/2026-09-30-final-regression-02/evidence/media-formats.json); direct API denied |
-| Protected files | PASS | [file-expiry](qa/runs/2026-09-30-final-regression-02/evidence/file-expiry.json); [image-variants](qa/runs/2026-09-30-final-regression-02/evidence/image-variants.json) |
-| Public video | FAIL | Local 4/5 PASS, external grant timeout [video-providers](qa/runs/2026-09-30-final-regression-02/evidence/video-providers.json); GitHub YouTube authorization failure |
-| Protected video | UNVERIFIED | Crypto/provider contracts PASS; external QA credentials NOT CONFIGURED |
-| CI | FAIL | [github-ci](qa/runs/2026-09-30-final-regression-02/evidence/github-ci.json); core CI rerun SUCCESS; Full QA gate не закрыт |
-| Branch protection | PASS | [actual API evidence](qa/runs/2026-09-30-github-protection-01/evidence/github-protection.json) |
-| Secrets | PASS | [client-secrets](qa/runs/2026-09-30-final-regression-02/evidence/client-secrets.json); Gitleaks/audit, fixed safe artifact schemas |
-| Monitoring | NOT CONFIGURED | Structured logs/probes code PASS; Sentry delivery UNVERIFIED |
-| Backup | PASS | [backup source snapshot, 14 migrations](qa/runs/2026-09-30-backup-01/evidence/backup-verification.json); real best-effort snapshot, all object SHA/TOC |
-| Restore | UNVERIFIED | Verifier implements readonly restored DB/Storage checks; isolated/staging restore не выполнялся |
-| Docker | UNVERIFIED | Current CI build/startup/non-root PASS; final local actual-DB smoke blocked by Engine API 500; [runtime-availability](qa/runs/2026-09-30-final-regression-02/evidence/runtime-availability.json) |
-| Staging | NOT CONFIGURED | [STAGING_CHECKLIST](STAGING_CHECKLIST.md) |
-| Production SMTP | NOT CONFIGURED | Local Mailpit PASS не подтверждает production delivery |
-| Production domain | NOT CONFIGURED | Нет real HTTPS domain/callback UAT |
-| Production UAT | UNVERIFIED | [PRODUCTION_UAT](PRODUCTION_UAT.md); deployment не выполнялся |
+| Code build | PASS | [static-checks](qa/runs/2026-09-30-final-regression-04/evidence/static-checks.json) |
+| Unit | PASS | 78 tests, scoped 16-module coverage; [static-checks](qa/runs/2026-09-30-final-regression-04/evidence/static-checks.json) |
+| DB tests | PASS | [database-checks](qa/runs/2026-09-30-final-regression-05/evidence/database-checks.json); 17 empty migrations / 5 invariant groups |
+| Security | PASS | [security-api](qa/runs/2026-09-30-final-regression-05/evidence/security-api.json), [playback-access](qa/runs/2026-09-30-final-regression-05/evidence/playback-access.json) |
+| E2E | PASS | 47 local PASS / 0 FAIL / 2 live protected UNVERIFIED; [playwright-summary](qa/runs/2026-09-30-final-regression-05/evidence/playwright-summary.json) |
+| Auth | PASS | [auth](qa/runs/2026-09-30-final-regression-05/evidence/auth.json); local Mailpit only |
+| MFA | PASS | [mfa-promotion](qa/runs/2026-09-30-final-regression-05/evidence/mfa-promotion.json); 11 bootstrap/recovery checks |
+| RLS | PASS | [RLS_MATRIX](RLS_MATRIX.md); actual direct API/RPC negatives |
+| Storage | PASS | [media-formats](qa/runs/2026-09-30-final-regression-05/evidence/media-formats.json) |
+| Protected files | PASS | [file-expiry](qa/runs/2026-09-30-final-regression-05/evidence/file-expiry.json), [image-variants](qa/runs/2026-09-30-final-regression-05/evidence/image-variants.json) |
+| Public video | PASS | [video-providers](qa/runs/2026-09-30-final-regression-05/evidence/video-providers.json); local real Chrome. GitHub YouTube FAIL in CI row. |
+| Protected video | UNVERIFIED | API/RS256/contracts/access code PASS; live credentials NOT CONFIGURED |
+| CI | FAIL | Core 13/13 PASS; Full 46 PASS/1 FAIL/2 UNVERIFIED; [actual CI](qa/runs/2026-09-30-github-head-45cf002/evidence/run.json) |
+| Branch protection | PASS | [actual API](qa/runs/2026-09-30-github-protection-01/evidence/github-protection.json) |
+| Secrets | PASS | [client-secrets](qa/runs/2026-09-30-final-regression-05/evidence/client-secrets.json); audit/Gitleaks and artifact sanitation |
+| Monitoring | NOT CONFIGURED | Logs/health/readiness code PASS; Sentry delivery UNVERIFIED |
+| Backup | PASS | [backup-verification](qa/runs/2026-09-30-final-regression-05/evidence/backup-verification.json); 17 migrations, 70 objects, 2196863 bytes; best-effort source snapshot |
+| Restore | UNVERIFIED | Readonly verifier implemented; isolated/staging restore not run |
+| Docker | PASS | [container](qa/runs/2026-09-30-final-regression-04/evidence/container.json), [startup/OCI](qa/runs/2026-09-30-final-regression-04/evidence/docker-runtime.json) |
+| Staging | NOT CONFIGURED | [checklist](STAGING_CHECKLIST.md) |
+| Production SMTP | NOT CONFIGURED | Local Mailpit is not production delivery |
+| Production domain | NOT CONFIGURED | No real HTTPS domain/callback UAT |
+| Production UAT | UNVERIFIED | [checklist](PRODUCTION_UAT.md); not deployed |
 
-Полные 45+40 matrices, regression, CI jobs, исправления и ограничения: [QA_REPORT](QA_REPORT.md). Critical 0 / High application bugs 0 в пределах проверок; внешний CI gate и недоступность локального Docker/Supabase остаются release blockers. Непроверенные сценарии не считаются PASS.
+[QA_REPORT](QA_REPORT.md): 45+40 requirements/evidence, исправления и сохранённые failures. Critical 0 / High application bugs 0 в границах проверок; обязательный Full QA gate остаётся открыт. UNVERIFIED и NOT CONFIGURED не считаются PASS.
 
-Порядок статусов: NOT READY → CODE READY FOR STAGING после закрытия обязательного code/Full QA gate → READY FOR PRODUCTION DEPLOYMENT после real staging UAT → PRODUCTION VERIFIED после deployed production UAT. Утверждения о последующих уровнях сейчас недопустимы.
+NOT READY → CODE READY FOR STAGING после закрытия code/Full QA gate → READY FOR PRODUCTION DEPLOYMENT после реального staging UAT → PRODUCTION VERIFIED после production deployment/UAT.

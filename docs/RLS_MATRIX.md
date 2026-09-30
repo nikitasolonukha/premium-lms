@@ -1,6 +1,6 @@
 # RLS / grants / RPC matrix
 
-Generated from the migrated local PostgreSQL catalog at 2026-09-30T11:45:05.848Z. These are effective privileges, not inferred permissions.
+Generated from the migrated local PostgreSQL catalog at 2026-09-30T13:55:56.561Z. These are effective privileges, not inferred permissions.
 
 ## Tables
 
@@ -101,17 +101,17 @@ Absent INSERT/UPDATE/DELETE policies plus absent grants mean direct writes are d
 |---|---|---|---|---|---|
 | public.access_grants | grants_read | {authenticated} | SELECT | (EXISTS ( SELECT 1    FROM enrollments e   WHERE (e.id = access_grants.enrollment_id))) | — |
 | public.audit_logs | audit_read | {authenticated} | SELECT | private.is_staff(true) | — |
-| public.block_assets | block_assets_read | {authenticated} | SELECT | (private.is_staff() OR (private.can_revision(revision_id) AND private.can_media(media_id))) | — |
+| public.block_assets | block_assets_read | {authenticated} | SELECT | (( SELECT private.is_staff() AS is_staff) OR (private.can_revision(revision_id) AND private.can_media(media_id))) | — |
 | public.categories | categories_read | {authenticated} | SELECT | private.live_session() | — |
 | public.course_revisions | revisions_read | {authenticated} | SELECT | (id IN ( SELECT unnest(private.readable_revisions()) AS unnest)) | — |
-| public.courses | courses_read | {authenticated} | SELECT | ((deleted_at IS NULL) AND (private.is_staff() OR private.has_course(id))) | — |
+| public.courses | courses_read | {authenticated} | SELECT | ((deleted_at IS NULL) AND (( SELECT private.is_staff() AS is_staff) OR private.has_course(id))) | — |
 | public.enrollments | enrollments_read | {authenticated} | SELECT | (private.live_session() AND ((user_id = ( SELECT auth.uid() AS uid)) OR private.is_staff(true))) | — |
 | public.learning_activity | learning_activity_read | {authenticated} | SELECT | (private.live_session() AND ((user_id = ( SELECT auth.uid() AS uid)) OR private.is_staff(true))) | — |
-| public.lesson_blocks | blocks_read | {authenticated} | SELECT | (private.is_staff() OR (private.can_revision(revision_id) AND private.lesson_available(lesson_id))) | — |
+| public.lesson_blocks | blocks_read | {authenticated} | SELECT | (( SELECT private.is_staff() AS is_staff) OR (private.can_revision(revision_id) AND private.lesson_available(lesson_id))) | — |
 | public.lesson_revisions | lesson_revision_read | {authenticated} | SELECT | (( SELECT private.is_staff() AS is_staff) OR (published AND (revision_id IN ( SELECT unnest(private.readable_revisions()) AS unnest)))) | — |
 | public.lesson_slug_aliases | lesson_aliases_read | {authenticated} | SELECT | (private.is_staff() OR private.has_course(course_id)) | — |
 | public.lessons | lessons_read | {authenticated} | SELECT | (private.is_staff() OR (private.has_course(course_id) AND (EXISTS ( SELECT 1    FROM (courses c      JOIN lesson_revisions l ON ((l.revision_id = c.published_revision_id)))   WHERE ((c.id = l.course_id) AND (l.lesson_id = lessons.id) AND l.published))))) | — |
-| public.media | media_read | {authenticated} | SELECT | (private.can_media(id) OR (private.is_staff() AND (status <> 'deleted'::text)) OR (private.live_session() AND (owner_id = ( SELECT auth.uid() AS uid)) AND (purpose = 'avatar'::text))) | — |
+| public.media | media_read | {authenticated} | SELECT | ((( SELECT private.is_staff() AS is_staff) AND (status <> 'deleted'::text)) OR private.can_media(id) OR (( SELECT private.live_session() AS live_session) AND (owner_id = ( SELECT auth.uid() AS uid)) AND (purpose = 'avatar'::text))) | — |
 | public.module_revisions | module_revision_read | {authenticated} | SELECT | (revision_id IN ( SELECT unnest(private.readable_revisions()) AS unnest)) | — |
 | public.modules | modules_read | {authenticated} | SELECT | (private.is_staff() OR (private.has_course(course_id) AND (EXISTS ( SELECT 1    FROM (courses c      JOIN module_revisions m ON ((m.revision_id = c.published_revision_id)))   WHERE ((c.id = m.course_id) AND (m.module_id = modules.id)))))) | — |
 | public.profiles | profile_read | {authenticated} | SELECT | (private.live_session() AND ((id = ( SELECT auth.uid() AS uid)) OR private.is_staff(true))) | — |

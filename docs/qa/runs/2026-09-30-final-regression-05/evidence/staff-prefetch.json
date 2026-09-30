@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    "actual browser session ID",
+    "six background transports, including actual RSC prefetch, preserve idle",
+    "proxy overwrites forged marker; real navigation records activity",
+    "expired prefetch denied"
+  ],
+  "scope": "Real production routes and database; header selects readonly checks, not authorization bypass."
+}

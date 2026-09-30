@@ -1,0 +1,18 @@
+{
+  "executedAt": "2026-09-30T13:45:26.396Z",
+  "status": "PASS",
+  "courseId": "2999a914-4c14-4ad2-8c46-b7ae76152268",
+  "slug": "practice-muo5qd54",
+  "scenarios": [
+    "Admin UI creates all 11 block types",
+    "all 11 blocks survive reload, exact database roundtrip, preview and Student render",
+    "double-click Create, Save, Publish and Complete creates one course/publication/progress",
+    "real image and PDF upload",
+    "real direct video playback and decoded lesson image",
+    "publish and enroll through UI",
+    "Student A download and completion",
+    "logout/login and resume next lesson",
+    "Student B denied page and file route",
+    "Editor draft invisible until Admin publication"
+  ]
+}

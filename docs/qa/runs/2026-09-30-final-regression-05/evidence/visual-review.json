@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:50:58.214Z",
+  "manualFiles": [
+    "student-home-desktop.png",
+    "lesson-mobile.png",
+    "course-editor-desktop-dark.png"
+  ],
+  "scope": "Three current screenshots visually inspected, no observed layout regression. All 105 current screenshots have automated responsive/overflow/console/a11y checks. This is not a manual inspection claim for every pixel in every screenshot."
+}

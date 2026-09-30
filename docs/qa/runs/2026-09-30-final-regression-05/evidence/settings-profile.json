@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T13:44:36.972Z",
+  "checks": [
+    "name and avatar survive reload and login",
+    "Admin branding text/color/logo/favicon",
+    "masked watermark viewer identity; full email absent",
+    "watermark 18-second timer with browser clock",
+    "fullscreen wrapper retains watermark"
+  ]
+}

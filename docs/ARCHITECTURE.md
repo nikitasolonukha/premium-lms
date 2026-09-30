@@ -10,6 +10,8 @@ Next.js 16.3.7, React 19.3.0, TypeScript, Node 22+, Tailwind, Manrope с кир�
 
 Runtime configuration и startup validator используют одну Zod schema (`config.ts`); standalone trace включает Zod как внешнюю зависимость, чтобы Docker не зависел от соседнего node_modules. Protected-video signing, provider audit и monitoring остаются в server-области. `backup.ts` и operator verifier проверяют полный manifest/байты без изменения источника или target. [CSS_ORGANIZATION](CSS_ORGANIZATION.md) фиксирует порядок областей styles и браузерный regression scope.
 
+Proxy получает исходные Flight headers через `skipProxyUrlNormalize` и перезаписывает внутренний признак фонового prefetch. `requireActor` выбирает readonly staff-status RPC для таких запросов, чтобы автопредзагрузка маршрутов не продлевала idle. Оба RPC проверяют авторизацию и живую настоящую сессию в БД; признак не является источником прав. Обычная навигация и изменения учитывают активность.
+
 ## Модель контента
 
 `courses`, `modules`, `lessons` — постоянные идентификаторы. `course_revisions`, `module_revisions`, `lesson_revisions`, `lesson_blocks` — состав редакции. Курс указывает на `published_revision_id` и опциональный `draft_revision_id`. При первом сохранении после публикации создаётся новая редакция. Сохранение черновика заменяет только её состав в одной транзакции.

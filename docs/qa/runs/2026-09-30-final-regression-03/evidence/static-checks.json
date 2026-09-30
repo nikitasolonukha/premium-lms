@@ -1,0 +1,13 @@
+{
+  "executedAt": "2026-09-30T13:29:09.5663745Z",
+  "checks": [
+    {
+      "exitCode": 1,
+      "command": "npm ci",
+      "status": "FAIL"
+    }
+  ],
+  "scope": "Actual executed local static checks; overall PASS written only after every command completes. Logs stay private.",
+  "codeCommit": "45cf002bfa4998de02402038138d6e5037fbf609",
+  "status": "FAIL"
+}

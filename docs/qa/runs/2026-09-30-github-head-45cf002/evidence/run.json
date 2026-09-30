@@ -1,0 +1,53 @@
+{
+  "status": "FAIL",
+  "executedAt": "2026-09-30T13:43:02.141Z",
+  "codeCommit": "45cf002bfa4998de02402038138d6e5037fbf609",
+  "core": {
+    "status": "PASS",
+    "id": 36721783395,
+    "counts": {
+      "PASS": 13,
+      "FAIL": 0,
+      "UNVERIFIED": 0
+    },
+    "url": "https://github.com/nikitasolonukha/premium-lms/actions/runs/36721783395"
+  },
+  "manualFull": {
+    "status": "FAIL",
+    "id": 36721968632,
+    "counts": {
+      "PASS": 46,
+      "FAIL": 1,
+      "UNVERIFIED": 2
+    },
+    "url": "https://github.com/nikitasolonukha/premium-lms/actions/runs/36721968632",
+    "jobs": [
+      {
+        "name": "Docker runtime verification",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "checks / Code checks",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "checks / Database security and E2E",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ]
+  },
+  "prFull": {
+    "status": "FAIL",
+    "id": 36721784260,
+    "counts": {
+      "PASS": 46,
+      "FAIL": 1,
+      "UNVERIFIED": 2
+    }
+  },
+  "failure": "YouTube PROVIDER_AUTH_REQUIRED; other four public adapters PASS. No bypass/mock/ignored failure.",
+  "scope": "Actual sanitized GitHub artifacts; Auth/history/staff deadline and new prefetch tests PASS. Protected live skips remain UNVERIFIED; no staging/production claim."
+}
