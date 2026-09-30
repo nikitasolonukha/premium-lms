@@ -27,7 +27,7 @@ describe('protected provider contracts (simulated provider HTTP; real RSA signat
     expect(protectedProviders(env)).toEqual(['cloudflare', 'mux']);
   });
   it('signs Cloudflare only after checking requireSignedURLs and readyToStream', async () => {
-    const fetcher = vi.fn(async () => Response.json({ success: true, result: { uid, requireSignedURLs: true, readyToStream: true } }));
+    const fetcher = vi.fn<typeof fetch>(async () => Response.json({ success: true, result: { uid, requireSignedURLs: true, readyToStream: true } }));
     const adapter = createProtectedAdapter('cloudflare', env, fetcher, () => now);
     const grant = await adapter.issueGrant(uid, viewer);
     expect(grant.protected).toBe(true);
@@ -75,5 +75,13 @@ describe('protected provider contracts (simulated provider HTTP; real RSA signat
   it.each([403, 429, 500])('fails closed on provider HTTP %i without leaking the response', async status => {
     const adapter = createProtectedAdapter('cloudflare', env, async () => new Response('private-provider-response', { status }));
     await expect(adapter.issueGrant(uid, viewer)).rejects.toThrow('PROVIDER_UNAVAILABLE');
+  });
+  it('rechecks authorization after provider I/O and refuses signing after revocation', async () => {
+    const order: string[] = [];
+    const fetcher = async () => { order.push('provider'); return Response.json({ success: true, result: { uid, requireSignedURLs: true, readyToStream: true } }); };
+    const recheck = async () => { order.push('authorization'); throw new Error('ACCESS_REVOKED'); };
+    const adapter = createProtectedAdapter('cloudflare', env, fetcher, () => now, recheck);
+    await expect(adapter.issueGrant(uid, viewer)).rejects.toThrow('ACCESS_REVOKED');
+    expect(order).toEqual(['provider', 'authorization']);
   });
 });
