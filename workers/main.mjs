@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { access } from 'node:fs/promises';
 import { parseEnvironment } from '../src/lib/config.ts';
 import { binaries, execute, videoJob } from './video.mjs';
 import { telegramUpdate, telegramCall, deliverReport } from './telegram.mjs';
@@ -28,6 +29,9 @@ try {
   const b = binaries(env);
   await execute(b.ffmpeg, ['-version']);
   await execute(b.ffprobe, ['-version']);
+  const filters = await execute(b.ffmpeg, ['-hide_banner', '-filters']);
+  if (!/\bdrawtext\b/.test(filters)) throw new Error('VIDEO_FILTER_UNAVAILABLE');
+  await access(b.font);
   video = true;
 } catch {
   console.log('Video processor unavailable');

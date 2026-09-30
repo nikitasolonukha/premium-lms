@@ -10,6 +10,12 @@ const require = createRequire(import.meta.url);
 export function binaries(env) {
   let ffmpeg = env.FFMPEG_PATH,
     ffprobe = env.FFPROBE_PATH;
+  // The pinned Linux static build omits drawtext. Linux/macOS use a system build
+  // with font support; the worker image installs it. Windows keeps its tested binary.
+  if (process.platform !== 'win32') {
+    ffmpeg ||= 'ffmpeg';
+    ffprobe ||= 'ffprobe';
+  }
   if (!ffmpeg) {
     try {
       ffmpeg = require('ffmpeg-static');

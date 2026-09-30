@@ -48,6 +48,8 @@ Worker проверяет реальный размер, MP4 `ftyp`, ffprobe, в
 
 ## Развёртывание worker
 
+Linux использует системные `ffmpeg`/`ffprobe` с фильтром `drawtext` и DejaVu Sans; на Debian/Ubuntu установить `ffmpeg fonts-dejavu-core` либо запускать готовый Docker worker. Закреплённый `ffmpeg-static` Linux не содержит drawtext и для вшивания не подходит. Windows использует проверенный static binary и Arial, либо заданные `FFMPEG_PATH`/`FFPROBE_PATH`/`FFMPEG_FONT_PATH`. На другой ОС явно настроить доступный кириллический font. При старте проверяются drawtext и файл шрифта; неподготовленный обработчик не объявляет видео готовым к обработке.
+
 Для видео до 1 ГБ и результатов до 2 ГБ глобальный Storage upload limit должен быть не ниже 2 ГБ; лимит bucket не может превысить глобальный. Локальный config выставлен в 2 GiB, обычные документы по-прежнему ограничены приложением/БД 50 MiB. В hosted Supabase проверить доступные лимиты выбранного тарифа и включить нужный global limit в Dashboard. [Официальные ограничения](https://supabase.com/docs/guides/storage/uploads/file-limits). Для исходников близко к 1 ГБ рекомендуется отдельное расширение resumable upload; текущая загрузка обычная, с прогрессом и ручным повтором после обрыва.
 
 `docker build -f Dockerfile.worker -t academy-worker .`

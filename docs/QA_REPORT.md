@@ -10,6 +10,8 @@
 
 Объём: карточка ученика, CSV/XLSX импорт с приглашением, массовые доступы, Telegram отчёты, расписания/очередь/повтор, FFmpeg burn-in и обложки. Оплата не добавлялась. Настройка: [ACADEMY_OPERATIONS](ACADEMY_OPERATIONS.md).
 
+Причина CI FAIL локализована после восьми успешных integration groups: закреплённый Linux static FFmpeg не содержит `drawtext`. Это подтверждено запуском того же binary release в Linux-контейнере. Linux теперь использует системные ffmpeg/ffprobe; CI устанавливает FFmpeg и DejaVu, worker проверяет drawtext и шрифт перед объявлением возможностей. Реальное MP4/обложка с default Linux paths PASS в non-root Docker. [Доказательство](qa/runs/2026-09-30-telegram-live-01/evidence/linux-ffmpeg.json). Повторный GitHub CI ещё не считается пройденным до результата.
+
 | Проверка | Результат | Доказательство |
 |---|---|---|
 | Локальная БД/MFA, bulk replay/rollback, progress, import, lease, schedule/DST, Telegram binding, FFmpeg и длинное название | PASS: 11 сценариев | [Интеграционный отчёт](qa/runs/2026-09-30-academy-operations-09/evidence/academy-operations.json) |
