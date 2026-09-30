@@ -73,6 +73,7 @@ it('retains real public provider failures and numeric diagnostics while removing
       {
         provider: 'direct',
         status: 'FAIL',
+        failureReason: 'PROVIDER_AUTH_REQUIRED',
         detail: 'secret-token-value',
         url: 'https://private.example/secret-token-value',
         mediaState: { time: 0, ready: 0, network: 3, error: 4 },
@@ -86,6 +87,7 @@ it('retains real public provider failures and numeric diagnostics while removing
   expect(report.results[0]).toMatchObject({
     provider: 'direct',
     status: 'FAIL',
+    failureReason: 'PROVIDER_AUTH_REQUIRED',
     mediaState: { error: 4 },
     sourceResponses: [{ status: 403, kind: 'media' }],
   });

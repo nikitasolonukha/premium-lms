@@ -16,6 +16,15 @@ const publicVideoReportSchema = z.object({
         status: z.enum(['PASS', 'FAIL']),
         playbackSeconds: z.number().min(0).max(86400).optional(),
         fullscreenWatermark: z.boolean().optional(),
+        failureReason: z
+          .enum([
+            'PROVIDER_AUTH_REQUIRED',
+            'PROVIDER_ASSET_UNAVAILABLE',
+            'MEDIA_NOT_SUPPORTED',
+            'PLAYBACK_TIMEOUT',
+            'PLAYER_FAILURE',
+          ])
+          .optional(),
         mediaState: z
           .object({
             time: z.number().min(0).max(86400),

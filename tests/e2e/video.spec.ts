@@ -54,6 +54,12 @@ test('five public video adapters: grants, real player loading, playback, mobile 
     fullscreenWatermark?: boolean;
     mediaState?: { time: number; ready: number; network: number; error: number | null } | null;
     sourceResponses?: { status?: number; error?: string; kind: string }[];
+    failureReason?:
+      | 'PROVIDER_AUTH_REQUIRED'
+      | 'PROVIDER_ASSET_UNAVAILABLE'
+      | 'MEDIA_NOT_SUPPORTED'
+      | 'PLAYBACK_TIMEOUT'
+      | 'PLAYER_FAILURE';
   }[] = [];
   let widevineAvailable = false;
   try {
@@ -245,9 +251,21 @@ test('five public video adapters: grants, real player loading, playback, mobile 
               )
               .catch(() => null)
           : null;
+        const failureReason = /not a bot|sign in|подтверд.*робот|войдите/i.test(providerMessage)
+          ? 'PROVIDER_AUTH_REQUIRED'
+          : /video unavailable|video is not available|video has been removed|видео недоступно/i.test(
+                providerMessage,
+              )
+            ? 'PROVIDER_ASSET_UNAVAILABLE'
+            : /NotSupportedError/.test(detail)
+              ? 'MEDIA_NOT_SUPPORTED'
+              : /timeout|timed out|within \d+ seconds/i.test(detail)
+                ? 'PLAYBACK_TIMEOUT'
+                : 'PLAYER_FAILURE';
         results.push({
           provider: provider.provider,
           status: 'FAIL',
+          failureReason,
           detail,
           mediaState,
           sourceResponses,
