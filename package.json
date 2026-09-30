@@ -16,6 +16,7 @@
     "test:coverage": "vitest run --coverage",
     "test:db": "tsx --env-file=.env.local scripts/test-db.ts",
     "test:backup": "tsx --env-file=.env.local scripts/test-backup.ts",
+    "test:performance": "tsx --env-file=.env.local scripts/test-performance.ts",
     "e2e": "playwright test",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
