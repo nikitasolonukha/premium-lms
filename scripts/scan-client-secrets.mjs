@@ -7,7 +7,7 @@ const secrets = Object.entries(process.env)
   .filter(
     ([key, value]) =>
       value &&
-      /^(SUPABASE_SECRET_KEY|RATE_LIMIT_SECRET|CLOUDFLARE_STREAM_(API_TOKEN|SIGNING_KEY)|MUX_(TOKEN_SECRET|SIGNING_PRIVATE_KEY)|MALWARE_SCANNER_TOKEN|SENTRY_AUTH_TOKEN)$/.test(
+      /^(SUPABASE_SECRET_KEY|RATE_LIMIT_SECRET|CLOUDFLARE_STREAM_(API_TOKEN|SIGNING_KEY)|MUX_(TOKEN_SECRET|SIGNING_PRIVATE_KEY)|MALWARE_SCANNER_TOKEN|SENTRY_AUTH_TOKEN|TELEGRAM_BOT_TOKEN|TELEGRAM_WEBHOOK_SECRET)$/.test(
         key,
       ),
   )
@@ -28,7 +28,7 @@ if (existsSync('.local/seed-accounts.json'))
     if (a.totpSecret) secrets.push(a.totpSecret);
   }
 if (!secrets.length) throw new Error('Load the local test environment before scanning');
-const roots = ['.next/static', 'src', 'public', 'docs', 'scripts', 'tests', 'supabase', '.github'],
+const roots = ['.next/static', 'src', 'public', 'docs', 'scripts', 'tests', 'supabase', '.github','workers'],
   matches = [];
 let scanned = 0;
 function scanFile(file) {

@@ -368,6 +368,27 @@
                   "properties": {
                     "provider": {
                       "type": "string",
+                      "const": "upload"
+                    },
+                    "assetId": {
+                      "$ref": "#/$defs/__schema0"
+                    },
+                    "title": {
+                      "$ref": "#/$defs/__schema3"
+                    }
+                  },
+                  "required": [
+                    "provider",
+                    "assetId",
+                    "title"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "provider": {
+                      "type": "string",
                       "enum": [
                         "youtube",
                         "vimeo",

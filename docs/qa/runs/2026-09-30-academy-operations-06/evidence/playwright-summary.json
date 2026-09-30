@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T18:38:12.078Z",
+  "counts": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "New admin screens: seven viewports, both themes and accessible controls",
+      "file": "academy-operations.spec.ts",
+      "status": "PASS",
+      "durationMs": 22612
+    }
+  ]
+}

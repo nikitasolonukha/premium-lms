@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "recordedAt": "2026-09-30T18:53:31.392Z",
+  "checks": [
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "tests": 87,
+      "files": 20
+    },
+    {
+      "command": "npm run lint / eslint . and final worker files",
+      "status": "PASS"
+    },
+    {
+      "command": "tsc --noEmit",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "scope": "Production web application; subsequent standalone worker-only layout change verified separately"
+    },
+    {
+      "command": "npm audit --omit=dev",
+      "status": "PASS",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    {
+      "command": "npm run test:coverage",
+      "status": "PASS",
+      "linesPercent": 93.36,
+      "scope": "Only explicit vitest.config.ts coverage include list; not whole-app coverage"
+    },
+    {
+      "command": "supabase db lint --local --level error",
+      "status": "PASS",
+      "errors": 0
+    },
+    {
+      "command": "supabase db pull --local --yes",
+      "status": "PASS",
+      "migrations": 21,
+      "scope": "All applied in empty shadow database; expected no-diff exit 1 after No schema changes found"
+    }
+  ],
+  "limitations": [
+    "Real Telegram token/delivery unavailable",
+    "Production SMTP/domain/deployment and customer-video UAT unverified"
+  ]
+}

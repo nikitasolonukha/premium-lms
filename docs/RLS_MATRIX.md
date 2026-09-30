@@ -1,6 +1,6 @@
 # RLS / grants / RPC matrix
 
-Generated from the migrated local PostgreSQL catalog at 2026-09-30T13:55:56.561Z. These are effective privileges, not inferred permissions.
+Generated from the migrated local PostgreSQL catalog at 2026-09-30T18:30:31.307Z. These are effective privileges, not inferred permissions.
 
 ## Tables
 
@@ -9,12 +9,33 @@ Generated from the migrated local PostgreSQL catalog at 2026-09-30T13:55:56.561Z
 | private.admin_sessions | yes | anon | no | no | no | no |
 | private.admin_sessions | yes | authenticated | no | no | no | no |
 | private.admin_sessions | yes | service_role | no | no | no | no |
+| private.automation_rules | yes | anon | no | no | no | no |
+| private.automation_rules | yes | authenticated | no | no | no | no |
+| private.automation_rules | yes | service_role | no | no | no | no |
+| private.bulk_requests | yes | anon | no | no | no | no |
+| private.bulk_requests | yes | authenticated | no | no | no | no |
+| private.bulk_requests | yes | service_role | no | no | no | no |
+| private.operations_jobs | yes | anon | no | no | no | no |
+| private.operations_jobs | yes | authenticated | no | no | no | no |
+| private.operations_jobs | yes | service_role | no | no | no | no |
 | private.rate_limits | yes | anon | no | no | no | no |
 | private.rate_limits | yes | authenticated | no | no | no | no |
 | private.rate_limits | yes | service_role | no | no | no | no |
+| private.telegram_connections | yes | anon | no | no | no | no |
+| private.telegram_connections | yes | authenticated | no | no | no | no |
+| private.telegram_connections | yes | service_role | no | no | no | no |
+| private.telegram_links | yes | anon | no | no | no | no |
+| private.telegram_links | yes | authenticated | no | no | no | no |
+| private.telegram_links | yes | service_role | no | no | no | no |
+| private.telegram_updates | yes | anon | no | no | no | no |
+| private.telegram_updates | yes | authenticated | no | no | no | no |
+| private.telegram_updates | yes | service_role | no | no | no | no |
 | private.video_config_state | yes | anon | no | no | no | no |
 | private.video_config_state | yes | authenticated | no | no | no | no |
 | private.video_config_state | yes | service_role | no | no | no | no |
+| private.worker_status | yes | anon | no | no | no | no |
+| private.worker_status | yes | authenticated | no | no | no | no |
+| private.worker_status | yes | service_role | no | no | no | no |
 | public.access_grants | yes | anon | no | no | no | no |
 | public.access_grants | yes | authenticated | yes | no | no | no |
 | public.access_grants | yes | service_role | no | no | no | no |
@@ -129,6 +150,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 
 | Function(signature) | SECURITY DEFINER | anon EXECUTE | authenticated EXECUTE | service_role EXECUTE |
 |---|---|---|---|---|
+| private.active_operator(uid uuid, staff boolean) | yes | no | no | no |
 | private.analytics() | yes | no | yes | no |
 | private.analytics_page(page integer) | yes | no | yes | no |
 | private.audit_index(q_action text, q_actor text, q_entity text, date_from text, date_to text, page integer) | yes | no | yes | no |
@@ -151,7 +173,11 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | private.live_session() | yes | no | yes | no |
 | private.mutate_category(cid uuid, label text, color text, remove boolean) | yes | no | yes | no |
 | private.new_user() | yes | no | no | no |
+| private.next_automation_time(freq text, h integer, m integer, wd integer, tz text, after_time timestamp with time zone) | no | no | no | no |
 | private.observe_video_config(environment text, fingerprint text, cloudflare boolean, mux boolean) | yes | no | no | yes |
+| private.operations(op text, payload jsonb) | yes | no | yes | no |
+| private.operations_grant(actor uuid, target uuid, cid uuid, enabled boolean) | yes | no | no | no |
+| private.owner_report(kind text, cid uuid) | yes | no | no | no |
 | private.playback_context(lid uuid, bid uuid, draft boolean) | yes | no | yes | no |
 | private.publish_course(cid uuid, expected_version integer) | yes | no | yes | no |
 | private.readable_revisions() | yes | no | yes | no |
@@ -168,6 +194,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | private.set_user_disabled(target_user uuid, disabled boolean) | yes | no | yes | no |
 | private.staff_identity(admin_only boolean) | yes | no | yes | no |
 | private.staff_session_status() | yes | no | yes | no |
+| private.student_card(target uuid, page integer) | yes | no | no | no |
 | private.touch_staff_session() | yes | no | yes | no |
 | private.track_learning() | yes | no | no | no |
 | private.update_profile(first_name text, last_name text, avatar_id uuid) | yes | no | yes | no |
@@ -176,6 +203,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | private.user_limit(kind text) | yes | no | yes | no |
 | private.validate_semantics(doc jsonb, settings_doc boolean) | no | no | no | no |
 | private.validate_semantics_base(doc jsonb, settings_doc boolean) | no | no | no | no |
+| private.worker_api(op text, payload jsonb) | yes | no | no | yes |
 | public.analytics() | no | no | yes | no |
 | public.analytics_page(page integer) | no | no | yes | no |
 | public.audit_index(q_action text, q_actor text, q_entity text, date_from text, date_to text, page integer) | no | no | yes | no |
@@ -197,6 +225,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | public.list_users(q text, role_filter text, course_filter uuid, verified_filter text, page integer) | no | no | yes | no |
 | public.mutate_category(cid uuid, label text, color text, remove boolean) | no | no | yes | no |
 | public.observe_video_config(environment text, fingerprint text, cloudflare boolean, mux boolean) | no | no | no | yes |
+| public.operations(op text, payload jsonb) | no | no | yes | no |
 | public.playback_context(lid uuid, bid uuid, draft boolean) | no | no | yes | no |
 | public.publish_course(cid uuid, expected_version integer) | no | no | yes | no |
 | public.record_progress(lid uuid, complete boolean, seconds integer) | no | no | yes | no |
@@ -211,6 +240,7 @@ Public endpoints are invoker wrappers. Private definers enforce live session, DB
 | public.touch_staff_session() | no | no | yes | no |
 | public.update_profile(first_name text, last_name text, avatar_id uuid) | no | no | yes | no |
 | public.update_settings(doc jsonb) | no | no | yes | no |
+| public.worker_api(op text, payload jsonb) | no | no | no | yes |
 
 ## Views
 

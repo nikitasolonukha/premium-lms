@@ -4,9 +4,9 @@
 
 **Статус: NOT READY.** Последний полный локальный E2E: 47 PASS, 0 FAIL, 2 live protected-video UNVERIFIED. Чистая установка, 78 unit-тестов, DB/security/UAT/visual, production build, Linux Docker с реальной БД и свежий backup прошли. Исправлено продление staff idle фоновым Next prefetch. Core GitHub CI PASS (13/13 E2E); обязательный Full QA FAIL: YouTube требует авторизацию на GitHub-hosted runner (46 PASS, 1 FAIL, 2 UNVERIFIED). Полные доказательства: [QA_REPORT](docs/QA_REPORT.md), [RELEASE_READINESS](docs/RELEASE_READINESS.md). Staging/production deployment не выполнялся.
 
-Репозиторий: [nikitasolonukha/premium-lms](https://github.com/nikitasolonukha/premium-lms), [draft PR](https://github.com/nikitasolonukha/premium-lms/pull/1). Код, 17 migrations, tests, docs и безопасные QA evidence публичны; env/credentials/private backup/data/bundles не публикуются.
+Репозиторий: [nikitasolonukha/premium-lms](https://github.com/nikitasolonukha/premium-lms), [draft PR](https://github.com/nikitasolonukha/premium-lms/pull/1). Код, 21 миграция, tests, docs и безопасные QA evidence публичны; env/credentials/private backup/data/bundles не публикуются.
 
-Дополнение для собственных видео заказчика: watermark показывает редактируемое название академии и метку ученика; direct player удерживает надпись внутри области кадров и в мобильном fullscreen. Это DOM overlay. Автоматическое вшивание надписи в MP4 не реализовано; название и разрешение скачивания пока не выбраны. [Схема и ограничения](docs/CUSTOMER_VIDEO.md), [отдельный QA дополнения](docs/QA_REPORT.md#дополнение-надпись-на-видео-заказчика). Приведённые выше полные counts относятся к baseline до этого дополнения.
+Собственные MP4 теперь загружаются через `/admin/videos`: отдельный FFmpeg worker вшивает заданное название в кадры и создаёт обложку. Ученику выдаётся только готовая версия; разрешение скачивания задаётся при загрузке и по умолчанию выключено. Персональный движущийся watermark остаётся отдельным DOM overlay. Карточка ученика, импорт CSV/XLSX, массовые доступы и Telegram/расписания описаны в [ACADEMY_OPERATIONS](docs/ACADEMY_OPERATIONS.md), ограничения видео — в [CUSTOMER_VIDEO](docs/CUSTOMER_VIDEO.md), проверки нового модуля — в [QA_REPORT](docs/QA_REPORT.md#дополнение-операционная-админка-и-собственные-видео). Полные counts выше относятся к предыдущему baseline; новая отправка Telegram без токена владельца не проверена.
 
 ## Локальный запуск
 
@@ -63,6 +63,8 @@ Private Storage, HMAC download namespace/60-second TTL, prepared WebP 480/960/18
 Strict local/staging/production env, explicit trusted-proxy ACK, UUID logs, DB health/ready, optional sanitized Sentry, CSP/HSTS и same-origin guards. CI/Full QA/tag Release/Dependabot реализованы; main protection, alerts/secret scanning/push protection фактически включены. Restore, SMTP, domain, monitoring и protected live требуют настоящей staging проверки.
 
 ## Документация
+
+Новые рабочие функции: карточка ученика по клику на имя, CSV/XLSX импорт с предпросмотром, массовые доступы, `/admin/automations` с правилами/Telegram/очередью и `/admin/videos` с вшитым названием и обложкой. Отдельно от сайта запустите `npm run worker`. Подключение бота требует серверного токена; платежи не добавлялись. Полная настройка и ограничения: [ACADEMY_OPERATIONS](docs/ACADEMY_OPERATIONS.md).
 
 - [ARCHITECTURE](docs/ARCHITECTURE.md), [SECURITY](docs/SECURITY.md), [RLS_MATRIX](docs/RLS_MATRIX.md), [MUTATION_AUDIT](docs/MUTATION_AUDIT.md).
 - [OPERATIONS](docs/OPERATIONS.md): Vercel/Supabase и Docker/reverse proxy, bootstrap/MFA recovery/SMTP/monitoring.

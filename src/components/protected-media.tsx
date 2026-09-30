@@ -219,9 +219,14 @@ export function VideoPlayer({
               <Play size={26} fill="currentColor" />
             </span>
             <span>{title}</span>
-            <small>{grant.provider.toUpperCase()} · НАЖМИТЕ ДЛЯ ПРОСМОТРА</small>
+            <small>
+              {grant.provider === 'upload'
+                ? 'Видео с названием академии'
+                : grant.provider.toUpperCase()}{' '}
+              · НАЖМИТЕ ДЛЯ ПРОСМОТРА
+            </small>
           </button>
-        ) : grant.protected ? (
+        ) : grant.protected && grant.kind === 'iframe' ? (
           <ProtectedVideoEmbed
             key={grant.url}
             grant={grant}
@@ -231,6 +236,7 @@ export function VideoPlayer({
           />
         ) : grant.kind === 'video' ? (
           <video
+            key={grant.url}
             src={grant.url}
             controls
             playsInline
@@ -242,6 +248,19 @@ export function VideoPlayer({
               const video = event.currentTarget;
               if (video.videoWidth > 0 && video.videoHeight > 0)
                 setVideoRatio(video.videoWidth / video.videoHeight);
+              if (grant.provider === 'upload') {
+                video.currentTime = remember.current.seconds;
+                if (remember.current.playing) void video.play().catch(() => {});
+              }
+            }}
+            onTimeUpdate={(e) => {
+              remember.current.seconds = e.currentTarget.currentTime;
+            }}
+            onPlay={() => {
+              remember.current.playing = true;
+            }}
+            onPause={() => {
+              remember.current.playing = false;
             }}
             onError={() => setError('Источник видео временно недоступен.')}
           />
@@ -280,6 +299,11 @@ export function VideoPlayer({
       </div>
       <div className="video-caption">
         <span>{title}</span>
+        {grant?.downloadUrl && (
+          <a href={grant.downloadUrl} className="button button-secondary">
+            Скачать видео
+          </a>
+        )}
         {watermark && (
           <span>
             <ShieldCheck size={12} />

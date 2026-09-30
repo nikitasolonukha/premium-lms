@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": [
+    "actual MP4 upload",
+    "worker output ready",
+    "burned-in commit",
+    "CMS picker save/reload",
+    "Admin publication",
+    "enrolled Student playback",
+    "download disabled",
+    "Student B content and file denied"
+  ]
+}

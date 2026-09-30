@@ -14,6 +14,7 @@ import {
 import { runtimeEnvironment } from '@/lib/server/env';
 import { reportError } from '@/lib/server/monitoring';
 import { observeProviderConfiguration } from '@/lib/server/provider-audit';
+import { privilegedClient } from '@/lib/server/privileged';
 const contextSchema = z.object({ courseId: uuid, revisionId: uuid, block: blockSchema });
 export async function GET(
   request: Request,
@@ -37,6 +38,36 @@ export async function GET(
     const context = await authorizedContext();
     if (context.block.type !== 'video') throw new AppError('Видео недоступно', 404);
     const source = context.block.data;
+    if ('assetId' in source) {
+      const media = await db
+        .from('media')
+        .select('object_key,video_download_allowed')
+        .eq('id', source.assetId)
+        .eq('status', 'ready')
+        .eq('mime_type', 'video/mp4')
+        .single();
+      if (!media.data) throw new AppError('Видео недоступно', 404);
+      const signed = await privilegedClient()
+        .storage.from('academy-private')
+        .createSignedUrl(media.data.object_key, 300);
+      if (signed.error) throw new AppError('Видео временно недоступно', 503);
+      const fresh = await authorizedContext();
+      if (JSON.stringify(fresh) !== JSON.stringify(context))
+        throw new AppError('Урок изменён', 409);
+      return NextResponse.json(
+        {
+          provider: 'upload',
+          kind: 'video',
+          url: signed.data.signedUrl,
+          protected: true,
+          expiresAt: new Date(Date.now() + 300000).toISOString(),
+          ...(media.data.video_download_allowed
+            ? { downloadUrl: `/api/media/${source.assetId}?download=1` }
+            : {}),
+        },
+        { headers: { 'Cache-Control': 'private, no-store', 'Referrer-Policy': 'no-referrer' } },
+      );
+    }
     if ('sourceId' in source) {
       const env = runtimeEnvironment();
       if (!protectedProviders(env).includes(source.provider))

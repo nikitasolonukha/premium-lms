@@ -111,6 +111,7 @@ const boundedRichNode = z
   .pipe(richNode);
 const base = { id: uuid, version: z.literal(1) };
 export const videoSourceSchema = z.discriminatedUnion('provider', [
+  z.object({ provider: z.literal('upload'), assetId: uuid, title }).strict(),
   z
     .object({ provider: z.enum(['youtube', 'vimeo', 'rutube', 'direct', 'external']), url, title })
     .strict(),

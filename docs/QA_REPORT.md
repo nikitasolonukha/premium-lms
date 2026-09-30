@@ -4,6 +4,33 @@
 
 Архитектура и визуальный язык сохранены. [Первоначальный исторический отчёт](qa/history/initial-release-report.md) и все старые evidence сохранены. Новые прогоны записаны отдельно; неуспешные попытки остаются FAIL.
 
+## Дополнение: операционная админка и собственные видео
+
+Объём: карточка ученика, CSV/XLSX импорт с приглашением, массовые доступы, Telegram отчёты, расписания/очередь/повтор, FFmpeg burn-in и обложки. Оплата не добавлялась. Настройка: [ACADEMY_OPERATIONS](ACADEMY_OPERATIONS.md).
+
+| Проверка | Результат | Доказательство |
+|---|---|---|
+| Локальная БД/MFA, bulk replay/rollback, progress, import, lease, schedule/DST, Telegram binding, FFmpeg и длинное название | PASS: 11 сценариев | [Интеграционный отчёт](qa/runs/2026-09-30-academy-operations-09/evidence/academy-operations.json) |
+| Импорт XLSX → очередь → приглашение Mailpit; массовое назначение/отзыв; MP4 → урок → публикация → Student A; Student B denial; правила; визуальный сценарий | PASS: 5 E2E на финальной web-сборке | [Playwright](qa/runs/2026-09-30-academy-operations-07/evidence/playwright-summary.json), [видео](qa/runs/2026-09-30-academy-operations-07/evidence/uploaded-video-ui.json), [импорт](qa/runs/2026-09-30-academy-operations-07/evidence/import-ui.json) |
+| Массовое назначение и отзыв через UI, подтверждения, карточка и сохранённая история | PASS | [Bulk UI](qa/runs/2026-09-30-academy-operations-05/evidence/bulk-ui.json); визуальный FAIL в этом же прогоне относится к ошибочной проверке отсутствующего default theme storage key |
+| Семь размеров загруженного контента, обе темы, Axe serious/critical, console/pageerror/5xx | PASS: 42 layout проверки, 12 Axe проверок, 12 снимков, 0 browser/5xx ошибок | [Layout](qa/runs/2026-09-30-academy-operations-06/evidence/new-admin-layout.json), [снимки](qa/runs/2026-09-30-academy-operations-06/screenshots/), [Playwright](qa/runs/2026-09-30-academy-operations-06/evidence/playwright-summary.json) |
+| MP4 55 MiB, реальная обработка, разрешённый и запрещённый download | PASS | [Large upload](qa/runs/2026-09-30-academy-operations-03/evidence/large-upload.json) |
+| Unit/lint/typecheck/build/audit | PASS: 87 unit / 20 files, audit 0 vulnerabilities | [Финальные проверки](qa/runs/2026-09-30-academy-operations-09/evidence/final-checks.json); coverage относится только к явно перечисленным библиотекам в vitest.config.ts |
+| Пустая shadow DB и отсутствие drift | PASS: 21 миграция | `supabase db pull --local --yes` применил все миграции, затем ожидаемый `DbPullInSyncError / No schema changes found`. Exit 1 относится к отсутствию diff. Рабочая БД не сбрасывалась |
+| БД lint, grants и регрессия защиты | PASS: db lint `[]`, 5 DB invariant groups, 32 security scenarios и дополнительные playback/media/admin suites | `supabase db lint --local --level error`, `npm run test:db`, `npm run test:security`, [RLS matrix](RLS_MATRIX.md) |
+| Browser/source secrets | PASS: 1760 files, 0 matches | [Scan](qa/runs/2026-09-30-academy-operations-10/evidence/client-secrets.json) |
+| Telegram реальная доставка | UNVERIFIED | Токен владельца не предоставлен. Identity/receipt/ошибки транспорта проверены unit/local; интерфейс показывает NOT CONFIGURED |
+| Повторная авторизация Telegram получателя и receipt replay | PASS | [Финальная локальная проверка](qa/runs/2026-09-30-academy-operations-04/evidence/academy-operations.json) |
+| Регрессия каталога/CMS/пользователей и полного UAT | PASS: 7 E2E | [Регрессия](qa/runs/2026-09-30-academy-regression-01/evidence/playwright-summary.json) |
+| Dedicated worker image, non-root Linux FFmpeg и кириллица | PASS локально, включая 120 символов и края кадра | [Docker worker](qa/runs/2026-09-30-academy-operations-09/evidence/docker-worker.json); production-host deployment не выполнялся |
+| Последнее исправление переноса надписи: upload → worker → CMS → Student A/B | PASS после изменения worker | [Целевой E2E](qa/runs/2026-09-30-academy-operations-10/evidence/playwright-summary.json) |
+
+Финальная длинная надпись проверена в кадре 240×320: весь текст сохранён при переносе, края свободны. Первая дополнительная проверка ошибочно анализировала полный Sharp input вместо materialized crop; её FAIL сохранён в [истории метода QA](qa/runs/2026-09-30-academy-operations-08/evidence/qa-method-failure.json). После исправления проверка реальных cropped pixels прошла на Windows и Linux.
+
+Исправлено: неоднозначные SQL имена `payload/result` в очереди; выход кнопок Telegram и строки видео за мобильный край; глобальный Storage limit 50 MiB; moderate уязвимость транзитивной `uuid` в ExcelJS (совместимый override 11.1.1, повторный XLSX UI PASS). Первая/вторая попытки UI имели 2 и 1 FAIL; третий прогон формально PASS, но при ручном просмотре обнаружены light-скриншоты loading skeleton. Его визуальный результат не принимается как доказательство готового контента. Ожидание содержимого и переключение реальной кнопкой темы добавлены; последующий шестой визуальный прогон PASS. Пятая попытка: bulk PASS, visual FAIL из-за отсутствующего storage key для default light, проверка теста исправлена. Все старые частичные артефакты сохранены как история. Telegram delivery helper дополнительно запрещает отправку без корректного свежего разрешения получателя.
+
+Общий статус **NOT READY FOR PRODUCTION**: реальная доставка Telegram, SMTP/домен/deployment и staging UAT не проверены. Ограничения: standard upload без возобновления после обрыва; ручной retry неподтверждённой Telegram доставки может дублировать сообщение; pending/preview cleanup — эксплуатационная задача. Вшитое название не DRM. Подтверждённых Critical/High в проверенном новом локальном модуле нет; внешние интеграции этим утверждением не покрываются.
+
 ## Дополнение: нижний край карточки в первом окне
 
 По скриншоту пользователя уменьшены высота обложек и отступы Student/Auth/Admin, заголовков и панелей. Общая карточка курса используется в каталоге, сохранённом, поиске и программах на главной. Высота обложки зависит от высоты окна; текст и прогресс остаются в обычном потоке, нижняя часть карточки не обрезается. Заголовок и краткое описание в списках ограничены двумя строками; полный заголовок остаётся доступным в DOM и `title`, полный текст — на странице курса. Размеры шрифтов предыдущего исправления сохранены, CSS zoom не применяется.

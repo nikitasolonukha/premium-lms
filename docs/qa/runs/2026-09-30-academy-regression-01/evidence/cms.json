@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T18:24:29.747Z",
+  "checks": [
+    "keyboard module and lesson sorting survives reload",
+    "independent module duplicate and confirmed delete",
+    "preview",
+    "two-tab conflict prevents lost update",
+    "network failure retains changes and retries",
+    "unsaved navigation dialog",
+    "title does not change slug",
+    "course copy has new IDs and no enrollments",
+    "confirmed archive"
+  ]
+}

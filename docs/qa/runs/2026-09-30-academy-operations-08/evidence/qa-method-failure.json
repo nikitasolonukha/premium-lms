@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "scope": "First additional long-title pixel test",
+  "cause": "Sharp stats() measured original input, ignoring extract() until crop was materialized with toBuffer().",
+  "fixedIn": "2026-09-30-academy-operations-09",
+  "result": "Repeated real narrow-frame test PASS on Windows and Linux"
+}

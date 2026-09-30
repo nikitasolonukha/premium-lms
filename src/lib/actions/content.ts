@@ -25,7 +25,8 @@ export async function saveCourse(input: unknown) {
               if ('sourceId' in b.data) {
                 if (!protectedProviders(runtimeEnvironment()).includes(b.data.provider))
                   throw new AppError('Защищённый видеопровайдер не настроен на сервере.');
-              } else resolveVideo(b.data.provider, b.data.url, settings.embed_origins);
+              } else if ('url' in b.data)
+                resolveVideo(b.data.provider, b.data.url, settings.embed_origins);
             } catch (error) {
               throw new AppError(error instanceof Error ? error.message : 'Проверьте видео');
             }

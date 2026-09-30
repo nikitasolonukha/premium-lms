@@ -75,6 +75,15 @@ const schema = z
       .default('false')
       .transform((v) => v === 'true'),
     VIDEO_PROVIDER: z.enum(['disabled', 'cloudflare', 'mux']).default('disabled'),
+    TELEGRAM_BOT_TOKEN: z
+      .string()
+      .regex(/^\d{5,20}:[A-Za-z0-9_-]{25,100}$/)
+      .optional(),
+    TELEGRAM_MODE: z.enum(['poll', 'webhook']).default('poll'),
+    TELEGRAM_WEBHOOK_SECRET: z.string().refine(strongSecret).optional(),
+    FFMPEG_PATH: optional,
+    FFPROBE_PATH: optional,
+    FFMPEG_FONT_PATH: optional,
     MALWARE_SCANNER: z.enum(['disabled', 'external']).default('disabled'),
     MALWARE_SCANNER_URL: z
       .string()
@@ -158,6 +167,8 @@ const schema = z
     if (!safeOrigin(env.SUPABASE_URL, env.DEPLOYMENT_ENV === 'local', true)) fail('SUPABASE_URL');
     if (env.TRUSTED_IP_HEADER && !env.TRUSTED_PROXY_ACKNOWLEDGED)
       fail('TRUSTED_PROXY_ACKNOWLEDGED');
+    if (env.TELEGRAM_MODE === 'webhook' && env.TELEGRAM_BOT_TOKEN && !env.TELEGRAM_WEBHOOK_SECRET)
+      fail('TELEGRAM_WEBHOOK_SECRET');
     if (env.MALWARE_SCANNER === 'external') {
       if (!env.MALWARE_SCANNER_URL) fail('MALWARE_SCANNER_URL');
       if (!env.MALWARE_SCANNER_TOKEN) fail('MALWARE_SCANNER_TOKEN');

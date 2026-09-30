@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "RBAC: anonymous/student/editor/AAL1 cannot read operational data",
+      "status": "PASS"
+    },
+    {
+      "name": "Bulk access: concurrent replay creates one enrollment/grant/audit per learner",
+      "status": "PASS"
+    },
+    {
+      "name": "Bulk access: invalid target rolls back the entire transaction",
+      "status": "PASS"
+    },
+    {
+      "name": "Student detail uses published progress and last lesson",
+      "status": "PASS"
+    },
+    {
+      "name": "Import preview rejects duplicates and staff accounts",
+      "status": "PASS"
+    },
+    {
+      "name": "Queue lease and import row replay preserve assignments",
+      "status": "PASS"
+    },
+    {
+      "name": "Schedule: daily/weekly timezones and DST advance",
+      "status": "PASS"
+    },
+    {
+      "name": "Telegram binding: one use token, private identity, update deduplication",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual FFmpeg burn-in and poster derivatives (Cyrillic, filter characters)",
+      "status": "PASS"
+    },
+    {
+      "name": "Long Cyrillic watermark fits a narrow frame without edge clipping",
+      "status": "PASS"
+    },
+    {
+      "name": "Source bucket and pending video stay inaccessible to Student",
+      "status": "PASS"
+    }
+  ],
+  "telegramLive": "UNVERIFIED — real token not configured",
+  "scope": "Local Supabase, real MFA, SQL constraints, FFmpeg binary; no payment scope"
+}

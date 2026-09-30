@@ -102,9 +102,15 @@ jobs:
         run: npm run test:backup
       - name: Real database and RPC security suite
         run: npm run test:security > .local/security.log 2>&1
+      - name: Real operational queue, import and burned video checks
+        run: npm run test:academy > .local/academy-db.log 2>&1
+      - name: Start independent LMS background worker
+        run: |
+          setsid npm run worker > .local/worker.log 2>&1 &
+          echo $! > .local/worker.pid
       - name: Core production E2E
         if: ${{ !inputs.full }}
-        run: npx playwright test tests/e2e/auth.spec.ts tests/e2e/cms.spec.ts tests/e2e/uat.spec.ts tests/e2e/readiness.spec.ts tests/e2e/staff-session.spec.ts tests/e2e/session-security.spec.ts tests/e2e/uploader-hydration.spec.ts --reporter=list,json > .local/e2e.log 2>&1
+        run: npx playwright test tests/e2e/auth.spec.ts tests/e2e/cms.spec.ts tests/e2e/uat.spec.ts tests/e2e/readiness.spec.ts tests/e2e/staff-session.spec.ts tests/e2e/session-security.spec.ts tests/e2e/uploader-hydration.spec.ts tests/e2e/academy-operations.spec.ts --reporter=list,json > .local/e2e.log 2>&1
       - name: Full production E2E, visual and live video
         if: inputs.full
         run: xvfb-run -a npm run e2e -- --reporter=list,json > .local/e2e.log 2>&1

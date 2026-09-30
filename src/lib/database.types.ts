@@ -289,13 +289,13 @@ isOneToOne: false
                   ]
                 },"media": {
                   Row: {
-                    "created_at": string,"filename": string,"height": number | null,"id": string,"mime_type": string,"object_key": string,"owner_id": string,"purpose": string,"sha256": string | null,"size_bytes": number,"status": string,"variant_version": number,"width": number | null
+                    "created_at": string,"duration_seconds": number | null,"filename": string,"height": number | null,"id": string,"mime_type": string,"object_key": string,"owner_id": string,"purpose": string,"sha256": string | null,"size_bytes": number,"status": string,"variant_version": number,"video_download_allowed": boolean,"width": number | null
                   }
                   Insert: {
-                    "created_at"?: string,"filename": string,"height"?: number | null,"id"?: string,"mime_type": string,"object_key": string,"owner_id": string,"purpose"?: string,"sha256"?: string | null,"size_bytes": number,"status"?: string,"variant_version"?: number,"width"?: number | null
+                    "created_at"?: string,"duration_seconds"?: number | null,"filename": string,"height"?: number | null,"id"?: string,"mime_type": string,"object_key": string,"owner_id": string,"purpose"?: string,"sha256"?: string | null,"size_bytes": number,"status"?: string,"variant_version"?: number,"video_download_allowed"?: boolean,"width"?: number | null
                   }
                   Update: {
-                    "created_at"?: string,"filename"?: string,"height"?: number | null,"id"?: string,"mime_type"?: string,"object_key"?: string,"owner_id"?: string,"purpose"?: string,"sha256"?: string | null,"size_bytes"?: number,"status"?: string,"variant_version"?: number,"width"?: number | null
+                    "created_at"?: string,"duration_seconds"?: number | null,"filename"?: string,"height"?: number | null,"id"?: string,"mime_type"?: string,"object_key"?: string,"owner_id"?: string,"purpose"?: string,"sha256"?: string | null,"size_bytes"?: number,"status"?: string,"variant_version"?: number,"video_download_allowed"?: boolean,"width"?: number | null
                   }
                   Relationships: [
                     {
@@ -583,6 +583,9 @@ isOneToOne: true
 "observe_video_config":
 { Args: { "cloudflare": boolean,"environment": string,"fingerprint": string,"mux": boolean }; Returns: boolean
                            },
+"operations":
+{ Args: { "op": string,"payload"?: Json }; Returns: Json
+                           },
 "playback_context":
 { Args: { "bid": string,"draft"?: boolean,"lid": string }; Returns: Json
                            },
@@ -624,6 +627,9 @@ isOneToOne: true
                            },
 "update_settings":
 { Args: { "doc": Json }; Returns: Json
+                           },
+"worker_api":
+{ Args: { "op": string,"payload"?: Json }; Returns: Json
                            }
           }
           Enums: {

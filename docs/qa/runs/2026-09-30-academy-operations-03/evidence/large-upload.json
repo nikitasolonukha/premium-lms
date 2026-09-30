@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "uploadedBytes": 57675783,
+  "checks": [
+    "real signed >50MiB source upload",
+    "actual worker processing",
+    "ready only after outputs",
+    "allowed download resolver",
+    "disabled download resolver returns null"
+  ]
+}

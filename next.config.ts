@@ -15,6 +15,6 @@ const config: NextConfig = {
   images: { unoptimized: true },
   // Startup validation is also imported by an unbundled standalone entrypoint.
   // Externalizing Zod makes Next trace its package into the isolated Docker runtime.
-  serverExternalPackages: ['sharp', '@sentry/node', 'zod'],
+  serverExternalPackages: ['sharp', '@sentry/node', 'zod', 'exceljs'],
 };
 export default config;

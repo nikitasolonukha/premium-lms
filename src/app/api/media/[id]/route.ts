@@ -20,7 +20,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     const db = await userClient();
     const { data } = await db
       .from('media')
-      .select('object_key,filename,mime_type,status,variant_version')
+      .select('object_key,filename,mime_type,status,variant_version,video_download_allowed')
       .eq('id', id)
       .eq('status', 'ready')
       .single();
@@ -34,6 +34,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     }
     if (request.nextUrl.searchParams.has('width')) return new NextResponse(null, { status: 400 });
     if (download) {
+      if (data.mime_type === 'video/mp4' && !data.video_download_allowed)
+        return new NextResponse(null, { status: 403 });
       const token = issueDownloadToken(id, serverSecret('RATE_LIMIT_SECRET'));
       return NextResponse.redirect(new URL(`/api/download/${token}`, environment().appUrl), {
         status: 307,

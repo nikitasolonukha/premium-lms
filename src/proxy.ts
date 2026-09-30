@@ -68,7 +68,7 @@ export async function proxy(request: NextRequest) {
     "font-src 'self'",
     `connect-src 'self' ${supabaseOrigin}${development ? ' ws://localhost:3000' : ''}`,
     `frame-src ${frameOrigins.join(' ')}`,
-    "media-src 'self' https:",
+    `media-src 'self' https: ${supabaseOrigin}`,
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

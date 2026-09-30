@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-09-30T18:29:53.509Z",
+  "counts": {
+    "PASS": 7,
+    "FAIL": 0,
+    "UNVERIFIED": 0
+  },
+  "tests": [
+    {
+      "title": "catalog filters preserve scroll and URL state at 390px",
+      "file": "catalog-navigation.spec.ts",
+      "status": "PASS",
+      "durationMs": 8453
+    },
+    {
+      "title": "catalog filters preserve scroll and URL state at 1440px",
+      "file": "catalog-navigation.spec.ts",
+      "status": "PASS",
+      "durationMs": 5746
+    },
+    {
+      "title": "lesson blocks: independent duplicate, keyboard reorder, confirmed delete and reload",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 6664
+    },
+    {
+      "title": "CMS: keyboard sorting, duplication, deletion, preview, two tabs and network recovery",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 11470
+    },
+    {
+      "title": "large course: 21 modules, 63 lessons, long text, twelve tags, search and mobile",
+      "file": "cms.spec.ts",
+      "status": "PASS",
+      "durationMs": 6856
+    },
+    {
+      "title": "user directory: pagination, role/email/course filters, role and disable UI; category integrity",
+      "file": "management.spec.ts",
+      "status": "PASS",
+      "durationMs": 21946
+    },
+    {
+      "title": "UAT: Admin builds, publishes and assigns; Student learns; Editor draft stays private",
+      "file": "uat.spec.ts",
+      "status": "PASS",
+      "durationMs": 48204
+    }
+  ]
+}

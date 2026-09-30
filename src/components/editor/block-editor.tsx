@@ -5,6 +5,7 @@ import type { LessonBlock } from '@/lib/schemas';
 import { videoProviders, type VideoProvider } from '@/lib/video';
 import { Button, Field, Input } from '../ui';
 import { Uploader } from '../uploader';
+import { UploadedVideoChoice } from '../video-management';
 const RichEditor = dynamic(() => import('./rich-editor'), {
   ssr: false,
   loading: () => <div className="skeleton rich-skeleton" />,
@@ -36,7 +37,7 @@ export function newBlock(type: LessonBlock['type']): LessonBlock {
     case 'image':
       return { ...base, type, data: { assetId: '', alt: '', caption: '' } };
     case 'video':
-      return { ...base, type, data: { provider: 'youtube', url: '', title: 'Видео к уроку' } };
+      return { ...base, type, data: { provider: 'upload', assetId: '', title: 'Видео к уроку' } };
     case 'file':
       return { ...base, type, data: { assetId: '', label: 'Материал к уроку' } };
     case 'link':
@@ -177,12 +178,15 @@ export function BlockEditor({
                   onChange({
                     ...block,
                     data:
-                      provider === 'cloudflare' || provider === 'mux'
-                        ? { provider, sourceId: '', title: block.data.title }
-                        : { provider, url: '', title: block.data.title },
+                      provider === 'upload'
+                        ? { provider, assetId: '', title: block.data.title }
+                        : provider === 'cloudflare' || provider === 'mux'
+                          ? { provider, sourceId: '', title: block.data.title }
+                          : { provider, url: '', title: block.data.title },
                   });
                 }}
               >
+                <option value="upload">Загруженное видео · с надписью</option>
                 {videoProviders.map((p) => (
                   <option key={p.value} value={p.value}>
                     {p.label} · PUBLIC VIDEO
@@ -210,7 +214,15 @@ export function BlockEditor({
               />
             </Field>
           </div>
-          {'sourceId' in block.data ? (
+          {'assetId' in block.data ? (
+            <UploadedVideoChoice
+              value={block.data.assetId}
+              onChange={(assetId) => {
+                if ('assetId' in block.data)
+                  onChange({ ...block, data: { ...block.data, assetId } });
+              }}
+            />
+          ) : 'sourceId' in block.data ? (
             <Field
               label="Идентификатор защищённого видео"
               hint="Cloudflare Video UID или Mux signed playback ID. Настройте приватность источника у провайдера."

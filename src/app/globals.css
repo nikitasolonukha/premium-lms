@@ -9,4 +9,5 @@
 @import '../styles/editor.css';
 @import '../styles/responsive.css';
 @import '../styles/overrides.css';
+@import '../styles/operations.css';
 @custom-variant dark (&:where(.dark,.dark *));
